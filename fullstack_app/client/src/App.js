@@ -1,59 +1,59 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      bestFruit: "",
       fruitList: [],
     };
-    this.getFruitList = this.getFruitList.bind(this)
     this.displayFruitList = this.displayFruitList.bind(this)
     this.addFruitToList = this.addFruitToList.bind(this)
+    this.updateFruitInList = this.updateFruitInList.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  getBestFruit(word="") {
-    fetch(`/fruit-api/best-fruit/${word}`)
-      .then(res => res.text())
-      .then(res => this.setState({ bestFruit: res }))
-      .catch(e => console.log(e))
-  }
 
   getFruitList() {
-    fetch("/fruit-api/list")
-      .then(res => res.json())
-      .then(res => this.setState({ fruitList: res }))
+    axios.get("/fruit-api/list")
+      .then(res => {
+        const fruitList = res.data
+        this.setState({ fruitList: fruitList })
+      })
       .catch(e => console.log(e))
   }
 
-  displayFruitList() {
-      return this.state.fruitList.map(i => <li key={i.toString()}>{i}</li>)
+  //Convert to it's own child component
+  displayFruitList(best) {
+      return this.state.fruitList
+        .filter(i => i.best === best)
+        .map(i => <li key={i._id + i.name}><input id={i._id} class="checkbox" name={i._id + i.name} checked={i.best} type="checkbox" onChange={this.handleChange}/><label htmlFor={i.name}>{`${i._id} ${i.name} is ${i.best}`}</label></li>)
   }
 
   async addFruitToList() {
     let newFruit = document.getElementById("fruitInput").value
-    const res = await fetch("/fruit-api/new", {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrer: 'no-referrer', // no-referrer, *client
-      body: JSON.stringify({ new: newFruit }) // body data type must match "Content-Type" header
-    })
-    this.setState({bestFruit: newFruit})
+    const res = await axios.post("/fruit-api/new", { new: newFruit })
+    this.getFruitList()
     return await res;
   }
 
+  async updateFruitInList(id = 0, best = false) {
+    let updateFruit = id
+    const res = await axios.put("/fruit-api/update", { id: updateFruit, value: best })
+    this.getFruitList()
+    return await res;
+  }
+
+  handleChange(e) {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const id = Number(target.id);
+    this.updateFruitInList(id, value)
+  }
+
   componentWillMount() {
-    let fruit = "Apple"
-    this.getBestFruit(fruit)
     this.getFruitList()
   }
 
@@ -61,13 +61,16 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p className="App-intro">The best fruit is {this.state.bestFruit}</p>
-          <ul>
-            {this.displayFruitList()}
-          </ul>
+          <h3>Best fruit</h3>
+            <ul>
+              {this.displayFruitList(true)}
+            </ul>
+          <h3>Not best fruit</h3>
+            <ul>
+              {this.displayFruitList(false)}
+            </ul>
           <input id="fruitInput"></input>
           <button onClick={this.addFruitToList}>Add the best new fruit</button>
-          <button onClick={this.getFruitList}>Update the fruit list</button>
         </header>
       </div>
     );
