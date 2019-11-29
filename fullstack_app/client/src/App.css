@@ -25,8 +25,23 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  text-align: left; 
 }
 
 .checkbox {
   margin-right: 12px;
+}
+
+#fruitInput {
+  margin-top: 4vmin;
+  margin-bottom: 2vmin;
+  width: 40vmin;
+  height: 6vmin;
+  font-size: 4vmin;
+}
+
+button {
+  padding: 2vmin;
+  font-size: 2vmin;
+  border-radius: 0.5vmin;
 }
