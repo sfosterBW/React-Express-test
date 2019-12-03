@@ -12,8 +12,8 @@ interface State {
 }
 
 interface Fruit {
-  _id: number;
-  name: string;
+  _id: number,
+  name: string,
   best: boolean;
 }
 
@@ -47,17 +47,24 @@ class App extends Component<Props, State> {
     return this.state.fruitList
       .filter((i: Fruit) => i.best === best)
       .map((i: Fruit) =>
-        <li key={i._id.toString() + i.name}>
-          <input
-            id={i._id.toString()}
-            className="checkbox"
-            name={`${i._id}${i.name}`}
-            checked={i.best}
-            type="checkbox"
-            onChange={this.handleChange}
-          />
-          <label htmlFor={i.name}>{i.name}</label>
-        </li>
+        <tr key={i._id.toString() + i.name}>
+          <td>
+            <label htmlFor={`${i._id}${i.name}`}>{i.name}</label>
+          </td>
+          <td>
+            <p>{i.best.toString()}</p>
+          </td>
+          <td>
+            <input
+              id={i._id.toString()}
+              className="checkbox"
+              name={`${i._id}${i.name}`}
+              checked={i.best}
+              type="checkbox"
+              onChange={this.handleChange}
+            />
+          </td>
+      </tr>
       )
   }
 
@@ -97,17 +104,31 @@ class App extends Component<Props, State> {
     return (
       <div className="App">
         <header className="App-header">
-          <h2>List out your favourite fruit</h2>
-          <input id="fruitInput" type="text" onChange={this.handleAddChange}></input>
-          <button onClick={this.addFruitToList}>Add the best new fruit</button>
-          <h3>Best fruit</h3>
-          <ul>
-            {this.displayFruitList(true)}
-          </ul>
-          <h3>Not best fruit</h3>
-          <ul>
-            {this.displayFruitList(false)}
-          </ul>
+          <h1>Fruit dashboard</h1>
+          <div id="fruit-form">
+            <h2>List out your favourite fruit</h2>
+            <div className="input-wrapper">
+              <label htmlFor="fruitName">Add a fruit:</label>
+              <input id="fruitName" name="fruitName" type="text" onChange={this.handleAddChange} />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="fruitBest">Best:</label>
+              True<input type="radio" name="fruitBest" value="true" onChange={this.handleChange} />
+              False<input type="radio" name="fruitBest" value="false" onChange={this.handleChange} />
+            </div>
+            <button onClick={this.addFruitToList}>Add the best new fruit</button>
+          </div>
+          <div id="fruit-wrapper">
+            <table>
+              <tr>
+                <th>Fruit</th>
+                <th>Best?</th>
+                <th>Edit</th>
+              </tr>
+                  {this.displayFruitList(true)}
+                  {this.displayFruitList(false)}
+            </table>
+          </div>
         </header>
       </div>
     );

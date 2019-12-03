@@ -21,27 +21,59 @@
   color: #09d3ac;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  text-align: left; 
+#fruit-form {
+  background-color: grey;
+  padding: 5vmin 8vmin;
+  border-radius: 0.5vmin;
 }
 
-.checkbox {
-  margin-right: 12px;
-}
-
-#fruitInput {
-  margin-top: 4vmin;
+.input-wrapper {
+  display: flex;
   margin-bottom: 2vmin;
-  width: 40vmin;
-  height: 6vmin;
+}
+
+.input-wrapper label {
+  display: inline-block;
+  width: 20vmin;
+  margin-right: 2vmin;
+  font-weight: bold;
+  text-align: right;
+}
+
+.input-wrapper input[type=text] {
+  height: 4vmin;
   font-size: 4vmin;
 }
 
-button {
-  padding: 2vmin;
+.input-wrapper input[type=radio] {
+  margin-left: 1vmin;
+  margin-right: 4vmin;
+}
+
+#fruit-form button {
+  display: flex;
+  margin: 0 auto;
+  padding: 2vmin 4vmin;
   font-size: 2vmin;
   border-radius: 0.5vmin;
+}
+
+#fruit-wrapper {
+
+}
+
+#fruit-wrapper table, th, td {
+  border: 1px solid black;
+  min-width: 20vmin;
+  background-color: white;
+  color: black;
+  margin: 4vmin;
+}
+
+#fruit-wrapper table tr td p{
+  margin: 2vmin;
+}
+
+#fruit-wrapper .checkbox {
+  margin-right: 12px;
 }
