@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Form from './Form'
 import Row from './Row'
 import Table from './Table'
 import { Fruit } from './interfaces'
@@ -102,25 +103,8 @@ class App extends Component<Props, State> {
       <div className="App">
         <header className="App-header">
           <h1>Fruit dashboard</h1>
-          <div id="fruit-form">
-            <h2>List out your favourite fruit</h2>
-            <div className="input-wrapper">
-              <label htmlFor="fruitName">Add a fruit:</label>
-              <input id="fruitName" name="fruitName" type="text" onChange={this.handleAdd} />
-            </div>
-            <div className="input-wrapper">
-              <label htmlFor="fruitBest">Best:</label>
-              True<input type="radio" name="fruitBest" value="true" onChange={this.handleAdd} />
-              False<input type="radio" name="fruitBest" value="false" onChange={this.handleAdd} checked />
-            </div>
-            <button onClick={this.addFruit}>Add new fruit</button>
-          </div>
-          <Table>
-            {this.displayFruitList(true)}
-          </Table>
-          <Table>
-            {this.displayFruitList(false)}
-          </Table>
+          <Form onChange={this.handleAdd} onClick={this.addFruit} />
+          <Table title="Table" rows={this.displayFruitList(true)} />
         </header>
       </div>
     );

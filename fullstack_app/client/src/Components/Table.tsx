@@ -1,10 +1,16 @@
 import React, { Component, ReactNode } from 'react';
 
-export default class Table extends Component {
+interface Props{
+  rows: ReactNode;
+  title: string;
+}
+
+export default class Table extends Component<Props> {
 
   render(): ReactNode{
     return(
       <div id="fruit-table">
+        <h2>{this.props.title}</h2>
         <table>
           <thead>
             <tr>
@@ -14,7 +20,7 @@ export default class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.children}
+            {this.props.rows}
           </tbody>
         </table>
       </div>
