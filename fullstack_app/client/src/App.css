@@ -58,33 +58,31 @@
   border-radius: 0.5vmin;
 }
 
-#fruit-wrapper {
+#fruit-table {}
 
-}
-
-#fruit-wrapper table {
+#fruit-table table {
   border-collapse: collapse;
 }
 
-#fruit-wrapper thead {
+#fruit-table thead {
   border-bottom: 1px solid black;
 }
 
-#fruit-wrapper table, th, td {
+#fruit-table table, th, td {
   min-width: 20vmin;
   background-color: white;
   color: black;
   margin: 4vmin;
 }
 
-#fruit-wrapper tbody tr {
+#fruit-table tbody tr {
   border-bottom: 1px solid lightgrey;
 }
 
-#fruit-wrapper table tr td p{
+#fruit-table table tr td p {
   margin: 2vmin;
 }
 
-#fruit-wrapper .checkbox {
+#fruit-table .checkbox {
   margin-right: 12px;
 }

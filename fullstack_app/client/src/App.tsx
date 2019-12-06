@@ -65,24 +65,24 @@ class App extends Component<Props, State> {
               onChange={this.handleEdit}
             />
           </td>
-      </tr>
+        </tr>
       )
   }
 
   async addFruit() {
     let name = this.state.addValue
     let best = this.state.bestValue
-    let newFruit = {name: name, best: best}
+    let newFruit = { name: name, best: best }
     console.log(newFruit)
-    let res = await axios.post("/fruit-api/new", {new: newFruit})
+    let res = await axios.post("/fruit-api/new", { new: newFruit })
     this.getFruitList()
-    this.setState({addValue: "", bestValue: false})
+    this.setState({ addValue: "", bestValue: false })
     return res;
   }
 
   handleAdd(e: any) {
     const target = e.target
-    if(target.name === "fruitName") {
+    if (target.name === "fruitName") {
       const value = target.value
       this.setState({ addValue: value })
     } else if (target.name === "fruitBest") {
@@ -129,7 +129,7 @@ class App extends Component<Props, State> {
             </div>
             <button onClick={this.addFruit}>Add new fruit</button>
           </div>
-          <div id="fruit-wrapper">
+          <div id="fruit-table">
             <table>
               <thead>
                 <tr>

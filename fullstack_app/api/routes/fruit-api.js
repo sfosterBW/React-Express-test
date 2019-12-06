@@ -11,8 +11,10 @@ class Fruit {
   }
 
   static incrementId() {
-    if (!this.latestId) this.latestId = 1
-    else this.latestId++
+    if (!this.latestId)
+      this.latestId = 1
+    else
+      this.latestId++
     return this.latestId
   }
 }
@@ -22,13 +24,13 @@ router.get("/list", function(req, res) {
 });
 
 router.post("/new", function(req, res) {
-  try{
+  try {
     let fruitReq = req.body.new
     console.log(fruitReq)
     let newFruit = new Fruit(fruitReq.name, fruitReq.best)
     fruitList.push(newFruit)
     res.end("Yes")
-  } catch(e) {
+  } catch (e) {
     console.log(e)
   }
 });
@@ -38,6 +40,5 @@ router.put("/update", function(req, res) {
   fruitList[index].best = req.body.value
   res.end("Yes")
 })
-
 
 module.exports = router;
