@@ -27,12 +27,12 @@
   border-radius: 0.5vmin;
 }
 
-.input-wrapper {
+#fruit-form .input-wrapper {
   display: flex;
   margin-bottom: 2vmin;
 }
 
-.input-wrapper label {
+#fruit-form .input-wrapper label {
   display: inline-block;
   width: 20vmin;
   margin-right: 2vmin;
@@ -40,12 +40,12 @@
   text-align: right;
 }
 
-.input-wrapper input[type=text] {
+#fruit-form .input-wrapper input[type=text] {
   height: 4vmin;
-  font-size: 4vmin;
+  font-size: 3vmin;
 }
 
-.input-wrapper input[type=radio] {
+#fruit-form .input-wrapper input[type=radio] {
   margin-left: 1vmin;
   margin-right: 4vmin;
 }
@@ -62,12 +62,23 @@
 
 }
 
+#fruit-wrapper table {
+  border-collapse: collapse;
+}
+
+#fruit-wrapper thead {
+  border-bottom: 1px solid black;
+}
+
 #fruit-wrapper table, th, td {
-  border: 1px solid black;
   min-width: 20vmin;
   background-color: white;
   color: black;
   margin: 4vmin;
+}
+
+#fruit-wrapper tbody tr {
+  border-bottom: 1px solid lightgrey;
 }
 
 #fruit-wrapper table tr td p{

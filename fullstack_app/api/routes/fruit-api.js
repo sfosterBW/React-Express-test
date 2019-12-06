@@ -17,17 +17,23 @@ class Fruit {
   }
 }
 
-router.get("/list", function(req, res, next) {
+router.get("/list", function(req, res) {
   res.send(fruitList);
 });
 
 router.post("/new", function(req, res) {
-  let newFruit = new Fruit(req.body.new, false)
-  fruitList.push(newFruit)
-  res.end("Yes")
+  try{
+    let fruitReq = req.body.new
+    console.log(fruitReq)
+    let newFruit = new Fruit(fruitReq.name, fruitReq.best)
+    fruitList.push(newFruit)
+    res.end("Yes")
+  } catch(e) {
+    console.log(e)
+  }
 });
 
-router.put("/update", function(req, res, next) {
+router.put("/update", function(req, res) {
   let index = fruitList.findIndex(i => i._id === req.body.id)
   fruitList[index].best = req.body.value
   res.end("Yes")

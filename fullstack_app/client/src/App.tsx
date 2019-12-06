@@ -9,6 +9,7 @@ interface Props {
 interface State {
   fruitList: Fruit[];
   addValue: string;
+  bestValue: boolean;
 }
 
 interface Fruit {
@@ -23,15 +24,15 @@ class App extends Component<Props, State> {
     super(props);
     this.state = {
       fruitList: [],
-      addValue: ""
+      addValue: "",
+      bestValue: false,
     };
     this.displayFruitList = this.displayFruitList.bind(this)
-    this.addFruitToList = this.addFruitToList.bind(this)
-    this.updateFruitInList = this.updateFruitInList.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleAddChange = this.handleAddChange.bind(this)
+    this.addFruit = this.addFruit.bind(this)
+    this.updateFruit = this.updateFruit.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
+    this.handleAdd = this.handleAdd.bind(this)
   }
-
 
   getFruitList() {
     axios.get("/fruit-api/list")
@@ -61,39 +62,49 @@ class App extends Component<Props, State> {
               name={`${i._id}${i.name}`}
               checked={i.best}
               type="checkbox"
-              onChange={this.handleChange}
+              onChange={this.handleEdit}
             />
           </td>
       </tr>
       )
   }
 
-  async addFruitToList() {
-    let newFruit = this.state.addValue
+  async addFruit() {
+    let name = this.state.addValue
+    let best = this.state.bestValue
+    let newFruit = {name: name, best: best}
     console.log(newFruit)
-    let res = await axios.post("/fruit-api/new", { new: newFruit })
+    let res = await axios.post("/fruit-api/new", {new: newFruit})
     this.getFruitList()
+    this.setState({addValue: "", bestValue: false})
     return res;
   }
 
-  handleAddChange(e: any) {
+  handleAdd(e: any) {
     const target = e.target
-    const value = target.value
-    this.setState({ addValue: value })
+    if(target.name === "fruitName") {
+      const value = target.value
+      this.setState({ addValue: value })
+    } else if (target.name === "fruitBest") {
+      const value: boolean = target.value === "true" ? true : false
+      this.setState({ bestValue: value })
+    } else {
+      console.log(target)
+    }
   }
 
-  async updateFruitInList(id = 0, best = false) {
+  async updateFruit(id = 0, best = false) {
     let updateFruit = id
     let res = await axios.put("/fruit-api/update", { id: updateFruit, value: best })
     this.getFruitList()
     return res;
   }
 
-  handleChange(e: any) {
+  handleEdit(e: any) {
     const target = e.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const id: number = Number(target.id)
-    this.updateFruitInList(id, value)
+    this.updateFruit(id, value)
   }
 
   componentWillMount() {
@@ -109,24 +120,28 @@ class App extends Component<Props, State> {
             <h2>List out your favourite fruit</h2>
             <div className="input-wrapper">
               <label htmlFor="fruitName">Add a fruit:</label>
-              <input id="fruitName" name="fruitName" type="text" onChange={this.handleAddChange} />
+              <input id="fruitName" name="fruitName" type="text" onChange={this.handleAdd} />
             </div>
             <div className="input-wrapper">
               <label htmlFor="fruitBest">Best:</label>
-              True<input type="radio" name="fruitBest" value="true" onChange={this.handleChange} />
-              False<input type="radio" name="fruitBest" value="false" onChange={this.handleChange} />
+              True<input type="radio" name="fruitBest" value="true" onChange={this.handleAdd} />
+              False<input type="radio" name="fruitBest" value="false" onChange={this.handleAdd} />
             </div>
-            <button onClick={this.addFruitToList}>Add the best new fruit</button>
+            <button onClick={this.addFruit}>Add new fruit</button>
           </div>
           <div id="fruit-wrapper">
             <table>
-              <tr>
-                <th>Fruit</th>
-                <th>Best?</th>
-                <th>Edit</th>
-              </tr>
-                  {this.displayFruitList(true)}
-                  {this.displayFruitList(false)}
+              <thead>
+                <tr>
+                  <th>Fruit</th>
+                  <th>Best?</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.displayFruitList(true)}
+                {this.displayFruitList(false)}
+              </tbody>
             </table>
           </div>
         </header>
