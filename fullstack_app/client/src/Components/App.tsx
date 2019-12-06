@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+import Row from './Row'
+import Table from './Table'
+import { Fruit } from './interfaces'
 import axios from 'axios';
 
 interface Props {
@@ -10,12 +13,6 @@ interface State {
   fruitList: Fruit[];
   addValue: string;
   bestValue: boolean;
-}
-
-interface Fruit {
-  _id: number,
-  name: string,
-  best: boolean;
 }
 
 class App extends Component<Props, State> {
@@ -48,41 +45,30 @@ class App extends Component<Props, State> {
     return this.state.fruitList
       .filter((i: Fruit) => i.best === best)
       .map((i: Fruit) =>
-        <tr key={i._id.toString() + i.name}>
-          <td>
-            <label htmlFor={`${i._id}${i.name}`}>{i.name}</label>
-          </td>
-          <td>
-            <p>{i.best.toString()}</p>
-          </td>
-          <td>
-            <input
-              id={i._id.toString()}
-              className="checkbox"
-              name={`${i._id}${i.name}`}
-              checked={i.best}
-              type="checkbox"
-              onChange={this.handleEdit}
-            />
-          </td>
-        </tr>
-      )
+        <Row
+          key={`${i._id}`}
+          fruit={i}
+          onChange={this.handleEdit}
+        />)
   }
 
   async addFruit() {
     let name = this.state.addValue
     let best = this.state.bestValue
-    let newFruit = { name: name, best: best }
-    console.log(newFruit)
-    let res = await axios.post("/fruit-api/new", { new: newFruit })
-    this.getFruitList()
-    this.setState({ addValue: "", bestValue: false })
-    return res;
+    if (name !== "") {
+      let newFruit = { name: name, best: best }
+      let res = await axios.post("/fruit-api/new", { new: newFruit })
+      this.getFruitList()
+      this.setState({ addValue: "", bestValue: false })
+      return res;
+    } else {
+      alert("Put in a name. You didn't put in a name. Why not?")
+    }
   }
 
   handleAdd(e: any) {
     const target = e.target
-    if (target.name === "fruitName") {
+    if (target.name === "fruitName" && target.value !== "") {
       const value = target.value
       this.setState({ addValue: value })
     } else if (target.name === "fruitBest") {
@@ -107,7 +93,7 @@ class App extends Component<Props, State> {
     this.updateFruit(id, value)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getFruitList()
   }
 
@@ -125,25 +111,16 @@ class App extends Component<Props, State> {
             <div className="input-wrapper">
               <label htmlFor="fruitBest">Best:</label>
               True<input type="radio" name="fruitBest" value="true" onChange={this.handleAdd} />
-              False<input type="radio" name="fruitBest" value="false" onChange={this.handleAdd} />
+              False<input type="radio" name="fruitBest" value="false" onChange={this.handleAdd} checked />
             </div>
             <button onClick={this.addFruit}>Add new fruit</button>
           </div>
-          <div id="fruit-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Fruit</th>
-                  <th>Best?</th>
-                  <th>Edit</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.displayFruitList(true)}
-                {this.displayFruitList(false)}
-              </tbody>
-            </table>
-          </div>
+          <Table>
+            {this.displayFruitList(true)}
+          </Table>
+          <Table>
+            {this.displayFruitList(false)}
+          </Table>
         </header>
       </div>
     );
