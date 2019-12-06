@@ -20,7 +20,11 @@ class Fruit {
 }
 
 router.get("/list", function(req, res) {
-  res.send(fruitList);
+  try{
+    res.send(fruitList);
+  } catch(e) {
+    console.log(e, "get")
+  }
 });
 
 router.post("/new", function(req, res) {
@@ -31,14 +35,18 @@ router.post("/new", function(req, res) {
     fruitList.push(newFruit)
     res.end("Yes")
   } catch (e) {
-    console.log(e)
+    console.log(e, "post")
   }
 });
 
 router.put("/update", function(req, res) {
-  let index = fruitList.findIndex(i => i._id === req.body.id)
-  fruitList[index].best = req.body.value
-  res.end("Yes")
-})
+  try{
+    let index = fruitList.findIndex(i => i._id === req.body.id)
+    fruitList[index].best = req.body.value
+    res.end("Yes")
+  } catch(e) {
+    console.log(e, "put")
+  }
+});
 
 module.exports = router;
