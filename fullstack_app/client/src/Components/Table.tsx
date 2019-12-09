@@ -18,6 +18,7 @@ export default class Table extends Component<Props> {
               <th>Fruit</th>
               <th>Best?</th>
               <th>Edit</th>
+              <th>Remove</th>
             </tr>
           </thead>
           <tbody>{this.props.rows}</tbody>

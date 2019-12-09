@@ -33,6 +33,7 @@ export default class App extends Component<Props, State> {
     this.handleBestChange = this.handleBestChange.bind(this)
     this.handleFormChange = this.handleFormChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.removeFruit = this.removeFruit.bind(this)
     this.updateFruit = this.updateFruit.bind(this)
   }
 
@@ -44,6 +45,7 @@ export default class App extends Component<Props, State> {
         <Row
           key={`${i._id}${i.name}`}
           fruit={i}
+          onClick={this.removeFruit}
           onChange={this.handleBestChange} />)
   }
 
@@ -69,7 +71,6 @@ export default class App extends Component<Props, State> {
     const name = event.target.name
     const value = event.target.value
     const checked = event.target.checked
-    console.log(name, value)
     if (name === "newFruitName" && value !== "") {
       this.setState({ newFruitName: value })
     } else if (name === "newFruitBest") {
@@ -93,6 +94,24 @@ export default class App extends Component<Props, State> {
       }
     } else {
       alert("Put in a name. You didn't put in a name. Why not?")
+    }
+  }
+
+  async removeFruit(event: any, id = 0) {
+    const target = event.target
+    const removeFruitId = id
+    if (target.name === "remove") {
+      try {
+        const res = await axios.delete("/fruit-api/delete", {
+          params: { id: removeFruitId }
+        })
+        this.getFruitList()
+        return res
+      } catch (error) {
+        console.log(error, "Remove fruit")
+      }
+    } else {
+      console.log("Remove error", event)
     }
   }
 

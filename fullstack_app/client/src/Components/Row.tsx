@@ -7,6 +7,7 @@ import { Fruit } from './interfaces'
 interface Props {
   fruit: Fruit
   onChange: (event: any) => void
+  onClick: (event: any) => void
 }
 
 export default class Row extends Component<Props> {
@@ -29,6 +30,11 @@ export default class Row extends Component<Props> {
             name={`${fruit._id}${fruit.name}`}
             onChange={onChange}
             type="checkbox" />
+        </td>
+        <td>
+          <button name="remove" onClick={this.props.onClick}>
+            Remove
+          </button>
         </td>
       </tr>
     )
