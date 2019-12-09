@@ -20,10 +20,10 @@ class Fruit {
 }
 
 router.get("/list", function(req, res) {
-  try{
+  try {
     res.send(fruitList);
-  } catch(e) {
-    console.log(e, "get")
+  } catch (error) {
+    console.log(error, "get")
   }
 });
 
@@ -34,18 +34,18 @@ router.post("/new", function(req, res) {
     let newFruit = new Fruit(fruitReq.name, fruitReq.best)
     fruitList.push(newFruit)
     res.end("Yes")
-  } catch (e) {
-    console.log(e, "post")
+  } catch (error) {
+    console.log(error, "post")
   }
 });
 
 router.put("/update", function(req, res) {
-  try{
+  try {
     let index = fruitList.findIndex(i => i._id === req.body.id)
     fruitList[index].best = req.body.value
     res.end("Yes")
-  } catch(e) {
-    console.log(e, "put")
+  } catch (error) {
+    console.log(error, "put")
   }
 });
 

@@ -1,6 +1,6 @@
 import React, { Component, ReactNode } from 'react';
 
-interface Props{
+interface Props {
   name: string;
   onChange: (e: any) => void;
   onClick: (e: any) => void;
@@ -8,10 +8,10 @@ interface Props{
 
 export default class Row extends Component<Props> {
 
-  render(): ReactNode{
+  render(): ReactNode {
     const onChange = this.props.onChange
     const onClick = this.props.onClick
-    return(
+    return (
       <div id="fruit-form">
         <h2>List out your favourite fruit</h2>
         <div className="input-wrapper">

@@ -1,18 +1,18 @@
 import React, { Component, ReactNode } from 'react';
-import {Fruit} from './interfaces'
+import { Fruit } from './interfaces'
 
 
-interface Props{
+interface Props {
   fruit: Fruit;
   onChange: (e: any) => void;
 }
 
 export default class Row extends Component<Props> {
 
-  render(): ReactNode{
+  render(): ReactNode {
     const fruit: Fruit = this.props.fruit
     const onChange = this.props.onChange
-    return(
+    return (
       <tr>
         <td>
           <label htmlFor={`${fruit._id}${fruit.name}`}>{fruit.name}</label>

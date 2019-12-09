@@ -26,10 +26,10 @@ class App extends Component<Props, State> {
       newFruitBest: false,
     };
     this.displayFruitList = this.displayFruitList.bind(this)
-    this.addFruit = this.addFruit.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.updateFruit = this.updateFruit.bind(this)
-    this.handleEdit = this.handleEdit.bind(this)
-    this.handleAdd = this.handleAdd.bind(this)
+    this.handleBestChange = this.handleBestChange.bind(this)
+    this.handleFormChange = this.handleFormChange.bind(this)
   }
 
   getFruitList() {
@@ -38,7 +38,7 @@ class App extends Component<Props, State> {
         const fruitList: Fruit[] = res.data
         this.setState({ fruitList: fruitList })
       })
-      .catch(e => console.log(e, "get fruit list"))
+      .catch(error => console.log(error, "get fruit list"))
   }
 
   //Convert to it's own child component
@@ -49,28 +49,28 @@ class App extends Component<Props, State> {
         <Row
           key={`${i._id}${i.name}`}
           fruit={i}
-          onChange={this.handleEdit}/>)
+          onChange={this.handleBestChange} />)
   }
 
-  async addFruit() {
+  async handleFormSubmit() {
     const name = this.state.newFruitName
     const best = this.state.newFruitBest
     const newFruit = { name: name, best: best }
     if (name !== "") {
-      try{
+      try {
         let res = await axios.post("/fruit-api/new", { new: newFruit })
         this.getFruitList()
         this.setState({ newFruitName: "" })
         return res
-      } catch(e) {
-        console.log(e, "Add fruit")
+      } catch (error) {
+        console.log(error, "Add fruit")
       }
     } else {
       alert("Put in a name. You didn't put in a name. Why not?")
     }
   }
 
-  handleAdd(e: any) {
+  handleFormChange(e: any) {
     const target = e.target
     const name = target.name
     const value = target.value
@@ -85,17 +85,17 @@ class App extends Component<Props, State> {
 
   async updateFruit(id = 0, best = false) {
     let updateFruit = id
-    try{
+    try {
       let res = await axios.put("/fruit-api/update", { id: updateFruit, value: best })
       this.getFruitList()
-    return res;
-    } catch(e) {
-      console.log(e, "Update fruit")
+      return res;
+    } catch (error) {
+      console.log(error, "Update fruit")
     }
   }
 
-  handleEdit(e: any) {
-    const target = e.target
+  handleBestChange(event: any) {
+    const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const id: number = Number(target.id)
     this.updateFruit(id, value)
@@ -112,8 +112,8 @@ class App extends Component<Props, State> {
           <h1>Fruit dashboard</h1>
           <Form
             name={this.state.newFruitName}
-            onChange={this.handleAdd}
-            onClick={this.addFruit} />
+            onChange={this.handleFormChange}
+            onClick={this.handleFormSubmit} />
           <Table title="True table" rows={this.displayFruitList(true)} />
           <Table title="False table" rows={this.displayFruitList(false)} />
         </header>
