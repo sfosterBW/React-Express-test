@@ -68,11 +68,12 @@ export default class App extends Component<Props, State> {
   handleFormChange(event: any) {
     const name = event.target.name
     const value = event.target.value
+    const checked = event.target.checked
     console.log(name, value)
     if (name === "newFruitName" && value !== "") {
       this.setState({ newFruitName: value })
     } else if (name === "newFruitBest") {
-      const best: boolean = value === "true" ? true : false
+      const best: boolean = checked
       this.setState({ newFruitBest: best })
     }
   }
@@ -119,6 +120,7 @@ export default class App extends Component<Props, State> {
         <header className="App-header">
           <h1>Fruit dashboard</h1>
           <Form
+            best={this.state.newFruitBest}
             name={this.state.newFruitName}
             onChange={this.handleFormChange}
             onClick={this.handleFormSubmit} />

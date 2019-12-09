@@ -2,6 +2,7 @@
 import React, { Component, ReactNode } from 'react'
 
 interface Props {
+  best: boolean
   name: string
   onChange: (event: any) => void
   onClick: (event: any) => void
@@ -26,16 +27,11 @@ export default class Row extends Component<Props> {
         </div>
         <div className="input-wrapper">
           <label htmlFor="newFruitBest">Best:</label>
-          True<input
+          <input
+            checked={this.props.best}
             name="newFruitBest"
             onChange={onChange}
-            type="radio"
-            value="true" />
-          False<input
-            onChange={onChange}
-            name="newFruitBest"
-            type="radio"
-            value="false" />
+            type="checkbox" />
         </div>
         <button onClick={onClick}>Add new fruit</button>
       </div>
