@@ -12,8 +12,8 @@ interface Props {
 
 interface State {
   fruitList: Fruit[];
-  newFruitName: string;
   newFruitBest: boolean;
+  newFruitName: string;
 }
 
 class App extends Component<Props, State> {
@@ -22,14 +22,14 @@ class App extends Component<Props, State> {
     super(props);
     this.state = {
       fruitList: [],
-      newFruitName: "",
       newFruitBest: false,
+      newFruitName: "",
     };
     this.displayFruitList = this.displayFruitList.bind(this)
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
-    this.updateFruit = this.updateFruit.bind(this)
     this.handleBestChange = this.handleBestChange.bind(this)
     this.handleFormChange = this.handleFormChange.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.updateFruit = this.updateFruit.bind(this)
   }
 
   getFruitList() {
