@@ -10,8 +10,6 @@ import Form from './Form'
 import Row from './Row'
 import Table from './Table'
 
-
-
 interface Props {
   title: string;
 }
@@ -38,15 +36,6 @@ export default class App extends Component<Props, State> {
     this.updateFruit = this.updateFruit.bind(this)
   }
 
-  getFruitList() {
-    axios.get("/fruit-api/list")
-      .then(res => {
-        const fruitList: Fruit[] = res.data
-        this.setState({ fruitList: fruitList })
-      })
-      .catch(error => console.log(error, "get fruit list"))
-  }
-
   //Convert to it's own child component
   displayFruitList(best: boolean) {
     return this.state.fruitList
@@ -58,13 +47,43 @@ export default class App extends Component<Props, State> {
           onChange={this.handleBestChange} />)
   }
 
+  async getFruitList() {
+    try {
+      const res = await axios.get("/fruit-api/list")
+      const fruitList: Fruit[] = res.data
+      this.setState({ fruitList: fruitList })
+      return res
+    } catch (error) {
+      console.log(error, "get fruit list")
+    }
+  }
+
+  handleBestChange(event: any) {
+    const target = event.target
+    const value = target.type === 'checkbox' ? target.checked : target.value
+    const id: number = Number(target.id)
+    this.updateFruit(id, value)
+  }
+
+  handleFormChange(event: any) {
+    const name = event.target.name
+    const value = event.target.value
+    console.log(name, value)
+    if (name === "newFruitName" && value !== "") {
+      this.setState({ newFruitName: value })
+    } else if (name === "newFruitBest") {
+      const best: boolean = value === "true" ? true : false
+      this.setState({ newFruitBest: best })
+    }
+  }
+
   async handleFormSubmit() {
-    const name = this.state.newFruitName
     const best = this.state.newFruitBest
+    const name = this.state.newFruitName
     const newFruit = { name: name, best: best }
     if (name !== "") {
       try {
-        let res = await axios.post("/fruit-api/new", { new: newFruit })
+        const res = await axios.post("/fruit-api/new", { new: newFruit })
         this.getFruitList()
         this.setState({ newFruitName: "" })
         return res
@@ -76,35 +95,18 @@ export default class App extends Component<Props, State> {
     }
   }
 
-  handleFormChange(e: any) {
-    const target = e.target
-    const name = target.name
-    const value = target.value
-    console.log(target, name, value)
-    if (name === "newFruitName" && value !== "") {
-      this.setState({ newFruitName: value })
-    } else if (name === "newFruitBest") {
-      const best: boolean = value === "true" ? true : false
-      this.setState({ newFruitBest: best })
-    }
-  }
-
   async updateFruit(id = 0, best = false) {
-    let updateFruit = id
+    const updateFruitId = id
     try {
-      let res = await axios.put("/fruit-api/update", { id: updateFruit, value: best })
+      const res = await axios.put("/fruit-api/update", {
+        id: updateFruitId,
+        value: best
+      })
       this.getFruitList()
-      return res;
+      return res
     } catch (error) {
       console.log(error, "Update fruit")
     }
-  }
-
-  handleBestChange(event: any) {
-    const target = event.target
-    const value = target.type === 'checkbox' ? target.checked : target.value
-    const id: number = Number(target.id)
-    this.updateFruit(id, value)
   }
 
   componentDidMount() {
@@ -120,8 +122,12 @@ export default class App extends Component<Props, State> {
             name={this.state.newFruitName}
             onChange={this.handleFormChange}
             onClick={this.handleFormSubmit} />
-          <Table title="True table" rows={this.displayFruitList(true)} />
-          <Table title="False table" rows={this.displayFruitList(false)} />
+          <Table
+            rows={this.displayFruitList(true)}
+            title="True table" />
+          <Table
+            rows={this.displayFruitList(false)}
+            title="False table" />
         </header>
       </div>
     )

@@ -3,8 +3,8 @@ import React, { Component, ReactNode } from 'react'
 
 interface Props {
   name: string
-  onChange: (e: any) => void
-  onClick: (e: any) => void
+  onChange: (event: any) => void
+  onClick: (event: any) => void
 }
 
 export default class Row extends Component<Props> {
@@ -20,22 +20,22 @@ export default class Row extends Component<Props> {
           <input
             id="newFruitName"
             name="newFruitName"
+            onChange={onChange}
             type="text"
-            value={this.props.name}
-            onChange={onChange} />
+            value={this.props.name} />
         </div>
         <div className="input-wrapper">
           <label htmlFor="newFruitBest">Best:</label>
           True<input
-            type="radio"
             name="newFruitBest"
-            value="true"
-            onChange={onChange} />
+            onChange={onChange}
+            type="radio"
+            value="true" />
           False<input
-            type="radio"
+            onChange={onChange}
             name="newFruitBest"
-            value="false"
-            onChange={onChange} />
+            type="radio"
+            value="false" />
         </div>
         <button onClick={onClick}>Add new fruit</button>
       </div>

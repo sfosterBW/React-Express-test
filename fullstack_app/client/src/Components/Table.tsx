@@ -20,9 +20,7 @@ export default class Table extends Component<Props> {
               <th>Edit</th>
             </tr>
           </thead>
-          <tbody>
-            {this.props.rows}
-          </tbody>
+          <tbody>{this.props.rows}</tbody>
         </table>
       </div>
     )

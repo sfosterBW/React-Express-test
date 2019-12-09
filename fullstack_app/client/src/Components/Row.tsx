@@ -6,7 +6,7 @@ import { Fruit } from './interfaces'
 
 interface Props {
   fruit: Fruit
-  onChange: (e: any) => void
+  onChange: (event: any) => void
 }
 
 export default class Row extends Component<Props> {
@@ -24,13 +24,11 @@ export default class Row extends Component<Props> {
         </td>
         <td>
           <input
-            id={fruit._id.toString()}
-            className="checkbox"
-            name={`${fruit._id}${fruit.name}`}
             checked={fruit.best}
-            type="checkbox"
+            id={fruit._id.toString()}
+            name={`${fruit._id}${fruit.name}`}
             onChange={onChange}
-          />
+            type="checkbox" />
         </td>
       </tr>
     )

@@ -58,8 +58,6 @@
   border-radius: 0.5vmin;
 }
 
-#fruit-table {}
-
 #fruit-table table {
   border-collapse: collapse;
 }
@@ -83,6 +81,6 @@
   margin: 2vmin;
 }
 
-#fruit-table .checkbox {
+#fruit-table input[type="checkbox"] {
   margin-right: 12px;
 }
