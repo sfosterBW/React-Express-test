@@ -1,10 +1,12 @@
-import React, { Component, ReactNode } from 'react';
+//Libraries
+import React, { Component, ReactNode } from 'react'
+//Types
 import { Fruit } from './interfaces'
 
 
 interface Props {
-  fruit: Fruit;
-  onChange: (e: any) => void;
+  fruit: Fruit
+  onChange: (e: any) => void
 }
 
 export default class Row extends Component<Props> {

@@ -1,22 +1,28 @@
-import React, { Component } from 'react';
+//Libraries
+import axios from 'axios'
+import React, { Component } from 'react'
+//Styles
 import './App.css';
+//Types
+import { Fruit } from './interfaces'
+//Components
 import Form from './Form'
 import Row from './Row'
 import Table from './Table'
-import { Fruit } from './interfaces'
-import axios from 'axios';
+
+
 
 interface Props {
   title: string;
 }
 
 interface State {
-  fruitList: Fruit[];
-  newFruitBest: boolean;
-  newFruitName: string;
+  fruitList: Fruit[]
+  newFruitBest: boolean
+  newFruitName: string
 }
 
-class App extends Component<Props, State> {
+export default class App extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
@@ -24,7 +30,7 @@ class App extends Component<Props, State> {
       fruitList: [],
       newFruitBest: false,
       newFruitName: "",
-    };
+    }
     this.displayFruitList = this.displayFruitList.bind(this)
     this.handleBestChange = this.handleBestChange.bind(this)
     this.handleFormChange = this.handleFormChange.bind(this)
@@ -118,8 +124,6 @@ class App extends Component<Props, State> {
           <Table title="False table" rows={this.displayFruitList(false)} />
         </header>
       </div>
-    );
+    )
   }
 }
-
-export default App;

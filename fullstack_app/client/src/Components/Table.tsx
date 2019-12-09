@@ -1,8 +1,9 @@
-import React, { Component, ReactNode } from 'react';
+//Libraries
+import React, { Component, ReactNode } from 'react'
 
 interface Props{
-  rows: ReactNode;
-  title: string;
+  rows: ReactNode
+  title: string
 }
 
 export default class Table extends Component<Props> {

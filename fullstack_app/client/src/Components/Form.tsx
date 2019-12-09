@@ -1,9 +1,10 @@
-import React, { Component, ReactNode } from 'react';
+//Libraries
+import React, { Component, ReactNode } from 'react'
 
 interface Props {
-  name: string;
-  onChange: (e: any) => void;
-  onClick: (e: any) => void;
+  name: string
+  onChange: (e: any) => void
+  onClick: (e: any) => void
 }
 
 export default class Row extends Component<Props> {
