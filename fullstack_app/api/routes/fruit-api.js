@@ -30,7 +30,6 @@ router.get("/list", function(req, res) {
 router.post("/new", function(req, res) {
   try {
     let fruitReq = req.body.new
-    console.log(fruitReq)
     let newFruit = new Fruit(fruitReq.name, fruitReq.best)
     fruitList.push(newFruit)
     res.end("Yes")

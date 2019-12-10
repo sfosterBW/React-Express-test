@@ -62,7 +62,7 @@ export default class App extends Component<Props, State> {
 
   handleBestChange(event: any) {
     const target = event.target
-    const value = target.type === 'checkbox' ? target.checked : target.value
+    const value = target.checked
     const id: number = Number(target.id)
     this.updateFruit(id, value)
   }
@@ -98,20 +98,14 @@ export default class App extends Component<Props, State> {
   }
 
   async removeFruit(event: any, id = 0) {
-    const target = event.target
-    const removeFruitId = id
-    if (target.name === "remove") {
-      try {
-        const res = await axios.delete("/fruit-api/delete", {
-          params: { id: removeFruitId }
-        })
-        this.getFruitList()
-        return res
-      } catch (error) {
-        console.log(error, "Remove fruit")
-      }
-    } else {
-      console.log("Remove error", event)
+    try {
+      const res = await axios.delete("/fruit-api/delete", {
+        params: { id: id }
+      })
+      this.getFruitList()
+      return res
+    } catch (error) {
+      console.log(error, event, "Remove fruit")
     }
   }
 
