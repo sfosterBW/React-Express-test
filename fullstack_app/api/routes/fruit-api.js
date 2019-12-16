@@ -51,7 +51,6 @@ router.put("/update", function(req, res) {
 router.delete("/delete", function(req, res) {
   try {
     let index = fruitList.findIndex(i => i._id == req.query.id)
-    console.log(req.query.id, index, fruitList)
     fruitList.splice(index,1)
     res.end("Yes")
   } catch (error) {

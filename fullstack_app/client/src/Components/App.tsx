@@ -106,10 +106,7 @@ export default class App extends Component<Props, State> {
 
   handleRemoveSubmit(event: any) {
     const { name } = event.target
-    const {fruitList} = this.state
-    const index: number = fruitList.findIndex(i => i._id === Number(name))
-    const id: number = fruitList[index]._id
-    console.log(id, event.target)
+    const id: number = Number(name)
     this.removeFruit(id)
   }
 
