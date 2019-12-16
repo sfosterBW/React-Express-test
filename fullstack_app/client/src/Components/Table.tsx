@@ -1,14 +1,13 @@
-//Libraries
-import React, { FunctionComponent, ReactNode } from 'react'
+import React, { FC, ReactNode } from 'react'
 
 interface Props {
   rows: ReactNode
   title: string
 }
 
-const Table: FunctionComponent<Props> = ({ rows, title }) => {
+const Table: FC<Props> = ({ rows, title }) => {
   return (
-    <div id="fruit-table">
+    <div className="fruit-table">
       <h2>{title}</h2>
       <table>
         <thead>

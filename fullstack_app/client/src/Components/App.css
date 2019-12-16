@@ -21,18 +21,18 @@
   color: #09d3ac;
 }
 
-#fruit-form {
+.fruit-form {
   background-color: grey;
   padding: 5vmin 8vmin;
   border-radius: 0.5vmin;
 }
 
-#fruit-form .input-wrapper {
+.fruit-form .input-wrapper {
   display: flex;
   margin-bottom: 2vmin;
 }
 
-#fruit-form .input-wrapper label {
+.fruit-form .input-wrapper label {
   display: inline-block;
   width: 20vmin;
   margin-right: 2vmin;
@@ -40,17 +40,17 @@
   text-align: right;
 }
 
-#fruit-form .input-wrapper input[type=text] {
+.fruit-form .input-wrapper input[type=text] {
   height: 4vmin;
   font-size: 3vmin;
 }
 
-#fruit-form .input-wrapper input[type=radio] {
+.fruit-form .input-wrapper input[type=radio] {
   margin-left: 1vmin;
   margin-right: 4vmin;
 }
 
-#fruit-form button {
+.fruit-form button {
   display: flex;
   margin: 0 auto;
   padding: 2vmin 4vmin;
@@ -58,29 +58,29 @@
   border-radius: 0.5vmin;
 }
 
-#fruit-table table {
+.fruit-table table {
   border-collapse: collapse;
 }
 
-#fruit-table thead {
+.fruit-table thead {
   border-bottom: 1px solid black;
 }
 
-#fruit-table table, th, td {
+.fruit-table table, th, td {
   min-width: 20vmin;
   background-color: white;
   color: black;
   margin: 4vmin;
 }
 
-#fruit-table tbody tr {
+.fruit-table tbody tr {
   border-bottom: 1px solid lightgrey;
 }
 
-#fruit-table table tr td p {
+.fruit-table table tr td p {
   margin: 2vmin;
 }
 
-#fruit-table input[type="checkbox"] {
+.fruit-table input[type="checkbox"] {
   margin-right: 12px;
 }

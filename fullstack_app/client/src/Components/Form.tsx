@@ -1,5 +1,4 @@
-//Libraries
-import React, { Component, ReactNode } from 'react'
+import React, { FC } from 'react'
 
 interface Props {
   best: boolean
@@ -8,33 +7,29 @@ interface Props {
   onClick: (event: any) => void
 }
 
-export default class Row extends Component<Props> {
-
-  render(): ReactNode {
-    const onChange = this.props.onChange
-    const onClick = this.props.onClick
-    return (
-      <div id="fruit-form">
-        <h2>List out your favourite fruit</h2>
-        <div className="input-wrapper">
-          <label htmlFor="newFruitName">Add a fruit:</label>
-          <input
-            id="newFruitName"
-            name="newFruitName"
-            onChange={onChange}
-            type="text"
-            value={this.props.name} />
-        </div>
-        <div className="input-wrapper">
-          <label htmlFor="newFruitBest">Best:</label>
-          <input
-            checked={this.props.best}
-            name="newFruitBest"
-            onChange={onChange}
-            type="checkbox" />
-        </div>
-        <button onClick={onClick}>Add new fruit</button>
+const Form: FC<Props> = ({ best, name, onChange, onClick }) => {
+  return (
+    <div className="fruit-form">
+      <h2>List out your favourite fruit</h2>
+      <div className="input-wrapper">
+        <label htmlFor="name">Add a fruit:</label>
+        <input
+          name="name"
+          onChange={onChange}
+          type="text"
+          value={name} />
       </div>
-    )
-  }
+      <div className="input-wrapper">
+        <label htmlFor="best">Best:</label>
+        <input
+          checked={best}
+          name="best"
+          onChange={onChange}
+          type="checkbox" />
+      </div>
+      <button onClick={onClick}>Add new fruit</button>
+    </div>
+  )
 }
+
+export default Form

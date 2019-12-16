@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 //Styles
 import './App.css';
 //Types
-import { Fruit } from './interfaces'
+import { Fruit, NewFruit } from './interfaces'
 //Components
 import Form from './Form'
 import Row from './Row'
@@ -16,8 +16,7 @@ interface Props {
 
 interface State {
   fruitList: Fruit[]
-  newFruitBest: boolean
-  newFruitName: string
+  newFruit: NewFruit
 }
 
 export default class App extends Component<Props, State> {
@@ -26,13 +25,17 @@ export default class App extends Component<Props, State> {
     super(props);
     this.state = {
       fruitList: [],
-      newFruitBest: false,
-      newFruitName: "",
+      newFruit: {
+        name: "",
+        best: false
+      }
     }
     this.displayFruitList = this.displayFruitList.bind(this)
+    this.getFruitList = this.getFruitList.bind(this)
     this.handleBestChange = this.handleBestChange.bind(this)
     this.handleFormChange = this.handleFormChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleRemoveSubmit = this.handleRemoveSubmit.bind(this)
     this.removeFruit = this.removeFruit.bind(this)
     this.updateFruit = this.updateFruit.bind(this)
   }
@@ -45,8 +48,8 @@ export default class App extends Component<Props, State> {
         <Row
           key={`${i._id}${i.name}`}
           fruit={i}
-          onClick={this.removeFruit}
-          onChange={this.handleBestChange} />)
+          handleClick={this.handleRemoveSubmit}
+          handleChange={this.handleBestChange} />)
   }
 
   async getFruitList() {
@@ -61,80 +64,95 @@ export default class App extends Component<Props, State> {
   }
 
   handleBestChange(event: any) {
-    const target = event.target
-    const value = target.checked
-    const id: number = Number(target.id)
-    this.updateFruit(id, value)
+    const { value } = event.target
+    const { fruitList } = this.state
+    const index: number = fruitList.findIndex(i => i._id === Number(value))
+    const best: boolean = fruitList[index].best
+    this.updateFruit(Number(value), !best)
   }
 
   handleFormChange(event: any) {
-    const name = event.target.name
-    const value = event.target.value
-    const checked = event.target.checked
-    if (name === "newFruitName" && value !== "") {
-      this.setState({ newFruitName: value })
-    } else if (name === "newFruitBest") {
-      const best: boolean = checked
-      this.setState({ newFruitBest: best })
+    const { name, value, checked } = event.target
+    const { newFruit } = this.state
+    let updatedFruit = newFruit
+    if (name === "name" && value !== "") {
+      updatedFruit.name = value
+    } else if (name === "best") {
+      updatedFruit.best = checked
     }
+    this.setState({ newFruit: updatedFruit })
   }
 
   async handleFormSubmit() {
-    const best = this.state.newFruitBest
-    const name = this.state.newFruitName
-    const newFruit = { name: name, best: best }
-    if (name !== "") {
+    const { newFruit } = this.state
+    if (newFruit.name !== "") {
       try {
         const res = await axios.post("/fruit-api/new", { new: newFruit })
-        this.getFruitList()
-        this.setState({ newFruitName: "" })
+        let resetFruit = newFruit
+        resetFruit.name = ""
+        this.setState({ newFruit: resetFruit })
         return res
-      } catch (error) {
+      }
+      catch (error) {
         console.log(error, "Add fruit")
+      }
+      finally {
+        await this.getFruitList()
       }
     } else {
       alert("Put in a name. You didn't put in a name. Why not?")
     }
   }
 
-  async removeFruit(event: any, id = 0) {
+  handleRemoveSubmit(event: any) {
+    const { value } = event.target
+    const { fruitList } = this.state
+    const index: number = fruitList.findIndex(i => i._id === Number(value))
+    const id: number = fruitList[index]._id
+    console.log(index, id, event.target)
+    this.removeFruit(Number(id))
+  }
+
+  async removeFruit(id: number) {
+    const deleteData = { params: { id: id } }
     try {
-      const res = await axios.delete("/fruit-api/delete", {
-        params: { id: id }
-      })
-      this.getFruitList()
-      return res
-    } catch (error) {
-      console.log(error, event, "Remove fruit")
+      return await axios.delete("/fruit-api/delete", deleteData)
+    }
+    catch (error) {
+      console.log(error, "Remove fruit")
+    }
+    finally {
+      await this.getFruitList()
     }
   }
 
-  async updateFruit(id = 0, best = false) {
-    const updateFruitId = id
+  updateFruit(id = 0, best = false) {
+    const fruit = { id: id, value: best }
     try {
-      const res = await axios.put("/fruit-api/update", {
-        id: updateFruitId,
-        value: best
-      })
-      this.getFruitList()
-      return res
-    } catch (error) {
+      return axios.put("/fruit-api/update", fruit)
+    }
+    catch (error) {
       console.log(error, "Update fruit")
     }
+    finally {
+      this.getFruitList()
+    }
   }
 
-  componentDidMount() {
-    this.getFruitList()
+  async componentDidMount() {
+    await this.getFruitList()
   }
 
   render() {
+    const { newFruit } = this.state
+
     return (
       <div className="App">
         <header className="App-header">
           <h1>Fruit dashboard</h1>
           <Form
-            best={this.state.newFruitBest}
-            name={this.state.newFruitName}
+            best={newFruit.best}
+            name={newFruit.name}
             onChange={this.handleFormChange}
             onClick={this.handleFormSubmit} />
           <Table

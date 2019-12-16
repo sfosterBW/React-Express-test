@@ -3,3 +3,8 @@ export interface Fruit {
   name: string,
   best: boolean;
 }
+
+export interface NewFruit {
+  name:string,
+  best:boolean
+}
