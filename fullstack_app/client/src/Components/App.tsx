@@ -75,7 +75,7 @@ export default class App extends Component<Props, State> {
     const { name, value, checked } = event.target
     const { newFruit } = this.state
     let updatedFruit = newFruit
-    if (name === "name" && value !== "") {
+    if (name === "name") {
       updatedFruit.name = value
     } else if (name === "best") {
       updatedFruit.best = checked
@@ -105,12 +105,12 @@ export default class App extends Component<Props, State> {
   }
 
   handleRemoveSubmit(event: any) {
-    const { value } = event.target
-    const { fruitList } = this.state
-    const index: number = fruitList.findIndex(i => i._id === Number(value))
+    const { name } = event.target
+    const {fruitList} = this.state
+    const index: number = fruitList.findIndex(i => i._id === Number(name))
     const id: number = fruitList[index]._id
-    console.log(index, id, event.target)
-    this.removeFruit(Number(id))
+    console.log(id, event.target)
+    this.removeFruit(id)
   }
 
   async removeFruit(id: number) {

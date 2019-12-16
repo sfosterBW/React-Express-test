@@ -11,7 +11,10 @@ const Row: FC<Props> = ({ fruit, handleChange, handleClick }) => {
   return (
     <tr>
       <td>
-        <label htmlFor={`${fruit._id}${fruit.name}`}>{fruit.name}</label>
+        {fruit._id}
+      </td>
+      <td>
+        <label htmlFor={`${fruit._id}`}>{fruit.name}</label>
       </td>
       <td>
         <p>{fruit.best.toString()}</p>
@@ -25,7 +28,7 @@ const Row: FC<Props> = ({ fruit, handleChange, handleClick }) => {
           value={fruit._id} />
       </td>
       <td>
-        <button name="remove" value={fruit._id} onClick={handleClick}>
+        <button name={`${fruit._id}`} onClick={handleClick}>
           Remove
           </button>
       </td>
