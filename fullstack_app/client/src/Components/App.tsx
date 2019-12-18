@@ -55,8 +55,7 @@ export default class App extends Component<Props, State> {
   async getFruitList() {
     try {
       const res = await axios.get("/fruit-api/list")
-      const fruitList: Fruit[] = res.data
-      this.setState({ fruitList: fruitList })
+      this.setState({ fruitList: res.data })
       return res
     } catch (error) {
       console.log(error, "get fruit list")
@@ -88,9 +87,9 @@ export default class App extends Component<Props, State> {
     if (newFruit.name !== "") {
       try {
         const res = await axios.post("/fruit-api/new", { new: newFruit })
-        let resetFruit = newFruit
-        resetFruit.name = ""
-        this.setState({ newFruit: resetFruit })
+        this.setState(prevState => ({
+          newFruit: {...prevState.newFruit, name: ""}
+        }))
         return res
       }
       catch (error) {
