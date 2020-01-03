@@ -7,6 +7,7 @@ import './App.css';
 import { Fruit, NewFruit } from './interfaces'
 //Components
 import Form from './Form'
+import Modal from './Modal'
 import Row from './Row'
 import Table from './Table'
 
@@ -17,6 +18,11 @@ interface Props {
 interface State {
   fruitList: Fruit[]
   newFruit: NewFruit
+  modal: boolean
+}
+
+function handleError(error: any) {
+  console.log(error)
 }
 
 export default class App extends Component<Props, State> {
@@ -28,7 +34,8 @@ export default class App extends Component<Props, State> {
       newFruit: {
         name: "",
         best: false
-      }
+      },
+      modal: false,
     }
     this.displayFruitList = this.displayFruitList.bind(this)
     this.getFruitList = this.getFruitList.bind(this)
@@ -58,7 +65,7 @@ export default class App extends Component<Props, State> {
       this.setState({ fruitList: res.data })
       return res
     } catch (error) {
-      console.log(error, "get fruit list")
+      handleError(error)
     }
   }
 
@@ -88,12 +95,12 @@ export default class App extends Component<Props, State> {
       try {
         const res = await axios.post("/fruit-api/new", { new: newFruit })
         this.setState(prevState => ({
-          newFruit: {...prevState.newFruit, name: ""}
+          newFruit: { ...prevState.newFruit, name: "" }
         }))
         return res
       }
       catch (error) {
-        console.log(error, "Add fruit")
+        handleError(error)
       }
       finally {
         await this.getFruitList()
@@ -115,7 +122,7 @@ export default class App extends Component<Props, State> {
       return await axios.delete("/fruit-api/delete", deleteData)
     }
     catch (error) {
-      console.log(error, "Remove fruit")
+      handleError(error)
     }
     finally {
       await this.getFruitList()
@@ -128,7 +135,7 @@ export default class App extends Component<Props, State> {
       return axios.put("/fruit-api/update", fruit)
     }
     catch (error) {
-      console.log(error, "Update fruit")
+      handleError(error)
     }
     finally {
       this.getFruitList()
@@ -140,7 +147,20 @@ export default class App extends Component<Props, State> {
   }
 
   render() {
-    const { newFruit } = this.state
+    const { modal, newFruit } = this.state
+
+    const form =
+      <Form
+        best={newFruit.best}
+        name={newFruit.name}
+        onChange={this.handleFormChange}
+        onClick={this.handleFormSubmit} />
+
+    const displayModal =
+      <Modal
+        form={form}
+        onClose={() => { this.setState({ modal: false }) }}
+        title="This is a modal" />
 
     return (
       <div className="App">
@@ -158,6 +178,14 @@ export default class App extends Component<Props, State> {
             rows={this.displayFruitList(false)}
             title="False table" />
         </header>
+        <button onClick={
+          () => this.setState(prevState => ({
+            modal: !prevState.modal
+          }))
+        }>
+          Show Modal
+        </button>
+        {modal ? displayModal : <p>No modal</p>}
       </div>
     )
   }

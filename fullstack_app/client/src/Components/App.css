@@ -14,7 +14,11 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color:white;
+}
+
+.App-header form {
+  background: grey;
 }
 
 .App-link {
@@ -22,7 +26,6 @@
 }
 
 .fruit-form {
-  background-color: grey;
   padding: 5vmin 8vmin;
   border-radius: 0.5vmin;
 }
@@ -83,4 +86,31 @@
 
 .fruit-table input[type="checkbox"] {
   margin-right: 12px;
+}
+
+.modal-wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  position: relative;
+  border-radius: 5px;
+  background: white;
+  color: black;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1.5vmin;
+  right: 0px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
