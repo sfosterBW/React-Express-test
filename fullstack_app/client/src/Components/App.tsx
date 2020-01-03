@@ -44,6 +44,7 @@ export default class App extends Component<Props, State> {
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.handleRemoveSubmit = this.handleRemoveSubmit.bind(this)
     this.removeFruit = this.removeFruit.bind(this)
+    this.resetForm = this.resetForm.bind(this)
     this.updateFruit = this.updateFruit.bind(this)
   }
 
@@ -94,9 +95,7 @@ export default class App extends Component<Props, State> {
     if (newFruit.name !== "") {
       try {
         const res = await axios.post("/fruit-api/new", { new: newFruit })
-        this.setState(prevState => ({
-          newFruit: { ...prevState.newFruit, name: "" }
-        }))
+        this.resetForm()
         return res
       }
       catch (error) {
@@ -127,6 +126,12 @@ export default class App extends Component<Props, State> {
     finally {
       await this.getFruitList()
     }
+  }
+
+  resetForm() {
+    this.setState(prevState => ({
+      newFruit: { ...prevState.newFruit, name: "" }
+    }))
   }
 
   updateFruit(id = 0, best = false) {
