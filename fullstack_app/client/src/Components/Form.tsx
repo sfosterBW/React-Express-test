@@ -4,12 +4,12 @@ interface Props {
   best: boolean
   name: string
   onChange: (event: any) => void
-  onClick: (event: any) => void
+  handleSubmit: (event: any) => void
 }
 
-const Form: FC<Props> = ({ best, name, onChange, onClick }) => {
+const Form: FC<Props> = ({ best, name, onChange, handleSubmit }) => {
   return (
-    <form className="fruit-form" onSubmit={onClick}>
+    <form className="fruit-form" onSubmit={handleSubmit}>
       <h2>List out your favourite fruit</h2>
       <div className="input-wrapper">
         <label htmlFor="name">Add a fruit:</label>
