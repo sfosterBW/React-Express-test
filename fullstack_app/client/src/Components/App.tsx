@@ -56,7 +56,11 @@ function App(): JSX.Element{
   const handleFormChange = (event: any) => {
     const { name, value, checked } = event.target
     let updatedFruit = newFruit
-    name === "best" ? updatedFruit.best = checked : updatedFruit.name = value
+    if(name === "best") {
+      updatedFruit.best = checked
+    } else{
+      updatedFruit.name = value
+    }
     setNewFruit(updatedFruit)
   }
 
