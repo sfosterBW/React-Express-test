@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Fruit, NewFruit } from './Components/interfaces'
 
 function handleError(error: any) {
-  console.log(error)
+  console.error(error)
 }
 
 export async function getFruitList() {

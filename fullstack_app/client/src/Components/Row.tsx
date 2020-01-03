@@ -3,11 +3,12 @@ import { Fruit } from './interfaces'
 
 interface Props {
   fruit: Fruit
-  handleChange: (event: any) => void
-  handleClick: (event: any) => void
+  handleEdit: (event: any) => void
+  handleRemove: (event: any) => void
+  openModal: (event: any) => void
 }
 
-const Row: FC<Props> = ({ fruit, handleChange, handleClick }) => {
+const Row: FC<Props> = ({ fruit, handleEdit, handleRemove, openModal }) => {
   return (
     <tr>
       <td>
@@ -23,12 +24,17 @@ const Row: FC<Props> = ({ fruit, handleChange, handleClick }) => {
         <input
           checked={fruit.best}
           name={`${fruit._id}`}
-          onChange={handleChange}
+          onChange={handleEdit}
           type="checkbox"
           value={fruit._id} />
       </td>
       <td>
-        <button name={`${fruit._id}`} onClick={handleClick}>
+        <button name="modal" onClick={openModal} value={`${fruit._id}`}>
+          Update
+        </button>
+      </td>
+      <td>
+        <button name="remove" onClick={handleRemove} value={`${fruit._id}`}>
           Remove
           </button>
       </td>

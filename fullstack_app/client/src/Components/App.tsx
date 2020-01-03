@@ -50,8 +50,9 @@ export default class App extends Component<Props, State> {
         <Row
           key={`${i._id}${i.name}`}
           fruit={i}
-          handleClick={this.handleRemoveSubmit}
-          handleChange={this.handleBestChange} />)
+          handleRemove={this.handleRemoveSubmit}
+          handleEdit={this.handleBestChange}
+          openModal={this.toggleModal} />)
   }
 
   async getFruitList() {
@@ -63,12 +64,15 @@ export default class App extends Component<Props, State> {
   async handleBestChange(event: any) {
     const { value } = event.target
     const { fruitList } = this.state
-    const index: number = fruitList.findIndex(i => i._id === Number(value))
-    const fruit = fruitList[index]
-    fruit.best = !fruit.best
-    const res = await api.updateFruit(fruit)
-    res !== 200 && handleError("handleBestChange")
-    await this.getFruitList()
+    const fruit = fruitList.find(i => i._id === Number(value))
+    if (fruit) {
+      fruit.best = !fruit.best
+      const res = await api.updateFruit(fruit)
+      res !== 200 && handleError("handleBestChange")
+      await this.getFruitList()
+    } else {
+      alert("That fruit doesn't seem to exist")
+    }
   }
 
   handleFormChange(event: any) {
@@ -92,8 +96,8 @@ export default class App extends Component<Props, State> {
   }
 
   async handleRemoveSubmit(event: any) {
-    const { name } = event.target
-    const id: number = Number(name)
+    const { value } = event.target
+    const id: number = Number(value)
     const res = await api.deleteFruit(id)
     res !== 200 && handleError("handleFormSubmit")
     await this.getFruitList()
@@ -147,10 +151,7 @@ export default class App extends Component<Props, State> {
             rows={this.displayFruitList(false)}
             title="False table" />
         </header>
-        <button onClick={(event) => { this.toggleModal(event) }}>
-          Show Modal
-        </button>
-        {modal ? displayModal : <p>No modal</p>}
+        {modal && displayModal}
       </div>
     )
   }

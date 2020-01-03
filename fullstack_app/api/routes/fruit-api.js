@@ -19,42 +19,42 @@ class Fruit {
   }
 }
 
-router.get("/list", function(req, res) {
+router.get("/list", function(req, res, next) {
   try {
     res.send(fruitList);
   } catch (error) {
-    console.log(error, "get")
+    next(error)
   }
 });
 
-router.post("/new", function(req, res) {
+router.post("/new", function(req, res, next) {
   try {
     let fruitReq = req.body.new
     let newFruit = new Fruit(fruitReq.name, fruitReq.best)
     fruitList.push(newFruit)
-    res.end("Yes")
+    res.status(200).end()
   } catch (error) {
-    console.log(error, "post")
+    next(error)
   }
 });
 
-router.put("/update", function(req, res) {
+router.put("/update", function(req, res, next) {
   try {
     let index = fruitList.findIndex(i => i._id === req.body._id)
     fruitList[index].best = req.body.best
-    res.end("Yes")
+    res.status(200).end()
   } catch (error) {
-    console.log(error, "put")
+    next(error)
   }
 });
 
-router.delete("/delete", function(req, res) {
+router.delete("/delete", function(req, res, next) {
   try {
     let index = fruitList.findIndex(i => i._id == req.query.id)
     fruitList.splice(index,1)
-    res.end("Yes")
+    res.status(200).end()
   } catch (error) {
-    console.log(error, "delete")
+    next(error)
   }
 });
 

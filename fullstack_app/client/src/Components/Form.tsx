@@ -9,7 +9,7 @@ interface Props {
 
 const Form: FC<Props> = ({ best, name, onChange, onClick }) => {
   return (
-    <form className="fruit-form">
+    <form className="fruit-form" onSubmit={onClick}>
       <h2>List out your favourite fruit</h2>
       <div className="input-wrapper">
         <label htmlFor="name">Add a fruit:</label>
@@ -28,7 +28,7 @@ const Form: FC<Props> = ({ best, name, onChange, onClick }) => {
           type="checkbox"
           value={best.toString()} />
       </div>
-      <button onClick={onClick}>Add new fruit</button>
+      <button>Add new fruit</button>
     </form>
   )
 }

@@ -16,6 +16,7 @@ const Table: FC<Props> = ({ rows, title }) => {
             <th>Fruit</th>
             <th>Best?</th>
             <th>Edit</th>
+            <th>Update</th>
             <th>Remove</th>
           </tr>
         </thead>
