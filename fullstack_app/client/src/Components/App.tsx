@@ -1,6 +1,7 @@
 //Libraries
-import axios from 'axios'
 import React, { Component } from 'react'
+//Helpers
+import * as api from '../api'
 //Styles
 import './App.css';
 //Types
@@ -43,14 +44,13 @@ export default class App extends Component<Props, State> {
     this.handleFormChange = this.handleFormChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.handleRemoveSubmit = this.handleRemoveSubmit.bind(this)
-    this.removeFruit = this.removeFruit.bind(this)
     this.resetForm = this.resetForm.bind(this)
-    this.updateFruit = this.updateFruit.bind(this)
   }
 
   //Convert to it's own child component
   displayFruitList(best: boolean) {
-    return this.state.fruitList
+    const {fruitList} = this.state
+    return fruitList
       .filter((i: Fruit) => i.best === best)
       .map((i: Fruit) =>
         <Row
@@ -61,21 +61,21 @@ export default class App extends Component<Props, State> {
   }
 
   async getFruitList() {
-    try {
-      const res = await axios.get("/fruit-api/list")
-      this.setState({ fruitList: res.data })
-      return res
-    } catch (error) {
-      handleError(error)
-    }
+    const res: any = await api.getFruitList()
+    const fruitList: Fruit[] = res.data
+    this.setState({ fruitList: fruitList })
+    res.status !== 200 && handleError("getFruitList")
   }
 
-  handleBestChange(event: any) {
+  async handleBestChange(event: any) {
     const { value } = event.target
     const { fruitList } = this.state
     const index: number = fruitList.findIndex(i => i._id === Number(value))
-    const best: boolean = fruitList[index].best
-    this.updateFruit(Number(value), !best)
+    const fruit = fruitList[index]
+    fruit.best = !fruit.best
+    const res = await api.updateFruit(fruit)
+    res !== 200 && handleError("handleBestChange")
+    await this.getFruitList()
   }
 
   handleFormChange(event: any) {
@@ -90,61 +90,34 @@ export default class App extends Component<Props, State> {
     this.setState({ newFruit: updatedFruit })
   }
 
-  async handleFormSubmit() {
+  async handleFormSubmit(event: any) {
+    event.preventDefault()
     const { newFruit } = this.state
     if (newFruit.name !== "") {
-      try {
-        const res = await axios.post("/fruit-api/new", { new: newFruit })
+      const res = await api.createFruit(newFruit)
+      if (res === 200) {
         this.resetForm()
-        return res
-      }
-      catch (error) {
-        handleError(error)
-      }
-      finally {
         await this.getFruitList()
+      } else {
+        handleError("handleFormSubmit")
       }
     } else {
       alert("Put in a name. You didn't put in a name. Why not?")
     }
   }
 
-  handleRemoveSubmit(event: any) {
+  async handleRemoveSubmit(event: any) {
     const { name } = event.target
     const id: number = Number(name)
-    this.removeFruit(id)
-  }
-
-  async removeFruit(id: number) {
-    const deleteData = { params: { id: id } }
-    try {
-      return await axios.delete("/fruit-api/delete", deleteData)
-    }
-    catch (error) {
-      handleError(error)
-    }
-    finally {
-      await this.getFruitList()
-    }
+    const res = await api.deleteFruit(id)
+    res !== 200 && handleError("handleFormSubmit")
+    await this.getFruitList()
   }
 
   resetForm() {
     this.setState(prevState => ({
       newFruit: { ...prevState.newFruit, name: "" }
     }))
-  }
-
-  updateFruit(id = 0, best = false) {
-    const fruit = { id: id, value: best }
-    try {
-      return axios.put("/fruit-api/update", fruit)
-    }
-    catch (error) {
-      handleError(error)
-    }
-    finally {
-      this.getFruitList()
-    }
   }
 
   async componentDidMount() {

@@ -40,8 +40,8 @@ router.post("/new", function(req, res) {
 
 router.put("/update", function(req, res) {
   try {
-    let index = fruitList.findIndex(i => i._id === req.body.id)
-    fruitList[index].best = req.body.value
+    let index = fruitList.findIndex(i => i._id === req.body._id)
+    fruitList[index].best = req.body.best
     res.end("Yes")
   } catch (error) {
     console.log(error, "put")
