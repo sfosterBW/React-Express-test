@@ -1,20 +1,13 @@
-//Libraries
 import React, { Component } from 'react'
-//Helpers
 import * as api from '../api'
-//Styles
-import './App.css';
-//Types
 import { Fruit, NewFruit } from './interfaces'
-//Components
+import './App.css';
 import Form from './Form'
 import Modal from './Modal'
 import Row from './Row'
 import Table from './Table'
 
-interface Props {
-  title: string;
-}
+interface Props { }
 
 interface State {
   fruitList: Fruit[]
@@ -45,11 +38,12 @@ export default class App extends Component<Props, State> {
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.handleRemoveSubmit = this.handleRemoveSubmit.bind(this)
     this.resetForm = this.resetForm.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
   }
 
   //Convert to it's own child component
   displayFruitList(best: boolean) {
-    const {fruitList} = this.state
+    const { fruitList } = this.state
     return fruitList
       .filter((i: Fruit) => i.best === best)
       .map((i: Fruit) =>
@@ -62,8 +56,7 @@ export default class App extends Component<Props, State> {
 
   async getFruitList() {
     const res: any = await api.getFruitList()
-    const fruitList: Fruit[] = res.data
-    this.setState({ fruitList: fruitList })
+    this.setState({ fruitList: res.data })
     res.status !== 200 && handleError("getFruitList")
   }
 
@@ -82,11 +75,7 @@ export default class App extends Component<Props, State> {
     const { name, value, checked } = event.target
     const { newFruit } = this.state
     let updatedFruit = newFruit
-    if (name === "name") {
-      updatedFruit.name = value
-    } else if (name === "best") {
-      updatedFruit.best = checked
-    }
+    name === "best" ? updatedFruit.best = checked : updatedFruit.name = value
     this.setState({ newFruit: updatedFruit })
   }
 
@@ -95,12 +84,8 @@ export default class App extends Component<Props, State> {
     const { newFruit } = this.state
     if (newFruit.name !== "") {
       const res = await api.createFruit(newFruit)
-      if (res === 200) {
-        this.resetForm()
-        await this.getFruitList()
-      } else {
-        handleError("handleFormSubmit")
-      }
+      res === 200 ? this.resetForm() : handleError("handleFormSubmit")
+      await this.getFruitList()
     } else {
       alert("Put in a name. You didn't put in a name. Why not?")
     }
@@ -118,6 +103,12 @@ export default class App extends Component<Props, State> {
     this.setState(prevState => ({
       newFruit: { ...prevState.newFruit, name: "" }
     }))
+  }
+
+  toggleModal(event: any) {
+    event.preventDefault()
+    const { modal } = this.state
+    this.setState({ modal: !modal })
   }
 
   async componentDidMount() {
@@ -156,11 +147,7 @@ export default class App extends Component<Props, State> {
             rows={this.displayFruitList(false)}
             title="False table" />
         </header>
-        <button onClick={
-          () => this.setState(prevState => ({
-            modal: !prevState.modal
-          }))
-        }>
+        <button onClick={(event) => { this.toggleModal(event) }}>
           Show Modal
         </button>
         {modal ? displayModal : <p>No modal</p>}

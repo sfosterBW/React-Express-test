@@ -25,7 +25,8 @@ const Form: FC<Props> = ({ best, name, onChange, onClick }) => {
           checked={best}
           name="best"
           onChange={onChange}
-          type="checkbox" />
+          type="checkbox"
+          value={best.toString()} />
       </div>
       <button onClick={onClick}>Add new fruit</button>
     </form>

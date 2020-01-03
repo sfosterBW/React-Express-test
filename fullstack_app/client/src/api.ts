@@ -14,7 +14,8 @@ export async function getFruitList() {
   } catch (error) {
     const emptyList: Fruit[] = []
     handleError(error)
-    return emptyList
+    const result = {status: 500, data: emptyList}
+    return result
   }
 }
 
