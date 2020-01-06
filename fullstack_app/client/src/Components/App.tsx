@@ -8,14 +8,14 @@ import Modal from './Modal'
 import Row from './Row'
 import Table from './Table'
 
-
+const emptyNewFruit: NewFruit = {name: "", best: false}
 
 function App(): JSX.Element{
 
   const [alertToggle, setAlertToggle] = useState<boolean>(false)
   const [editFruit, setEditFruit] = useState<Fruit | null>(null)
   const [fruitList, setFruitList] = useState<Array<Fruit>>([])
-  const [newFruit, setNewFruit] = useState<NewFruit>({ name: "", best: false })
+  const [newFruit, setNewFruit] = useState<NewFruit>(emptyNewFruit)
   const [modalToggle, setModalToggle] = useState<boolean>(false)
 
   useEffect(() => {
@@ -49,8 +49,7 @@ function App(): JSX.Element{
     if (fruit) {
       fruit.best = !fruit.best
       const res = await api.updateFruit(fruit)
-      res !== 200 && handleError("handleBestChange")
-      getFruitList()
+      res === 200 ? getFruitList() : handleError("handleBestChange")
     } else {
       alert("That fruit doesn't seem to exist")
     }
@@ -63,12 +62,7 @@ function App(): JSX.Element{
 
   const handleFormChange = (event: any) => {
     const { name, value, checked } = event.target
-    let updateValue = ""
-    if(name === "best") {
-      updateValue = checked
-    } else {
-      updateValue = value
-    }
+    let updateValue = (name === "best") ? checked : value
     setNewFruit((newFruit) => ({...newFruit, [name]: updateValue}))
   }
 
@@ -85,15 +79,12 @@ function App(): JSX.Element{
 
   const handleRemoveSubmit = async (event: any, id: number) => {
     event.preventDefault()
-    const res = await api.deleteFruit(id)
-    res !== 200 && handleError("handleFormSubmit")
-    await getFruitList()
+    const res: number = await api.deleteFruit(id)
+    res === 200 ? await getFruitList() : handleError("handleFormSubmit")
   }
 
   const resetForm = () => {
-    let updateFruit = newFruit
-    updateFruit.name = ""
-    setNewFruit(updateFruit)
+    setNewFruit(emptyNewFruit)
   }
 
   const displayAlert =
