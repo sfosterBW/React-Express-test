@@ -13,6 +13,7 @@ import Table from './Table'
 function App(): JSX.Element{
 
   const [alertToggle, setAlertToggle] = useState<boolean>(false)
+  const [editFruit, setEditFruit] = useState<Fruit | null>(null)
   const [fruitList, setFruitList] = useState<Array<Fruit>>([])
   const [newFruit, setNewFruit] = useState<NewFruit>({ name: "", best: false })
   const [modalToggle, setModalToggle] = useState<boolean>(false)
@@ -31,7 +32,10 @@ function App(): JSX.Element{
           fruit={i}
           handleRemove={(event) => { handleRemoveSubmit(event, i._id) }}
           handleEdit={(event) => { handleBestChange(event, i._id) }}
-          openModal={() => { setModalToggle(true) }} />)
+          openModal={() => {
+            setModalToggle(true)
+            setEditFruit(i)
+          }} />)
   }
 
   const getFruitList = async () => {
@@ -99,8 +103,8 @@ function App(): JSX.Element{
 
   const displayModal = <Modal
       form={<Form
-        best={newFruit.best}
-        name={newFruit.name}
+        best={editFruit ? editFruit.best : false}
+        name={editFruit ? editFruit.name : ""}
         handleChange={handleFormChange}
         handleSubmit={(event) => { handleFormSubmit(event) }} />}
       onClose={() => { setModalToggle(false) }}
