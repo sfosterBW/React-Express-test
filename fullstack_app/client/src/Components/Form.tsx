@@ -3,11 +3,11 @@ import React, { FC } from 'react'
 interface Props {
   best: boolean
   name: string
-  onChange: (event: any) => void
+  handleChange: (event: any) => void
   handleSubmit: (event: any) => void
 }
 
-const Form: FC<Props> = ({ best, name, onChange, handleSubmit }) => {
+const Form: FC<Props> = ({ best, name, handleChange, handleSubmit }) => {
   return (
     <form className="fruit-form" onSubmit={handleSubmit}>
       <h2>List out your favourite fruit</h2>
@@ -15,7 +15,7 @@ const Form: FC<Props> = ({ best, name, onChange, handleSubmit }) => {
         <label htmlFor="name">Add a fruit:</label>
         <input
           name="name"
-          onChange={onChange}
+          onChange={handleChange}
           type="text"
           value={name} />
       </div>
@@ -24,7 +24,7 @@ const Form: FC<Props> = ({ best, name, onChange, handleSubmit }) => {
         <input
           checked={best}
           name="best"
-          onChange={onChange}
+          onChange={handleChange}
           type="checkbox"
           value={best.toString()} />
       </div>

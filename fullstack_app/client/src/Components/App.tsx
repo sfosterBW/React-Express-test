@@ -18,7 +18,6 @@ function App(): JSX.Element{
   const [modal, setModal] = useState<boolean>(false)
 
   useEffect(() => {
-    console.log("useEffect")
     getFruitList()
   }, [])
 
@@ -55,13 +54,13 @@ function App(): JSX.Element{
 
   const handleFormChange = (event: any) => {
     const { name, value, checked } = event.target
-    let updatedFruit = newFruit
+    let updateValue = ""
     if(name === "best") {
-      updatedFruit.best = checked
-    } else{
-      updatedFruit.name = value
+      updateValue = checked
+    } else {
+      updateValue = value
     }
-    setNewFruit(updatedFruit)
+    setNewFruit((newFruit) => ({...newFruit, [name]: updateValue}))
   }
 
   const handleFormSubmit = async (event: any) => {
@@ -88,16 +87,12 @@ function App(): JSX.Element{
     setNewFruit(updateFruit)
   }
 
-  const form =
-    <Form
-      best={newFruit.best}
-      name={newFruit.name}
-      onChange={handleFormChange}
-      handleSubmit={(event) => { handleFormSubmit(event) }} />
-
-  const displayModal =
-    <Modal
-      form={form}
+  const displayModal = <Modal
+      form={<Form
+        best={newFruit.best}
+        name={newFruit.name}
+        handleChange={handleFormChange}
+        handleSubmit={(event) => { handleFormSubmit(event) }} />}
       onClose={() => { setModal(false) }}
       title="This is a modal" />
 
@@ -108,7 +103,7 @@ function App(): JSX.Element{
         <Form
           best={newFruit.best}
           name={newFruit.name}
-          onChange={(event) => {handleFormChange(event)}}
+          handleChange={(event) => {handleFormChange(event)}}
           handleSubmit={(event) => { handleFormSubmit(event) }} />
         <Table
           rows={displayFruitList(true)}
