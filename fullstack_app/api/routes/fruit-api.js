@@ -21,8 +21,9 @@ class Fruit {
 
 router.get("/list", function(req, res, next) {
   try {
-    res.send(fruitList);
-  } catch (error) {
+    res.status(200).send(fruitList);
+  }
+  catch (error) {
     next(error)
   }
 });
@@ -43,7 +44,8 @@ router.put("/update", function(req, res, next) {
     let index = fruitList.findIndex(i => i._id === req.body._id)
     fruitList[index].best = req.body.best
     res.status(200).end()
-  } catch (error) {
+  }
+  catch (error) {
     next(error)
   }
 });
@@ -53,7 +55,8 @@ router.delete("/delete", function(req, res, next) {
     let index = fruitList.findIndex(i => i._id == req.query.id)
     fruitList.splice(index,1)
     res.status(200).end()
-  } catch (error) {
+  }
+  catch (error) {
     next(error)
   }
 });

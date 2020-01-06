@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react'
 import * as api from '../api'
 import { Fruit, NewFruit } from './interfaces'
 import './App.css'
+import Alert from './Alert'
 import Form from './Form'
 import Modal from './Modal'
 import Row from './Row'
 import Table from './Table'
 
-function handleError(error: any) {
-  console.log(error)
-}
+
 
 function App(): JSX.Element{
 
+  const [alertToggle, setAlertToggle] = useState<boolean>(false)
   const [fruitList, setFruitList] = useState<Array<Fruit>>([])
   const [newFruit, setNewFruit] = useState<NewFruit>({ name: "", best: false })
-  const [modal, setModal] = useState<boolean>(false)
+  const [modalToggle, setModalToggle] = useState<boolean>(false)
 
   useEffect(() => {
     getFruitList()
@@ -31,7 +31,7 @@ function App(): JSX.Element{
           fruit={i}
           handleRemove={(event) => { handleRemoveSubmit(event, i._id) }}
           handleEdit={(event) => { handleBestChange(event, i._id) }}
-          openModal={() => { setModal(true) }} />)
+          openModal={() => { setModalToggle(true) }} />)
   }
 
   const getFruitList = async () => {
@@ -50,6 +50,11 @@ function App(): JSX.Element{
     } else {
       alert("That fruit doesn't seem to exist")
     }
+  }
+
+  const handleError = (error: any) => {
+    console.log(error)
+    setAlertToggle(true)
   }
 
   const handleFormChange = (event: any) => {
@@ -87,19 +92,25 @@ function App(): JSX.Element{
     setNewFruit(updateFruit)
   }
 
+  const displayAlert =
+    <Alert
+      onClose={() => {setAlertToggle(false)}}
+      title={String(alertToggle)} />
+
   const displayModal = <Modal
       form={<Form
         best={newFruit.best}
         name={newFruit.name}
         handleChange={handleFormChange}
         handleSubmit={(event) => { handleFormSubmit(event) }} />}
-      onClose={() => { setModal(false) }}
+      onClose={() => { setModalToggle(false) }}
       title="This is a modal" />
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Fruit dashboard</h1>
+        {alertToggle && displayAlert}
         <Form
           best={newFruit.best}
           name={newFruit.name}
@@ -112,7 +123,7 @@ function App(): JSX.Element{
           rows={displayFruitList(false)}
           title="False table" />
       </header>
-      {modal && displayModal}
+      {modalToggle && displayModal}
     </div>
   )
 }

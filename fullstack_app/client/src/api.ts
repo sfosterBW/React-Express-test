@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Fruit, NewFruit } from './Components/interfaces'
 
 function handleError(error: any) {
-  console.error(error)
+  return error.repsonse
 }
 
 export async function getFruitList() {
@@ -13,8 +13,8 @@ export async function getFruitList() {
     return result
   } catch (error) {
     const emptyList: Fruit[] = []
-    handleError(error)
-    const result = {status: 500, data: emptyList}
+    const result = {status: 500, data: emptyList, original: handleError(error)}
+    console.log(result)
     return result
   }
 }
