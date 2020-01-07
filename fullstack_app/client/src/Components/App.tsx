@@ -8,9 +8,9 @@ import Modal from './Modal'
 import Row from './Row'
 import Table from './Table'
 
-const emptyNewFruit: NewFruit = {name: "", best: false}
+const emptyNewFruit: NewFruit = { name: "", best: false }
 
-function App(): JSX.Element{
+function App(): JSX.Element {
 
   const [alertToggle, setAlertToggle] = useState<boolean>(false)
   const [editFruit, setEditFruit] = useState<Fruit | null>(null)
@@ -22,21 +22,6 @@ function App(): JSX.Element{
     getFruitList()
   }, [])
 
-  //Convert to it's own child component
-  const displayFruitList = (best: boolean) => {
-    return fruitList
-      .filter((i: Fruit) => i.best === best)
-      .map((i: Fruit) =>
-        <Row
-          key={`${i._id}${i.name}`}
-          fruit={i}
-          handleRemove={() => { handleRemoveSubmit(i._id) }}
-          handleEdit={() => { handleBestChange(i._id) }}
-          openModal={() => {
-            setModalToggle(true)
-            setEditFruit(i)
-          }} />)
-  }
 
   const getFruitList = async () => {
     let res = await api.getFruitList()
@@ -62,7 +47,7 @@ function App(): JSX.Element{
   const handleFormChange = (event: any) => {
     const { name, value, checked } = event.target
     let updateValue = (name === "best") ? checked : value
-    setNewFruit((newFruit) => ({...newFruit, [name]: updateValue}))
+    setNewFruit((newFruit) => ({ ...newFruit, [name]: updateValue }))
   }
 
   const handleFormSubmit = async (event: any) => {
@@ -87,17 +72,32 @@ function App(): JSX.Element{
 
   const displayAlert =
     <Alert
-      onClose={() => {setAlertToggle(false)}}
+      onClose={() => { setAlertToggle(false) }}
       title={String(alertToggle)} />
 
+  const displayFruitList = (best: boolean) => {
+    return fruitList
+      .filter((i: Fruit) => i.best === best)
+      .map((i: Fruit) =>
+        <Row
+          key={`${i._id}${i.name}`}
+          fruit={i}
+          handleRemove={() => { handleRemoveSubmit(i._id) }}
+          handleEdit={() => { handleBestChange(i._id) }}
+          openModal={() => {
+            setModalToggle(true)
+            setEditFruit(i)
+          }} />)
+  }
+
   const displayModal = <Modal
-      form={<Form
-        best={editFruit ? editFruit.best : false}
-        name={editFruit ? editFruit.name : ""}
-        handleChange={handleFormChange}
-        handleSubmit={(event) => { handleFormSubmit(event) }} />}
-      onClose={() => { setModalToggle(false) }}
-      title="This is a modal" />
+    form={<Form
+      best={editFruit ? editFruit.best : false}
+      name={editFruit ? editFruit.name : ""}
+      handleChange={handleFormChange}
+      handleSubmit={(event) => { handleFormSubmit(event) }} />}
+    onClose={() => { setModalToggle(false) }}
+    title="This is a modal" />
 
   return (
     <div className="App">
@@ -107,7 +107,7 @@ function App(): JSX.Element{
         <Form
           best={newFruit.best}
           name={newFruit.name}
-          handleChange={(event) => {handleFormChange(event)}}
+          handleChange={(event) => { handleFormChange(event) }}
           handleSubmit={(event) => { handleFormSubmit(event) }} />
         <Table
           rows={displayFruitList(true)}
