@@ -3,9 +3,9 @@ import { Fruit } from './interfaces'
 
 interface Props {
   fruit: Fruit
-  handleEdit: (event: any) => void
-  handleRemove: (event: any) => void
-  openModal: (event: any) => void
+  handleEdit: () => void
+  handleRemove: () => void
+  openModal: () => void
 }
 
 const Row: FC<Props> = ({ fruit, handleEdit, handleRemove, openModal }) => {

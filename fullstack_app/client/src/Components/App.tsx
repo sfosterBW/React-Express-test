@@ -30,8 +30,8 @@ function App(): JSX.Element{
         <Row
           key={`${i._id}${i.name}`}
           fruit={i}
-          handleRemove={(event) => { handleRemoveSubmit(event, i._id) }}
-          handleEdit={(event) => { handleBestChange(event, i._id) }}
+          handleRemove={() => { handleRemoveSubmit(i._id) }}
+          handleEdit={() => { handleBestChange(i._id) }}
           openModal={() => {
             setModalToggle(true)
             setEditFruit(i)
@@ -43,8 +43,7 @@ function App(): JSX.Element{
     setFruitList(res.data)
   }
 
-  const handleBestChange = async (event: any, id: number) => {
-    event.preventDefault()
+  const handleBestChange = async (id: number) => {
     const fruit = fruitList.find(i => i._id === id)
     if (fruit) {
       fruit.best = !fruit.best
@@ -56,7 +55,7 @@ function App(): JSX.Element{
   }
 
   const handleError = (error: any) => {
-    console.log(error)
+    console.error(error)
     setAlertToggle(true)
   }
 
@@ -77,8 +76,7 @@ function App(): JSX.Element{
     }
   }
 
-  const handleRemoveSubmit = async (event: any, id: number) => {
-    event.preventDefault()
+  const handleRemoveSubmit = async (id: number) => {
     const res: number = await api.deleteFruit(id)
     res === 200 ? await getFruitList() : handleError("handleFormSubmit")
   }
