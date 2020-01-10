@@ -39,10 +39,15 @@ function App(): JSX.Element {
     setAlertToggle(true)
   }
 
-  const handleSubmit = async (best: boolean, name: string) => {
-    const newFruit = {best: best, name: name}
-    const res = await api.createFruit(newFruit)
-    res === 200 ? getFruitList() : handleError("handleSubmit")
+  const handleSubmit = async (best: boolean, name: string, id: number) => {
+    if(id < 0) {
+      const newFruit = {best: best, name: name}
+      const res = await api.createFruit(newFruit)
+      res === 200 ? getFruitList() : handleError("handleSubmit")
+    } else {
+      //This will update an existing fruit in the future
+      console.log("Not yet")
+    }
   }
 
   const handleRemove = async (id: number) => {
@@ -68,7 +73,7 @@ function App(): JSX.Element {
   }
 
   const displayModal = <Modal
-    form={<Form handleSubmit={ handleSubmit} />}
+    form={<Form handleSubmit={ handleSubmit} id={0} />}
     onClose={() => { setModalToggle(false) }}
     title="This is a modal" />
 

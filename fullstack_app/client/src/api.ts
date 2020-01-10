@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { Fruit, NewFruit } from './Components/interfaces'
+import { Fruit } from './Components/interfaces'
 
 function handleError(error: any) {
+  console.log(error)
   return error.repsonse
 }
 
@@ -14,12 +15,11 @@ export async function getFruitList() {
   } catch (error) {
     const emptyList: Fruit[] = []
     const result = {status: 500, data: emptyList, original: handleError(error)}
-    console.log(result)
     return result
   }
 }
 
-export async function createFruit(fruit: NewFruit) {
+export async function createFruit(fruit: {name: string, best: boolean}) {
     try {
       const response = await axios.post("/fruit-api/new", { new: fruit })
       return response.status
