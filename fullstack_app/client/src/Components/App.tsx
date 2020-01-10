@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import * as api from '../api'
-import { Fruit, NewFruit } from './interfaces'
+import { Fruit } from './interfaces'
 import './App.css'
 import Alert from './Alert'
 import Form from './Form'
@@ -8,20 +8,15 @@ import Modal from './Modal'
 import Row from './Row'
 import Table from './Table'
 
-const emptyNewFruit: NewFruit = { name: "", best: false }
-
 function App(): JSX.Element {
 
   const [alertToggle, setAlertToggle] = useState<boolean>(false)
-  const [editFruit, setEditFruit] = useState<Fruit | null>(null)
   const [fruitList, setFruitList] = useState<Array<Fruit>>([])
-  const [newFruit, setNewFruit] = useState<NewFruit>(emptyNewFruit)
   const [modalToggle, setModalToggle] = useState<boolean>(false)
 
   useEffect(() => {
     getFruitList()
   }, [])
-
 
   const getFruitList = async () => {
     let res = await api.getFruitList()
@@ -44,17 +39,12 @@ function App(): JSX.Element {
     setAlertToggle(true)
   }
 
-  const handleFormChange = (event: any) => {
-    const { name, value, checked } = event.target
-    let updateValue = (name === "best") ? checked : value
-    setNewFruit((newFruit) => ({ ...newFruit, [name]: updateValue }))
-  }
-
-  const handleFormSubmit = async (event: any) => {
+  const handleFormSubmit = async (event: any, best: boolean, name: string) => {
     event.preventDefault()
-    if (newFruit.name !== "") {
+    if (name !== "") {
+      const newFruit = {best: best, name: name}
       const res = await api.createFruit(newFruit)
-      res === 200 ? resetForm() : handleError("handleFormSubmit")
+      res !== 200 && handleError("handleFormSubmit")
       await getFruitList()
     } else {
       alert("Put in a name. You didn't put in a name. Why not?")
@@ -64,10 +54,6 @@ function App(): JSX.Element {
   const handleRemoveSubmit = async (id: number) => {
     const res: number = await api.deleteFruit(id)
     res === 200 ? await getFruitList() : handleError("handleFormSubmit")
-  }
-
-  const resetForm = () => {
-    setNewFruit(emptyNewFruit)
   }
 
   const displayAlert =
@@ -84,18 +70,11 @@ function App(): JSX.Element {
           fruit={i}
           handleRemove={() => { handleRemoveSubmit(i._id) }}
           handleEdit={() => { handleBestChange(i._id) }}
-          openModal={() => {
-            setModalToggle(true)
-            setEditFruit(i)
-          }} />)
+          openModal={() => {setModalToggle(true)}} />)
   }
 
   const displayModal = <Modal
-    form={<Form
-      best={editFruit ? editFruit.best : false}
-      name={editFruit ? editFruit.name : ""}
-      handleChange={handleFormChange}
-      handleSubmit={(event) => { handleFormSubmit(event) }} />}
+    form={<Form handleSubmit={ handleFormSubmit} />}
     onClose={() => { setModalToggle(false) }}
     title="This is a modal" />
 
@@ -104,11 +83,7 @@ function App(): JSX.Element {
       <header className="App-header">
         <h1>Fruit dashboard</h1>
         {alertToggle && displayAlert}
-        <Form
-          best={newFruit.best}
-          name={newFruit.name}
-          handleChange={(event) => { handleFormChange(event) }}
-          handleSubmit={(event) => { handleFormSubmit(event) }} />
+        <Form handleSubmit={handleFormSubmit} />
         <Table
           rows={displayFruitList(true)}
           title="True table" />
