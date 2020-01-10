@@ -39,16 +39,15 @@ function App(): JSX.Element {
     setAlertToggle(true)
   }
 
-  const handleFormSubmit = async (best: boolean, name: string) => {
+  const handleSubmit = async (best: boolean, name: string) => {
     const newFruit = {best: best, name: name}
     const res = await api.createFruit(newFruit)
-    res !== 200 && handleError("handleFormSubmit")
-    await getFruitList()
+    res === 200 ? getFruitList() : handleError("handleSubmit")
   }
 
-  const handleRemoveSubmit = async (id: number) => {
+  const handleRemove = async (id: number) => {
     const res: number = await api.deleteFruit(id)
-    res === 200 ? await getFruitList() : handleError("handleFormSubmit")
+    res === 200 ? await getFruitList() : handleError("handleSubmit")
   }
 
   const displayAlert =
@@ -63,13 +62,13 @@ function App(): JSX.Element {
         <Row
           key={`${i._id}${i.name}`}
           fruit={i}
-          handleRemove={() => { handleRemoveSubmit(i._id) }}
+          handleRemove={() => { handleRemove(i._id) }}
           handleEdit={() => { handleBestChange(i._id) }}
           openModal={() => {setModalToggle(true)}} />)
   }
 
   const displayModal = <Modal
-    form={<Form handleSubmit={ handleFormSubmit} />}
+    form={<Form handleSubmit={ handleSubmit} />}
     onClose={() => { setModalToggle(false) }}
     title="This is a modal" />
 
@@ -78,13 +77,9 @@ function App(): JSX.Element {
       <header className="App-header">
         <h1>Fruit dashboard</h1>
         {alertToggle && displayAlert}
-        <Form handleSubmit={handleFormSubmit} />
-        <Table
-          rows={displayFruitList(true)}
-          title="True table" />
-        <Table
-          rows={displayFruitList(false)}
-          title="False table" />
+        <Form handleSubmit={handleSubmit} />
+        <Table rows={displayFruitList(true)} title="True table" />
+        <Table rows={displayFruitList(false)} title="False table" />
       </header>
       {modalToggle && displayModal}
     </div>
