@@ -39,16 +39,11 @@ function App(): JSX.Element {
     setAlertToggle(true)
   }
 
-  const handleFormSubmit = async (event: any, best: boolean, name: string) => {
-    event.preventDefault()
-    if (name !== "") {
-      const newFruit = {best: best, name: name}
-      const res = await api.createFruit(newFruit)
-      res !== 200 && handleError("handleFormSubmit")
-      await getFruitList()
-    } else {
-      alert("Put in a name. You didn't put in a name. Why not?")
-    }
+  const handleFormSubmit = async (best: boolean, name: string) => {
+    const newFruit = {best: best, name: name}
+    const res = await api.createFruit(newFruit)
+    res !== 200 && handleError("handleFormSubmit")
+    await getFruitList()
   }
 
   const handleRemoveSubmit = async (id: number) => {

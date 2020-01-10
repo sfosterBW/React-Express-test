@@ -2,14 +2,14 @@ import React, { FC, useState } from 'react'
 
 interface Props {
   best?: boolean
-  handleSubmit: (event: any, best: boolean, name: string) => void
+  handleSubmit: (best: boolean, name: string) => void
   name?: string
 }
 
 const Form: FC<Props> = ({ best = false, handleSubmit, name = "" }) => {
 
-  const [nameInput, setName] = useState<string>(name)
   const [bestInput, setBest] = useState<boolean>(best)
+  const [nameInput, setName] = useState<string>(name)
 
   const reset = () => {
     setBest(best)
@@ -24,8 +24,13 @@ const Form: FC<Props> = ({ best = false, handleSubmit, name = "" }) => {
     }
 
   const submit = (event: any) => {
-    handleSubmit(event, bestInput, nameInput)
-    reset()
+    event.preventDefault()
+    if (nameInput.length > 0) {
+      handleSubmit(bestInput, nameInput)
+      reset()
+    } else {
+      alert("You need to add a name")
+    }
   }
 
   return (
