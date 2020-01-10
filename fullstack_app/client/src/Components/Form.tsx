@@ -11,6 +11,11 @@ const Form: FC<Props> = ({ best = false, handleSubmit, name = "" }) => {
   const [nameInput, setName] = useState<string>(name)
   const [bestInput, setBest] = useState<boolean>(best)
 
+  const reset = () => {
+    setBest(best)
+    setName(name)
+  }
+
   const setter = (set: any) =>
     (event: any) => {
       const { checked, value } = event.target
@@ -20,8 +25,7 @@ const Form: FC<Props> = ({ best = false, handleSubmit, name = "" }) => {
 
   const submit = (event: any) => {
     handleSubmit(event, bestInput, nameInput)
-    setBest(best)
-    setName(name)
+    reset()
   }
 
   return (
