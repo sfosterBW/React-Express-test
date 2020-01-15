@@ -11,9 +11,7 @@ interface Props {
 const Row: FC<Props> = ({ fruit, handleEdit, handleRemove, openModal }) => {
   return (
     <tr>
-      <td>
-        {fruit._id}
-      </td>
+      <td>{fruit._id}</td>
       <td>
         <label htmlFor={`${fruit._id}`}>{fruit.name}</label>
       </td>

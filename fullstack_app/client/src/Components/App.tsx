@@ -24,15 +24,11 @@ function App(): JSX.Element {
     setFruitList(res.data)
   }
 
-  const handleBestChange = async (id: number) => {
-    const fruit = fruitList.find(i => i._id === id)
-    if (fruit) {
-      fruit.best = !fruit.best
-      const res = await api.updateFruit(fruit)
-      res === 200 ? getFruitList() : handleError("handleBestChange")
-    } else {
-      alert("That fruit doesn't seem to exist")
-    }
+  const handleBestChange = async (fruit: Fruit) => {
+    let updatedFruit: Fruit = fruit
+    updatedFruit.best = !updatedFruit.best
+    const res = await api.updateFruit(updatedFruit)
+    res === 200 ? getFruitList() : handleError("handleBestChange")
   }
 
   const handleError = (error: any) => {
@@ -43,12 +39,10 @@ function App(): JSX.Element {
   const handleSubmit = async (id: number, name: string, best: boolean) => {
     if (id < 0) {
       const newFruit = { best: best, name: name }
-      console.log("I did a create", newFruit)
       const res = await api.createFruit(newFruit)
       res === 200 ? getFruitList() : handleError("handleSubmit add")
     } else if (id >= 0) {
       const updatedFruit = { _id: id, name: name, best: best }
-      console.log("I did an update", updatedFruit)
       const res = await api.updateFruit(updatedFruit)
       res === 200 ? getFruitList() : handleError("handleSubmit update")
     } else {
@@ -57,8 +51,8 @@ function App(): JSX.Element {
     setModalToggle(false)
   }
 
-  const handleRemove = async (id: number) => {
-    const res: number = await api.deleteFruit(id)
+  const handleRemove = async (fruit: Fruit) => {
+    const res: number = await api.deleteFruit(fruit._id)
     res === 200 ? await getFruitList() : handleError("handleSubmit")
   }
 
@@ -74,8 +68,8 @@ function App(): JSX.Element {
         <Row
           key={`${i._id}${i.name}`}
           fruit={i}
-          handleRemove={() => { handleRemove(i._id) }}
-          handleEdit={() => { handleBestChange(i._id) }}
+          handleRemove={() => { handleRemove(i) }}
+          handleEdit={() => { handleBestChange(i) }}
           openModal={() => {
             setModalToggle(true)
             setModalFruit(i)
@@ -83,7 +77,7 @@ function App(): JSX.Element {
   }
 
   const displayModal = () => {
-    if(modalFruit){
+    if (modalFruit) {
       return (
         <Modal
           form={<Form

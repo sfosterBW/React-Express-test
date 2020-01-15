@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 
 interface Props {
   best?: boolean
-  handleSubmit: (id: number, name: string, best: boolean  ) => void
+  handleSubmit: (id: number, name: string, best: boolean) => void
   id?: number
   name?: string
 }
