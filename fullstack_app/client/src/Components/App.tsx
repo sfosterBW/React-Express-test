@@ -13,6 +13,7 @@ function App(): JSX.Element {
   const [alertToggle, setAlertToggle] = useState<boolean>(false)
   const [fruitList, setFruitList] = useState<Array<Fruit>>([])
   const [modalToggle, setModalToggle] = useState<boolean>(false)
+  const [modalFruit, setModalFruit] = useState<Fruit>()
 
   useEffect(() => {
     getFruitList()
@@ -39,15 +40,21 @@ function App(): JSX.Element {
     setAlertToggle(true)
   }
 
-  const handleSubmit = async (best: boolean, name: string, id: number) => {
-    if(id < 0) {
-      const newFruit = {best: best, name: name}
+  const handleSubmit = async (id: number, name: string, best: boolean) => {
+    if (id < 0) {
+      const newFruit = { best: best, name: name }
+      console.log("I did a create", newFruit)
       const res = await api.createFruit(newFruit)
-      res === 200 ? getFruitList() : handleError("handleSubmit")
+      res === 200 ? getFruitList() : handleError("handleSubmit add")
+    } else if (id >= 0) {
+      const updatedFruit = { _id: id, name: name, best: best }
+      console.log("I did an update", updatedFruit)
+      const res = await api.updateFruit(updatedFruit)
+      res === 200 ? getFruitList() : handleError("handleSubmit update")
     } else {
-      //This will update an existing fruit in the future
-      console.log("Not yet")
+      console.log("handle submit unexpected error")
     }
+    setModalToggle(false)
   }
 
   const handleRemove = async (id: number) => {
@@ -69,13 +76,28 @@ function App(): JSX.Element {
           fruit={i}
           handleRemove={() => { handleRemove(i._id) }}
           handleEdit={() => { handleBestChange(i._id) }}
-          openModal={() => {setModalToggle(true)}} />)
+          openModal={() => {
+            setModalToggle(true)
+            setModalFruit(i)
+          }} />)
   }
 
-  const displayModal = <Modal
-    form={<Form handleSubmit={ handleSubmit} id={0} />}
-    onClose={() => { setModalToggle(false) }}
-    title="This is a modal" />
+  const displayModal = () => {
+    if(modalFruit){
+      return (
+        <Modal
+          form={<Form
+            handleSubmit={handleSubmit}
+            id={modalFruit._id}
+            name={modalFruit.name}
+            best={modalFruit.best} />}
+          onClose={() => { setModalToggle(false) }}
+          title="This is a modal" />
+      )
+    } else {
+      console.log("No modal fruit defined yet")
+    }
+  }
 
   return (
     <div className="App">
@@ -86,7 +108,7 @@ function App(): JSX.Element {
         <Table rows={displayFruitList(true)} title="True table" />
         <Table rows={displayFruitList(false)} title="False table" />
       </header>
-      {modalToggle && displayModal}
+      {modalToggle && displayModal()}
     </div>
   )
 }
