@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import * as api from '../api'
-import { Fruit } from './interfaces'
+import { Fruit } from '../interfaces'
 import './App.css'
 import Alert from './Alert'
 import Form from './Form'
