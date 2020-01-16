@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { Fruit } from './Components/interfaces'
+import { Fruit, FruitResponse } from './Components/interfaces'
+
+axios.defaults.baseURL = '/fruit-api/'
 
 function handleError(error: any) {
   console.log(error)
@@ -8,7 +10,7 @@ function handleError(error: any) {
 
 export async function getFruitList() {
   try {
-    const response = await axios.get("/fruit-api/list")
+    const response = await axios.get("list")
     const fruitList: Fruit[] = response.data
     const result = {status: response.status, data: fruitList}
     return result
@@ -21,7 +23,7 @@ export async function getFruitList() {
 
 export async function createFruit(fruit: {name: string, best: boolean}) {
     try {
-      const response = await axios.post("/fruit-api/new", { new: fruit })
+      const response: FruitResponse = await axios.post('new',{ new: fruit })
       return response.status
     }
     catch (error) {
@@ -32,7 +34,7 @@ export async function createFruit(fruit: {name: string, best: boolean}) {
 
 export async function updateFruit(fruit: Fruit) {
   try {
-    const response = await axios.put("/fruit-api/update", fruit)
+    const response: FruitResponse = await axios.put('update', fruit)
     return response.status
   }
   catch (error) {
@@ -44,7 +46,7 @@ export async function updateFruit(fruit: Fruit) {
 export async function deleteFruit(id: number) {
   const deleteData = { params: { id: id } }
   try {
-    const response = await axios.delete("/fruit-api/delete", deleteData)
+    const response: FruitResponse = await axios.delete('delete',  deleteData)
     return response.status
   }
   catch (error) {
