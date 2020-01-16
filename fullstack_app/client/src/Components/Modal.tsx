@@ -2,11 +2,12 @@ import React, { FC, ReactNode } from 'react'
 
 interface Props {
   form: ReactNode
-  onClose: (event: any) => void
+  onClose: () => void
   title: string
 }
 
 const Modal: FC<Props> = ({ form, onClose, title }) => {
+
   return (
     <div className="modal-wrapper">
       <div className="modal">

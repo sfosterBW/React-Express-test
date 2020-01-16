@@ -12,3 +12,5 @@ export interface FruitResponse {
   config: object
   request: XMLHttpRequest
 }
+
+export type InputType = "checkbox" | "text"
