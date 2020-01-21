@@ -23,7 +23,7 @@ export async function getFruitList() {
 
 export async function createFruit(fruit: { name: string, best: boolean }) {
   try {
-    const response: any = await axios.post('new', { new: fruit })
+    const response = await axios.post('new', { new: fruit })
     return response.status
   }
   catch (error) {
@@ -34,7 +34,7 @@ export async function createFruit(fruit: { name: string, best: boolean }) {
 
 export async function updateFruit(fruit: IFruit) {
   try {
-    const response: any = await axios.put('update', fruit)
+    const response = await axios.put('update', fruit)
     return response.status
   }
   catch (error) {
@@ -46,7 +46,7 @@ export async function updateFruit(fruit: IFruit) {
 export async function deleteFruit(id: number) {
   const deleteData = { params: { id: id } }
   try {
-    const response: any = await axios.delete('delete', deleteData)
+    const response = await axios.delete('delete', deleteData)
     return response.status
   }
   catch (error) {
