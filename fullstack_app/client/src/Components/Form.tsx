@@ -1,6 +1,7 @@
 import React, { FC, FormEvent, useState } from 'react'
 import { InputCheckbox, InputText } from './Input'
-import { IFruit } from '../interfaces'
+import { useField } from '../utils/hooks'
+import { IFruit } from '../utils/interfaces'
 
 interface Props {
   fruit?: IFruit
@@ -11,11 +12,10 @@ const Form: FC<Props> = ({
   fruit = { _id: -1, name: "", best: false }, handleSubmit }) => {
 
   const [bestInput, setBest] = useState<boolean>(fruit.best)
-  const [nameInput, setName] = useState<string>(fruit.name)
+  const name = useField(fruit.name, "text", "Add a fruit:", "name")
 
   const reset = () => {
     setBest(false)
-    setName("")
   }
 
   const setter = (set: any) =>
@@ -27,10 +27,10 @@ const Form: FC<Props> = ({
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (nameInput.length > 0) {
+    if (name.value.length > 0) {
       const updateFruit: IFruit = fruit
       updateFruit.best = bestInput
-      updateFruit.name = nameInput
+      updateFruit.name = name.value
       handleSubmit(updateFruit)
       reset()
     } else {
@@ -41,11 +41,7 @@ const Form: FC<Props> = ({
   return (
     <form className="fruit-form" onSubmit={(event) => submit(event)}>
       <h2>List out your favourite fruit</h2>
-      <InputText
-        handleChange={setter(setName)}
-        label="Add a fruit:"
-        name="name"
-        value={nameInput} />
+      <InputText {...name} />
       <InputCheckbox
         checked={bestInput}
         handleChange={setter(setBest)}

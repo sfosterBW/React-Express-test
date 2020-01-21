@@ -8,7 +8,7 @@ function handleError(error: any) {
   return error.repsonse
 }
 
-export async function fetchFruitList() {
+export async function fetchFruit() {
   try {
     const response = await axios.get("list")
     return response

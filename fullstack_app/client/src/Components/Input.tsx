@@ -11,12 +11,12 @@ export const InputText: FC<InputTextProps> = ({ handleChange, label, name, value
 
   return (
     <div className="input-wrapper">
-    <label htmlFor={name}>{label}</label>
-    <input
-      onChange={handleChange}
-      name={name}
-      type="text"
-      value={value} />
+      <label htmlFor={name}>{label}</label>
+      <input
+        onChange={handleChange}
+        name={name}
+        type="text"
+        value={value} />
     </div>
   )
 }
@@ -38,13 +38,13 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
 
   return (
     <div className="input-wrapper">
-    <label htmlFor={name}>{label}</label>
-    <input
-      checked={checked}
-      onChange={handleChange}
-      name={name}
-      type="checkbox"
-      value={value} />
+      <label htmlFor={name}>{label}</label>
+      <input
+        checked={checked}
+        onChange={handleChange}
+        name={name}
+        type="checkbox"
+        value={value} />
     </div>
   )
 }

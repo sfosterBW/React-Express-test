@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { createFruit, deleteFruit, fetchFruitList, updateFruit } from '../api'
-import { IFruit } from '../interfaces'
+import { createFruit, deleteFruit, fetchFruit, updateFruit } from '../utils/api'
+import { IFruit } from '../utils/interfaces'
 import './App.scss'
 import Alert from './Alert'
 import Form from './Form'
@@ -17,14 +17,14 @@ function App(): JSX.Element {
 
   useEffect(() => {
     async function initList() {
-      let defaultList = await fetchFruitList()
+      let defaultList = await fetchFruit()
       setFruitList(defaultList.data)
     }
     initList()
   }, [])
 
   const getFruitList = async () => {
-    const res = await fetchFruitList()
+    const res = await fetchFruit()
     res.status === 200 ? setFruitList(res.data) : handleError(res)
   }
 

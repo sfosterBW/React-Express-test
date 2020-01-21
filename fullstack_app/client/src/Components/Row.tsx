@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { IFruit } from '../interfaces'
+import { IFruit } from '../utils/interfaces'
 
 interface Props {
   fruit: IFruit
