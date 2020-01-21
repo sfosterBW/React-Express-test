@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import * as api from '../api'
-import { Fruit } from '../interfaces'
+import { IFruit } from '../interfaces'
 import './App.css'
 import Alert from './Alert'
 import Form from './Form'
@@ -11,9 +11,9 @@ import Table from './Table'
 function App(): JSX.Element {
 
   const [alertToggle, setAlertToggle] = useState<boolean>(false)
-  const [fruitList, setFruitList] = useState<Array<Fruit>>([])
+  const [fruitList, setFruitList] = useState<Array<IFruit>>([])
   const [modalToggle, setModalToggle] = useState<boolean>(false)
-  const [modalFruit, setModalFruit] = useState<Fruit>()
+  const [modalFruit, setModalFruit] = useState<IFruit>()
 
   useEffect(() => {
     getFruitList()
@@ -24,8 +24,8 @@ function App(): JSX.Element {
     setFruitList(res.data)
   }
 
-  const handleBestChange = async (fruit: Fruit) => {
-    let updatedFruit: Fruit = fruit
+  const handleBestChange = async (fruit: IFruit) => {
+    let updatedFruit = fruit
     updatedFruit.best = !updatedFruit.best
     const res = await api.updateFruit(updatedFruit)
     res === 200 ? getFruitList() : handleError("handleBestChange")
@@ -51,7 +51,7 @@ function App(): JSX.Element {
     setModalToggle(false)
   }
 
-  const handleRemove = async (fruit: Fruit) => {
+  const handleRemove = async (fruit: IFruit) => {
     const res: number = await api.deleteFruit(fruit._id)
     res === 200 ? await getFruitList() : handleError("handleSubmit")
   }
@@ -59,12 +59,12 @@ function App(): JSX.Element {
   const displayAlert =
     <Alert
       onClose={() => { setAlertToggle(false) }}
-      title={String(alertToggle)} />
+      message={String(alertToggle)} />
 
   const displayFruitList = (best: boolean) => {
     return fruitList
-      .filter((i: Fruit) => i.best === best)
-      .map((i: Fruit) =>
+      .filter((i: IFruit) => i.best === best)
+      .map((i: IFruit) =>
         <Row
           key={`${i._id}${i.name}`}
           fruit={i}

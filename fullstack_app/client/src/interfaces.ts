@@ -1,9 +1,9 @@
-export interface Fruit {
+export interface IFruit {
   _id: number
   name: string
   best: boolean
 }
 
-export interface FruitResponse {
+export interface IFruitResponse {
   status: number
 }

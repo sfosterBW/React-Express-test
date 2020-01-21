@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import { Fruit } from '../interfaces'
+import { IFruit } from '../interfaces'
 
 interface Props {
-  fruit: Fruit
+  fruit: IFruit
   handleEdit: () => void
   handleRemove: () => void
   openModal: () => void

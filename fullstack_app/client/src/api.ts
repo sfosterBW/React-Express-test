@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Fruit } from './interfaces'
+import { IFruit } from './interfaces'
 
 axios.defaults.baseURL = '/fruit-api/'
 
@@ -11,11 +11,11 @@ function handleError(error: any) {
 export async function getFruitList() {
   try {
     const response = await axios.get("list")
-    const fruitList: Fruit[] = response.data
+    const fruitList: IFruit[] = response.data
     const result = { status: response.status, data: fruitList }
     return result
   } catch (error) {
-    const emptyList: Fruit[] = []
+    const emptyList: IFruit[] = []
     const result = { status: 500, data: emptyList, original: handleError(error) }
     return result
   }
@@ -32,7 +32,7 @@ export async function createFruit(fruit: { name: string, best: boolean }) {
   }
 }
 
-export async function updateFruit(fruit: Fruit) {
+export async function updateFruit(fruit: IFruit) {
   try {
     const response: any = await axios.put('update', fruit)
     return response.status

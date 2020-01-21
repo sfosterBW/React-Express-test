@@ -2,13 +2,13 @@ import React, { FC } from 'react'
 
 interface Props {
   onClose: () => void
-  title: string
+  message: string
 }
 
-const Alert: FC<Props> = ({ onClose, title }) => {
+const Alert: FC<Props> = ({ onClose, message }) => {
   return (
     <div>
-      <p>{title}</p>
+      <p>{message}</p>
       <button onClick={onClose}>&times;</button>
     </div>
   )
