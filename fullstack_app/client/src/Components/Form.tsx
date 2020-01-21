@@ -1,21 +1,21 @@
 import React, { FC, FormEvent, useState } from 'react'
 import { InputCheckbox, InputText } from './Input'
+import { IFruit } from '../interfaces'
 
 interface Props {
-  best?: boolean
-  handleSubmit: (id: number, name: string, best: boolean) => void
-  id?: number
-  name?: string
+  fruit?: IFruit
+  handleSubmit: (fruit: IFruit) => void
 }
 
-const Form: FC<Props> = ({ best = false, handleSubmit, id = -1, name = "" }) => {
+const Form: FC<Props> = ({
+  fruit = { _id: -1, name: "", best: false }, handleSubmit }) => {
 
-  const [bestInput, setBest] = useState<boolean>(best)
-  const [nameInput, setName] = useState<string>(name)
+  const [bestInput, setBest] = useState<boolean>(fruit.best)
+  const [nameInput, setName] = useState<string>(fruit.name)
 
   const reset = () => {
-    setBest(best)
-    setName(name)
+    setBest(false)
+    setName("")
   }
 
   const setter = (set: any) =>
@@ -28,7 +28,10 @@ const Form: FC<Props> = ({ best = false, handleSubmit, id = -1, name = "" }) => 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (nameInput.length > 0) {
-      handleSubmit(id, nameInput, bestInput)
+      const updateFruit: IFruit = fruit
+      updateFruit.best = bestInput
+      updateFruit.name = nameInput
+      handleSubmit(updateFruit)
       reset()
     } else {
       alert("You need to add a name")

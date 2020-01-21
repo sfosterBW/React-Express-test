@@ -8,16 +8,13 @@ function handleError(error: any) {
   return error.repsonse
 }
 
-export async function getFruitList() {
+export async function fetchFruitList() {
   try {
     const response = await axios.get("list")
-    const fruitList: IFruit[] = response.data
-    const result = { status: response.status, data: fruitList }
-    return result
-  } catch (error) {
-    const emptyList: IFruit[] = []
-    const result = { status: 500, data: emptyList, original: handleError(error) }
-    return result
+    return response
+  }
+  catch (error) {
+    return handleError(error)
   }
 }
 

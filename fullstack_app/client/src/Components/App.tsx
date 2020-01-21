@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import * as api from '../api'
+import { createFruit, deleteFruit, fetchFruitList, updateFruit } from '../api'
 import { IFruit } from '../interfaces'
 import './App.scss'
 import Alert from './Alert'
@@ -16,18 +16,22 @@ function App(): JSX.Element {
   const [modalFruit, setModalFruit] = useState<IFruit>()
 
   useEffect(() => {
-    getFruitList()
+    async function initList() {
+      let defaultList = await fetchFruitList()
+      setFruitList(defaultList.data)
+    }
+    initList()
   }, [])
 
   const getFruitList = async () => {
-    let res = await api.getFruitList()
-    setFruitList(res.data)
+    const res = await fetchFruitList()
+    res.status === 200 ? setFruitList(res.data) : handleError(res)
   }
 
   const handleBestChange = async (fruit: IFruit) => {
     let updatedFruit = fruit
     updatedFruit.best = !updatedFruit.best
-    const res = await api.updateFruit(updatedFruit)
+    const res = await updateFruit(updatedFruit)
     res === 200 ? getFruitList() : handleError("handleBestChange")
   }
 
@@ -36,14 +40,12 @@ function App(): JSX.Element {
     setAlertToggle(true)
   }
 
-  const handleSubmit = async (id: number, name: string, best: boolean) => {
-    if (id < 0) {
-      const newFruit = { best: best, name: name }
-      const res = await api.createFruit(newFruit)
+  const handleSubmit = async (fruit: IFruit) => {
+    if (fruit._id < 0) {
+      const res = await createFruit(fruit)
       res === 200 ? getFruitList() : handleError("handleSubmit add")
-    } else if (id >= 0) {
-      const updatedFruit = { _id: id, name: name, best: best }
-      const res = await api.updateFruit(updatedFruit)
+    } else if (fruit._id >= 0) {
+      const res = await updateFruit(fruit)
       res === 200 ? getFruitList() : handleError("handleSubmit update")
     } else {
       console.log("handle submit unexpected error")
@@ -52,7 +54,7 @@ function App(): JSX.Element {
   }
 
   const handleRemove = async (fruit: IFruit) => {
-    const res: number = await api.deleteFruit(fruit._id)
+    const res: number = await deleteFruit(fruit._id)
     res === 200 ? await getFruitList() : handleError("handleSubmit")
   }
 
@@ -80,11 +82,7 @@ function App(): JSX.Element {
     if (modalFruit) {
       return (
         <Modal
-          form={<Form
-            handleSubmit={handleSubmit}
-            id={modalFruit._id}
-            name={modalFruit.name}
-            best={modalFruit.best} />}
+          form={<Form handleSubmit={handleSubmit} fruit={modalFruit} />}
           onClose={() => { setModalToggle(false) }}
           title="This is a modal" />
       )
