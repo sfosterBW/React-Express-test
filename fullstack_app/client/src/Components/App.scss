@@ -1,0 +1,121 @@
+//Global variables
+$primary-background: #282c34;
+$primary-text: white;
+$primary-link-text: #09d3ac;
+$primary-shadow: rgba(0,0,0,0.2);
+$secondary-background: white;
+$secondary-text: black;
+$secondary-dark-border: black;
+$secondary-light-border: lightgrey;
+
+.App {
+  text-align: center;
+
+  .App-header {
+    background-color: $primary-background;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: $primary-text;
+
+    form {
+      background: grey;
+    }
+  }
+}
+
+.App-link {
+  color: $primary-link-text;
+}
+
+.fruit-form {
+  padding: 5vmin 8vmin;
+  border-radius: 0.5vmin;
+
+  button {
+    display: flex;
+    margin: 0 auto;
+    padding: 2vmin 4vmin;
+    font-size: 2vmin;
+    border-radius: 0.5vmin;
+  }
+}
+
+.input-wrapper {
+  display: flex;
+  margin-bottom: 2vmin;
+
+  label {
+    display: inline-block;
+    width: 20vmin;
+    margin-right: 2vmin;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  input[type=text] {
+    height: 4vmin;
+    font-size: 3vmin;
+  }
+
+  input[type=radio] {
+    margin-left: 1vmin;
+    margin-right: 4vmin;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  background-color: $secondary-background;
+  color: black;
+  margin: 4vmin;
+
+  thead {
+    border-bottom: 1px solid $secondary-dark-border;
+  }
+
+  th, td {
+    min-width: 20vmin;
+    margin: 4vmin;
+    padding: 2vmin;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $secondary-light-border;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 12px;
+  }
+
+}
+
+.modal-wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  background: $primary-shadow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal {
+    position: relative;
+    border-radius: 5px;
+    background: $secondary-background;
+    color: $secondary-text;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 1.5vmin;
+    right: 0px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}

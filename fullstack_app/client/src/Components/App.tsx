@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import * as api from '../api'
 import { IFruit } from '../interfaces'
-import './App.css'
+import './App.scss'
 import Alert from './Alert'
 import Form from './Form'
 import Modal from './Modal'
