@@ -1,16 +1,24 @@
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './../App';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import React from 'react'
+import { mount, render, shallow } from 'enzyme'
+import renderer from 'react-test-renderer'
+import * as api from './../../utils/api'
 
-Enzyme.configure({ adapter: new Adapter() });
+import App from '../App'
 
-jest.mock('../App')
+jest.mock('./../../utils/api')
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+describe('the app component', () => {
+  it('shallow renders', () => {
+    const getSpy = jest.spyOn(api, 'fetchFruit')
+    const app = mount(<App />)
+    expect(app).toBeDefined()
+  })
+
+  it('renders the same as last time', () => {
+    const tree = renderer
+      .create(<App />)
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})

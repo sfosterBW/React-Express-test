@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { createFruit, deleteFruit, fetchFruit, updateFruit } from '../utils/api'
 import { IFruit } from '../utils/interfaces'
 import './App.scss'
@@ -8,7 +8,7 @@ import Modal from './Modal'
 import Row from './Row'
 import Table from './Table'
 
-function App(): JSX.Element {
+const App: FC = () => {
 
   const [alertToggle, setAlertToggle] = useState<boolean>(false)
   const [fruitList, setFruitList] = useState<Array<IFruit>>([])
@@ -32,7 +32,7 @@ function App(): JSX.Element {
     let updatedFruit = fruit
     updatedFruit.best = !updatedFruit.best
     const res = await updateFruit(updatedFruit)
-    res === 200 ? getFruitList() : handleError("handleBestChange")
+    res === 200 ? await getFruitList() : handleError("handleBestChange")
   }
 
   const handleError = (error: any) => {
@@ -46,7 +46,7 @@ function App(): JSX.Element {
       res === 200 ? getFruitList() : handleError("handleSubmit add")
     } else if (fruit._id >= 0) {
       const res = await updateFruit(fruit)
-      res === 200 ? getFruitList() : handleError("handleSubmit update")
+      res === 200 ? await getFruitList() : handleError("handleSubmit update")
     } else {
       console.log("handle submit unexpected error")
     }
@@ -88,6 +88,7 @@ function App(): JSX.Element {
       )
     } else {
       console.log("No modal fruit defined yet")
+      return null
     }
   }
 

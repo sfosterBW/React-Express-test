@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the InputCheckbox component renders the same as last time 1`] = `
+<div
+  className="input-wrapper"
+>
+  <label />
+  <input
+    onChange={[Function]}
+    type="checkbox"
+  />
+</div>
+`;
+
+exports[`the InputText component renders the same as last time 1`] = `
+<div
+  className="input-wrapper"
+>
+  <label />
+  <input
+    onChange={[Function]}
+    type="text"
+  />
+</div>
+`;

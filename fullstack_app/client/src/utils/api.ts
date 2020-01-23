@@ -14,7 +14,8 @@ export async function fetchFruit() {
     return response
   }
   catch (error) {
-    return handleError(error)
+    handleError(error)
+    return {status: 500, data: []}
   }
 }
 

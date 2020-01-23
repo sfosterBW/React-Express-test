@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the Row component renders the same as last time 1`] = `
+<tr>
+  <td>
+    <p>
+      1
+    </p>
+  </td>
+  <td>
+    <label
+      htmlFor="1"
+    >
+      apple
+    </label>
+  </td>
+  <td>
+    <p>
+      false
+    </p>
+  </td>
+  <td>
+    <input
+      checked={false}
+      name="1"
+      onChange={[Function]}
+      type="checkbox"
+      value={1}
+    />
+  </td>
+  <td>
+    <button
+      name="modal"
+      onClick={[Function]}
+      value="1"
+    >
+      Update
+    </button>
+  </td>
+  <td>
+    <button
+      name="remove"
+      onClick={[Function]}
+      value="1"
+    >
+      Remove
+    </button>
+  </td>
+</tr>
+`;

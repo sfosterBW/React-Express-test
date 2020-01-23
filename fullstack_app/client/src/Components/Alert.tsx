@@ -9,7 +9,7 @@ const Alert: FC<Props> = ({ onClose, message }) => {
   return (
     <div>
       <p>{message}</p>
-      <button onClick={onClose}>&times;</button>
+      <button onClick={() => onClose}>&times;</button>
     </div>
   )
 }
