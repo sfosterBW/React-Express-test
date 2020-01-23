@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the Alert component with props renders the same as last time with props 1`] = `
+<div>
+  <p>
+    Test message
+  </p>
+  <button
+    onClick={[Function]}
+  >
+    ×
+  </button>
+</div>
+`;
+
+exports[`the Alert component without props renders the same as last time without props 1`] = `
+<div>
+  <p>
+    
+  </p>
+  <button
+    onClick={[Function]}
+  >
+    ×
+  </button>
+</div>
+`;

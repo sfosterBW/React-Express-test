@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-  mount
-} from 'enzyme'
+import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
 
 import Alert from '../Alert'
@@ -10,15 +8,16 @@ describe('the Alert component', () => {
 
   describe('without props', () => {
 
-    const alertComponent = < Alert / >
+    const mockFunction = jest.fn()
+    const alertComponent = <Alert message={""} onClose={mockFunction()} />
 
-      it('renders on mount and has the right structure', () => {
-        const alert = mount(alertComponent)
-        expect(alert).toBeDefined()
-        expect(alert.find('div')).toHaveLength(1)
-        expect(alert.find('p')).toHaveLength(1)
-        expect(alert.find('button')).toHaveLength(1)
-      })
+    it('renders on mount and has the right structure', () => {
+      const alert = mount(alertComponent)
+      expect(alert).toBeDefined()
+      expect(alert.find('div')).toHaveLength(1)
+      expect(alert.find('p')).toHaveLength(1)
+      expect(alert.find('button')).toHaveLength(1)
+    })
 
     it('renders the same as last time without props', () => {
       const tree = renderer
@@ -32,14 +31,7 @@ describe('the Alert component', () => {
 
     const message = "Test message"
     const mockFunction = jest.fn()
-    const alertComponent = < Alert
-    message = {
-      message
-    }
-    onClose = {
-      mockFunction()
-    }
-    />
+    const alertComponent = <Alert message={message} onClose={mockFunction()} />
 
     it('renders on mount functions as expected', () => {
       const alert = mount(alertComponent)
