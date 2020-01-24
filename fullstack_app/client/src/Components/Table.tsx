@@ -20,7 +20,7 @@ const Table: FC<Props> = ({ rows, title }) => {
             <th>Remove</th>
           </tr>
         </thead>
-        <tbody>{rows}</tbody>
+        {rows}
       </table>
     </div>
   )

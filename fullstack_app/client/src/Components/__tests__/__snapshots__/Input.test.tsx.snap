@@ -4,10 +4,16 @@ exports[`the InputCheckbox component renders the same as last time 1`] = `
 <div
   className="input-wrapper"
 >
-  <label />
+  <label
+    htmlFor="This is a name"
+  >
+    This is a label
+  </label>
   <input
-    onChange={[Function]}
+    checked={false}
+    name="This is a name"
     type="checkbox"
+    value="false"
   />
 </div>
 `;
@@ -16,10 +22,15 @@ exports[`the InputText component renders the same as last time 1`] = `
 <div
   className="input-wrapper"
 >
-  <label />
+  <label
+    htmlFor="This is a name"
+  >
+    This is a label
+  </label>
   <input
-    onChange={[Function]}
+    name="This is a name"
     type="text"
+    value="This is a value"
   />
 </div>
 `;

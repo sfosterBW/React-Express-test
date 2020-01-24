@@ -24,17 +24,17 @@ const Row: FC<Props> = ({ fruit, handleEdit, handleRemove, openModal }) => {
         <input
           checked={fruit.best}
           name={`${fruit._id}`}
-          onChange={() => handleEdit}
+          onChange={handleEdit}
           type="checkbox"
           value={fruit._id} />
       </td>
       <td>
-        <button name="modal" onClick={() => openModal} value={`${fruit._id}`}>
+        <button name="modal" onClick={openModal} value={`${fruit._id}`}>
           Update
         </button>
       </td>
       <td>
-        <button name="remove" onClick={() => handleRemove} value={`${fruit._id}`}>
+        <button name="remove" onClick={handleRemove} value={`${fruit._id}`}>
           Remove
           </button>
       </td>

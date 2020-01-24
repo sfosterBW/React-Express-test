@@ -6,7 +6,7 @@ import Form from '../Form'
 
 describe('the Form component', () => {
 
-  describe('without props', () => {
+  describe('with default props', () => {
 
     const mockFunction = jest.fn()
     const formComponent = <Form handleSubmit={mockFunction()} />
@@ -21,6 +21,14 @@ describe('the Form component', () => {
       expect(form.find('button')).toHaveLength(1)
     })
 
+    it('functions properly with props', () => {
+      expect(form).toBeDefined()
+      expect(form.find('InputText').props().value).toEqual("")
+      expect(form.find('InputCheckbox').props().checked).toEqual(false)
+      form.find('button').simulate('click')
+      expect(mockFunction).toHaveBeenCalled()
+    })
+
     it('renders the same as last time', () => {
       const tree = renderer
         .create(formComponent)
@@ -30,7 +38,7 @@ describe('the Form component', () => {
 
   })
 
-  describe('with props', () => {
+  describe('with custom props', () => {
 
     const testFruit = { _id: 2, name: "Banana", best: true }
     const mockFunction = jest.fn()

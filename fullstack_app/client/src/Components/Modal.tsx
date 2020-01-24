@@ -13,7 +13,7 @@ const Modal: FC<Props> = ({ form, onClose, title }) => {
       <div className="modal">
         <h2>{title}</h2>
         {form}
-        <button className="closeButton" name="close" onClick={() => onClose}>
+        <button className="closeButton" name="close" onClick={onClose}>
           &times;
         </button>
       </div>

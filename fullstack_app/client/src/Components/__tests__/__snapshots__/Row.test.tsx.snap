@@ -23,7 +23,6 @@ exports[`the Row component renders the same as last time 1`] = `
     <input
       checked={false}
       name="1"
-      onChange={[Function]}
       type="checkbox"
       value={1}
     />
@@ -31,7 +30,6 @@ exports[`the Row component renders the same as last time 1`] = `
   <td>
     <button
       name="modal"
-      onClick={[Function]}
       value="1"
     >
       Update
@@ -40,7 +38,6 @@ exports[`the Row component renders the same as last time 1`] = `
   <td>
     <button
       name="remove"
-      onClick={[Function]}
       value="1"
     >
       Remove

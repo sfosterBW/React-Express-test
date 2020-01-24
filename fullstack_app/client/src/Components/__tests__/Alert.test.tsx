@@ -6,46 +6,28 @@ import Alert from '../Alert'
 
 describe('the Alert component', () => {
 
-  describe('without props', () => {
+  const message = "Test message"
+  const mockFunction = jest.fn()
+  const alertComponent = <Alert message={message} onClose={mockFunction()} />
+  const alert = mount(alertComponent)
 
-    const mockFunction = jest.fn()
-    const alertComponent = <Alert message={""} onClose={mockFunction()} />
-
-    it('renders on mount and has the right structure', () => {
-      const alert = mount(alertComponent)
-      expect(alert).toBeDefined()
-      expect(alert.find('div')).toHaveLength(1)
-      expect(alert.find('p')).toHaveLength(1)
-      expect(alert.find('button')).toHaveLength(1)
-    })
-
-    it('renders the same as last time without props', () => {
-      const tree = renderer
-        .create(alertComponent)
-        .toJSON()
-      expect(tree).toMatchSnapshot()
-    })
+  it('renders with the right structure', () => {
+    expect(alert).toBeDefined()
+    expect(alert.find('div')).toHaveLength(1)
+    expect(alert.find('p')).toHaveLength(1)
+    expect(alert.find('p').text()).toBe(message)
+    expect(alert.find('button')).toHaveLength(1)
   })
 
-  describe('with props', () => {
+  it('renders on mount functions as expected', () => {
+    alert.find('button').simulate('click')
+    expect(mockFunction).toHaveBeenCalled()
+  })
 
-    const message = "Test message"
-    const mockFunction = jest.fn()
-    const alertComponent = <Alert message={message} onClose={mockFunction()} />
-
-    it('renders on mount functions as expected', () => {
-      const alert = mount(alertComponent)
-      expect(alert).toBeDefined()
-      expect(alert.find('p').text()).toBe(message)
-      alert.find('button').simulate('click')
-      expect(mockFunction).toHaveBeenCalled()
-    })
-
-    it('renders the same as last time with props', () => {
-      const tree = renderer
-        .create(alertComponent)
-        .toJSON()
-      expect(tree).toMatchSnapshot()
-    })
+  it('renders the same as last time with props', () => {
+    const tree = renderer
+      .create(alertComponent)
+      .toJSON()
+    expect(tree).toMatchSnapshot()
   })
 })

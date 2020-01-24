@@ -64,7 +64,7 @@ const App: FC = () => {
       message={String(alertToggle)} />
 
   const displayFruitList = (best: boolean) => {
-    return fruitList
+    const fruitRows = fruitList
       .filter((i: IFruit) => i.best === best)
       .map((i: IFruit) =>
         <Row
@@ -76,6 +76,8 @@ const App: FC = () => {
             setModalToggle(true)
             setModalFruit(i)
           }} />)
+      const tableBody = <tbody>{fruitRows}</tbody>
+      return tableBody
   }
 
   const displayModal = () => {
