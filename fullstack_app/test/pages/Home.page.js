@@ -1,9 +1,5 @@
 module.exports = class HomePage {
 
-  checkReady() {
-    $('h1').waitForExist()
-  }
-
   get title() {
     return $('h1')
   }
@@ -25,7 +21,7 @@ module.exports = class HomePage {
   }
 
   createHomePage(){
-    this.checkReady()
+    console.log("This could create a homePage")
   }
 
 }

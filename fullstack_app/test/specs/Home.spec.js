@@ -4,11 +4,14 @@ const assert = require('assert')
 const homePage = new HomePage;
 
 describe('the homepage', () => {
-  before('loads', () => {
-    homePage.checkReady()
+  before('wait for app to spin up', () => {
+    browser.pause(6000) //Wait for server to spin up
+    browser.switchWindow('React App')
+    homePage.title.waitForExist()
   })
 
-  it('loads again', () => {
-    homePage.checkReady()
+  it('has a title', () => {
+    assert(homePage.title.getText() === "Fruit dashboard", 'Title is not right')
   })
+
 })
