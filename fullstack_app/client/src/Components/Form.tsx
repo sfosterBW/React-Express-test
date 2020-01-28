@@ -43,7 +43,7 @@ const Form: FC<Props> = ({
         checked={best}
         handleChange={setter(setBest)}
         label="Is it best?:"
-        name="name"
+        name="best"
         value={best.toString()} />
       <button>Add new fruit</button>
     </form>
