@@ -17,36 +17,31 @@ const App: FC = () => {
 
   useEffect(() => {
     async function initList() {
-      let defaultList = await fetchFruit()
-      setFruitList(defaultList.data)
+      const res = await fetchFruit()
+      setFruitList(res.data)
     }
     initList()
   }, [])
 
-  const getFruitList = async () => {
-    const res = await fetchFruit()
-    res.status === 200 ? setFruitList(res.data) : handleError(res)
-  }
-
   const handleBestChange = async (fruit: IFruit) => {
-    let updatedFruit = fruit
+    const updatedFruit = fruit
     updatedFruit.best = !updatedFruit.best
     const res = await updateFruit(updatedFruit)
-    res === 200 ? await getFruitList() : handleError("handleBestChange")
+    res.status === 200 ? setFruitList(res.data) : handleError("handleBestChange")
   }
 
   const handleError = (error: any) => {
-    console.error(error)
+    console.error("App", error)
     setAlertToggle(true)
   }
 
   const handleSubmit = async (fruit: IFruit) => {
     if (fruit._id < 0) {
       const res = await createFruit(fruit)
-      res === 200 ? getFruitList() : handleError("handleSubmit add")
+      res.status === 200 ? setFruitList(res.data) : handleError("handleSubmit add")
     } else if (fruit._id >= 0) {
       const res = await updateFruit(fruit)
-      res === 200 ? await getFruitList() : handleError("handleSubmit update")
+      res.status === 200 ? setFruitList(res.data) : handleError("handleSubmit update")
     } else {
       console.log("handle submit unexpected error")
     }
@@ -54,8 +49,8 @@ const App: FC = () => {
   }
 
   const handleRemove = async (fruit: IFruit) => {
-    const res: number = await deleteFruit(fruit._id)
-    res === 200 ? await getFruitList() : handleError("handleSubmit")
+    const res = await deleteFruit(fruit._id)
+    res.status === 200 ? setFruitList(res.data) : handleError("handleSubmit")
   }
 
   const displayAlert =
