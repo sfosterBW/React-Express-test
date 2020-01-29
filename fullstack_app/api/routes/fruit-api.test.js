@@ -25,6 +25,7 @@ describe('post a new fruit', () => {
       .post('/fruit-api/new')
       .send({ new: addFruit })
     expect(res.status).toEqual(200)
+    expect(res.body).toEqual([getFruit])
   })
 })
 
@@ -43,6 +44,7 @@ describe('update an existing fruit', () => {
       .put('/fruit-api/update')
       .send(updateFruit)
     expect(res.status).toEqual(200)
+    expect(res.body).toEqual([updateFruit])
   })
 })
 
@@ -61,6 +63,7 @@ describe('delete a fruit from the list', () => {
       .delete('/fruit-api/delete')
       .send("id=1")
     expect(res.status).toEqual(200)
+    expect(res.body).toEqual([])
   })
 })
 
