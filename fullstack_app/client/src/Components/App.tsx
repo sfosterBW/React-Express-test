@@ -17,14 +17,14 @@ const App: FC = () => {
 
   useEffect(() => {
     async function initList() {
-      let res = await fetchFruit()
+      const res = await fetchFruit()
       setFruitList(res.data)
     }
     initList()
   }, [])
 
   const handleBestChange = async (fruit: IFruit) => {
-    let updatedFruit = fruit
+    const updatedFruit = fruit
     updatedFruit.best = !updatedFruit.best
     const res = await updateFruit(updatedFruit)
     res.status === 200 ? setFruitList(res.data) : handleError("handleBestChange")

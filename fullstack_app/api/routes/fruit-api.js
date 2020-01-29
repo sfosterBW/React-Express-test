@@ -29,18 +29,19 @@ router.get("/list", function(req, res, next) {
 
 router.post("/new", function(req, res, next) {
   try {
-    let fruitReq = req.body.new
-    let newFruit = new Fruit(fruitReq.name, fruitReq.best)
+    const fruitReq = req.body.new
+    const newFruit = new Fruit(fruitReq.name, fruitReq.best)
     fruitList.push(newFruit)
     res.status(200).send(fruitList)
-  } catch (error) {
+  }
+  catch (error) {
     next(error)
   }
 })
 
 router.put("/update", function(req, res, next) {
   try {
-    let index = fruitList.findIndex(i => i._id === req.body._id)
+    const index = fruitList.findIndex(i => i._id === req.body._id)
     fruitList[index] = req.body
     res.status(200).send(fruitList)
   } catch (error) {
@@ -50,7 +51,7 @@ router.put("/update", function(req, res, next) {
 
 router.delete("/delete", function(req, res, next) {
   try {
-    let index = fruitList.findIndex(i => i._id == req.query.id)
+    const index = fruitList.findIndex(i => i._id == req.query.id)
     fruitList.splice(index, 1)
     res.status(200).send(fruitList)
   } catch (error) {
