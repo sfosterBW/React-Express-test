@@ -36,13 +36,13 @@ exports[`the app component renders the same as last time 1`] = `
         className="input-wrapper"
       >
         <label
-          htmlFor="name"
+          htmlFor="best"
         >
           Is it best?:
         </label>
         <input
           checked={false}
-          name="name"
+          name="best"
           onChange={[Function]}
           type="checkbox"
           value="false"

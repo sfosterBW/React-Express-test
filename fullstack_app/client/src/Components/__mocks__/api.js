@@ -2,6 +2,7 @@
 module.exports = {
   fetchFruit: () => {
     return Promise.resolve({
+      status: 200,
       data: [
         {
           _id: 1,

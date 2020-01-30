@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { mount} from 'enzyme'
 import renderer from 'react-test-renderer'
@@ -6,13 +5,15 @@ import * as api from './../../utils/api'
 
 import App from '../App'
 
-jest.mock('./../../utils/api')
+
 
 describe('the app component', () => {
 
+  jest.mock('./../../utils/api')
   const getSpy = jest.spyOn(api, 'fetchFruit')
   const appComponent = <App />
   const app = mount(appComponent)
+
 
   it('renders with the correct structure', () => {
     expect(app).toBeDefined()
