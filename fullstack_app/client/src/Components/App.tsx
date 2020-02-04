@@ -10,11 +10,7 @@ import Modal from './Modal'
 import Row from './Row'
 import Table from './Table'
 
-interface Props {
-
-}
-
-const App: FC<Props> = () => {
+const App: FC = () => {
 
   const [fruitList, setFruitList] = useState<Array<IFruit>>([])
   const [modalFruit, setModalFruit] = useState<IFruit>()
