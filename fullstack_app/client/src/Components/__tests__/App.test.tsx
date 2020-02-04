@@ -1,8 +1,11 @@
 import React from 'react'
-import { mount} from 'enzyme'
+import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
-import * as api from './../../utils/api'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
+import * as api from './../../utils/api'
+import { rootReducer } from '../../utils/reducers'
 import App from '../App'
 
 
@@ -11,7 +14,11 @@ describe('the app component', () => {
 
   jest.mock('./../../utils/api')
   const getSpy = jest.spyOn(api, 'fetchFruit')
-  const appComponent = <App />
+  const mockStore = createStore(rootReducer, { value: false })
+  const appComponent =
+    <Provider store={mockStore}>
+      <App />
+    </Provider>
   const app = mount(appComponent)
 
 

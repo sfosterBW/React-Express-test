@@ -27,13 +27,13 @@ exports[`the Form component with custom props renders the same as last time 1`] 
     className="input-wrapper"
   >
     <label
-      htmlFor="name"
+      htmlFor="best"
     >
       Is it best?:
     </label>
     <input
       checked={true}
-      name="name"
+      name="best"
       onChange={[Function]}
       type="checkbox"
       value="true"
@@ -72,13 +72,13 @@ exports[`the Form component with default props renders the same as last time 1`]
     className="input-wrapper"
   >
     <label
-      htmlFor="name"
+      htmlFor="best"
     >
       Is it best?:
     </label>
     <input
       checked={false}
-      name="name"
+      name="best"
       onChange={[Function]}
       type="checkbox"
       value="false"

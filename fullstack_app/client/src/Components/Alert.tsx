@@ -1,15 +1,44 @@
-import React, { FC } from 'react'
+import React, { FC, FormEvent } from 'react'
+import { InitialState } from '../utils/reducers'
+import { toggleAlert } from '../utils/actions'
+import { useDispatch, useSelector } from 'react-redux'
 
 interface Props {
-  onClose: () => void
-  message: string
+
 }
 
-const Alert: FC<Props> = ({ onClose, message }) => {
+interface StateProps {
+  value: boolean
+}
+
+const Alert: FC<Props> = () => {
+
+  const { value } = useSelector<InitialState, StateProps>(
+    (state: InitialState) => {
+      return { value: state.value }
+    }
+  )
+  const dispatch = useDispatch()
+
+  const displayAlert = () => {
+    if(value) {
+      return (
+        <div>
+          <p>{String(value)}</p>
+          <button onClick={(event: FormEvent) => {
+            event.preventDefault()
+            dispatch(toggleAlert(!value))
+          }}>&times;</button>
+        </div>
+      )
+    } else {
+      return null
+    }
+  }
+
   return (
     <div>
-      <p>{message}</p>
-      <button onClick={() => onClose}>&times;</button>
+      { displayAlert() }
     </div>
   )
 }

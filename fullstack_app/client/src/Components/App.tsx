@@ -1,6 +1,8 @@
 import React, { FC, useState, useEffect } from 'react'
 import { createFruit, deleteFruit, fetchFruit, updateFruit } from '../utils/api'
 import { IFruit } from '../utils/interfaces'
+import { toggleAlert } from '../utils/actions'
+import { useDispatch } from 'react-redux'
 import './App.scss'
 import Alert from './Alert'
 import Form from './Form'
@@ -8,17 +10,21 @@ import Modal from './Modal'
 import Row from './Row'
 import Table from './Table'
 
-const App: FC = () => {
+interface Props {
 
-  const [alertToggle, setAlertToggle] = useState<boolean>(false)
+}
+
+const App: FC<Props> = () => {
+
   const [fruitList, setFruitList] = useState<Array<IFruit>>([])
   const [modalToggle, setModalToggle] = useState<boolean>(false)
   const [modalFruit, setModalFruit] = useState<IFruit>()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     async function initList() {
       const res = await fetchFruit()
-      setFruitList(res.data)
+      res ? setFruitList(res.data) : setFruitList([])
     }
     initList()
   }, [])
@@ -32,7 +38,7 @@ const App: FC = () => {
 
   const handleError = (error: any) => {
     console.error("App", error)
-    setAlertToggle(true)
+    dispatch(toggleAlert(true))
   }
 
   const handleSubmit = async (fruit: IFruit) => {
@@ -53,11 +59,6 @@ const App: FC = () => {
     res.status === 200 ? setFruitList(res.data) : handleError("handleSubmit")
   }
 
-  const displayAlert =
-    <Alert
-      onClose={() => { setAlertToggle(false) }}
-      message={String(alertToggle)} />
-
   const displayFruitList = (best: boolean) => {
     const fruitRows = fruitList
       .filter((i: IFruit) => i.best === best)
@@ -71,8 +72,8 @@ const App: FC = () => {
             setModalToggle(true)
             setModalFruit(i)
           }} />)
-      const tableBody = <tbody>{fruitRows}</tbody>
-      return tableBody
+    const tableBody = <tbody>{fruitRows}</tbody>
+    return tableBody
   }
 
   const displayModal = () => {
@@ -93,7 +94,7 @@ const App: FC = () => {
     <div className="App">
       <header className="App-header">
         <h1>Fruit dashboard</h1>
-        {alertToggle && displayAlert}
+        <Alert />
         <Form handleSubmit={handleSubmit} />
         <Table rows={displayFruitList(true)} title="True table" />
         <Table rows={displayFruitList(false)} title="False table" />
