@@ -1,22 +1,36 @@
-import { Action, Reducer } from "redux"
-import { TOGGLE_ALERT } from './actions'
+import {AlertState, ModalState} from './interfaces'
+import {
+  TOGGLE_ALERT,
+  AlertActionTypes,
+  TOGGLE_MODAL,
+  ModalActionTypes } from './actions'
 
-export interface InitialState {
-  value: boolean
+export const initialAlertState: AlertState = {
+  toggle: false
 }
 
-export const initialState: InitialState = {
-  value: false
-}
-
-export interface DispatchAction extends Action {
-  payload: Partial<InitialState>
-}
-
-export const rootReducer: Reducer<InitialState, DispatchAction> = (state = initialState, action) => {
+export function alertReducer(
+  state = initialAlertState,
+  action: AlertActionTypes): AlertState {
   switch (action.type) {
     case TOGGLE_ALERT: {
-      return { ...state, value: action.payload.value || false }
+      return { ...state, toggle: action.payload || false }
+    }
+    default:
+      return { ...state }
+  }
+}
+
+export const initialModalState: ModalState = {
+  toggle: false
+}
+
+export function modalReducer(
+  state = initialModalState,
+  action: ModalActionTypes): ModalState {
+  switch (action.type) {
+    case TOGGLE_MODAL: {
+      return {...state, toggle: action.payload || false}
     }
     default:
       return { ...state }

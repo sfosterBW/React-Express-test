@@ -5,12 +5,12 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
 import Alert from '../Alert'
-import { rootReducer } from '../../utils/reducers'
+import { rootReducer } from '../../utils/store'
 
 describe('the Alert component', () => {
 
-  const value = true
-  const mockStore = createStore(rootReducer, { value: value })
+  const alertValue = true
+  const mockStore = createStore(rootReducer, { alert: { toggle: alertValue } })
   const alertComponent =
     <Provider store={mockStore}>
       <Alert />
@@ -21,7 +21,7 @@ describe('the Alert component', () => {
     expect(alert).toBeDefined()
     expect(alert.find('div')).toHaveLength(2)
     expect(alert.find('p')).toHaveLength(1)
-    expect(alert.find('p').text()).toBe(String(value))
+    expect(alert.find('p').text()).toBe(String(alertValue))
     expect(alert.find('button')).toHaveLength(1)
   })
 

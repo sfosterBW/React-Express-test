@@ -1,33 +1,23 @@
 import React, { FC, FormEvent } from 'react'
-import { InitialState } from '../utils/reducers'
+import { RootState } from '../utils/store'
 import { toggleAlert } from '../utils/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
-interface Props {
+const Alert: FC = () => {
 
-}
-
-interface StateProps {
-  value: boolean
-}
-
-const Alert: FC<Props> = () => {
-
-  const { value } = useSelector<InitialState, StateProps>(
-    (state: InitialState) => {
-      return { value: state.value }
-    }
-  )
+  const selectToggle = (state: RootState) => state.alert.toggle
+  const toggle = useSelector(selectToggle)
   const dispatch = useDispatch()
 
   const displayAlert = () => {
-    if(value) {
+    console.log(toggle)
+    if(toggle) {
       return (
         <div>
-          <p>{String(value)}</p>
+          <p>{String(toggle)}</p>
           <button onClick={(event: FormEvent) => {
             event.preventDefault()
-            dispatch(toggleAlert(!value))
+            dispatch(toggleAlert(!toggle))
           }}>&times;</button>
         </div>
       )
@@ -37,9 +27,7 @@ const Alert: FC<Props> = () => {
   }
 
   return (
-    <div>
-      { displayAlert() }
-    </div>
+    <div>{ displayAlert() }</div>
   )
 }
 

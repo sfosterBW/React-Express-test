@@ -1,3 +1,4 @@
+//Objects
 export interface IFruit {
   _id: number
   name: string
@@ -6,4 +7,13 @@ export interface IFruit {
 
 export interface IFruitResponse {
   status: number
+}
+
+//States
+export interface AlertState {
+  toggle: boolean
+}
+
+export interface ModalState {
+  toggle: boolean
 }
