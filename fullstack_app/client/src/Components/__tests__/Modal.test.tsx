@@ -2,29 +2,39 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
 
 import Modal from '../Modal'
-import { rootReducer } from '../../utils/store'
+
+const mockDispatch = jest.fn()
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+  useDispatch: () => mockDispatch
+}))
+
+const mockFruit = {
+  _id: 1,
+  name: "False Case",
+  best: false
+}
+const mockClickFunction = jest.fn()
+const mockToggle = true
+const title = "This is a title"
+const modalComponent = <Modal
+  fruit={mockFruit}
+  handleClick={() => mockClickFunction()}
+  title={title}
+  toggle={mockToggle}/>
+const modal = mount(modalComponent)
 
 describe('the Modal component', () => {
 
-  const modalValue = true
-  const mockStore = createStore(rootReducer, { modal: { toggle: modalValue } })
-  const mockFunction = jest.fn()
-  const mockFruit = {
-    _id: 1,
-    name: "False Case",
-    best: false
-  }
-  const title = "This is a title"
-  const modalComponent =
-    <Provider store={mockStore}>
-      <Modal fruit={mockFruit} handleSubmit={mockFunction} title={title} />
-    </Provider>
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
 
-  const modal = mount(modalComponent)
+  afterAll(() => {
+    jest.restoreAllMocks()
+  })
 
   it('renders with the correct structure', () => {
     expect(modal).toBeDefined()
@@ -39,7 +49,6 @@ describe('the Modal component', () => {
 
   it('functions as expected', () => {
     modal.find('button.closeButton').simulate('click')
-    expect(modal.find('div')).toHaveLength(1)
   })
 
   it('renders the same as last time', () => {
@@ -48,4 +57,5 @@ describe('the Modal component', () => {
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
+
 })

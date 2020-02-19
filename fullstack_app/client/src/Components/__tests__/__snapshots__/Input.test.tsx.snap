@@ -6,6 +6,7 @@ exports[`the InputCheckbox component renders the same as last time 1`] = `
 >
   <label
     htmlFor="This is a name"
+    id="This is a name"
   >
     This is a label
   </label>
@@ -13,7 +14,6 @@ exports[`the InputCheckbox component renders the same as last time 1`] = `
     checked={false}
     name="This is a name"
     type="checkbox"
-    value="false"
   />
 </div>
 `;
@@ -24,6 +24,7 @@ exports[`the InputText component renders the same as last time 1`] = `
 >
   <label
     htmlFor="This is a name"
+    id="This is a name"
   >
     This is a label
   </label>

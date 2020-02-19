@@ -15,7 +15,7 @@ export const InputText: FC<InputTextProps> = ({
 
   return (
     <div className="input-wrapper">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} id={name}>{label}</label>
       <input
         onChange={handleChange}
         name={name}
@@ -30,25 +30,22 @@ interface InputCheckboxProps {
   handleChange: (event: any) => void
   label: string
   name: string
-  value: string
 }
 
 export const InputCheckbox: FC<InputCheckboxProps> = ({
   checked,
   handleChange,
   label,
-  name,
-  value }) => {
+  name, }) => {
 
   return (
     <div className="input-wrapper">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} id={name}>{label}</label>
       <input
         checked={checked}
         onChange={handleChange}
         name={name}
-        type="checkbox"
-        value={value} />
+        type="checkbox" />
     </div>
   )
 }

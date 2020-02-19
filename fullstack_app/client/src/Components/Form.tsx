@@ -1,18 +1,22 @@
 import React, { FC, FormEvent, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import fruitService from '../utils/api'
 import { InputCheckbox, InputText } from './Input'
 import { useField } from '../utils/hooks'
 import { IFruit } from '../utils/interfaces'
+import { createFruit, toggleModal, updateFruit } from '../utils/actions'
 
 interface Props {
   fruit?: IFruit
-  handleSubmit: (fruit: IFruit) => void
 }
 
-const Form: FC<Props> = ({
-  fruit = { _id: -1, name: "", best: false }, handleSubmit }) => {
+const defaultFruit = { _id: undefined, name: "", best: false }
+
+const Form: FC<Props> = ({ fruit = defaultFruit }) => {
 
   const [best, setBest] = useState<boolean>(fruit.best)
   const name = useField(fruit.name, "Add a fruit:", "name", "text")
+  const dispatch = useDispatch()
 
   const setter = (set: any) =>
     (event: any) => {
@@ -20,6 +24,15 @@ const Form: FC<Props> = ({
       const newValue = type === "checkbox" ? checked : value
       set(newValue)
     }
+
+  const handleSubmit = (fruit: IFruit) => {
+    if (fruit._id) {
+      fruitService.updateFruit(fruit).then(res => dispatch(updateFruit(res)))
+    } else {
+      fruitService.createFruit(fruit).then(res => dispatch(createFruit(res)))
+    }
+    dispatch(toggleModal(false))
+  }
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -43,8 +56,7 @@ const Form: FC<Props> = ({
         checked={best}
         handleChange={setter(setBest)}
         label="Is it best?:"
-        name="best"
-        value={best.toString()} />
+        name="best" />
       <button>Add new fruit</button>
     </form>
   )

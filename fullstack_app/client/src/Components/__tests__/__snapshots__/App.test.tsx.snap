@@ -23,6 +23,7 @@ exports[`the app component renders the same as last time 1`] = `
       >
         <label
           htmlFor="name"
+          id="name"
         >
           Add a fruit:
         </label>
@@ -38,6 +39,7 @@ exports[`the app component renders the same as last time 1`] = `
       >
         <label
           htmlFor="best"
+          id="best"
         >
           Is it best?:
         </label>
@@ -46,7 +48,6 @@ exports[`the app component renders the same as last time 1`] = `
           name="best"
           onChange={[Function]}
           type="checkbox"
-          value="false"
         />
       </div>
       <button>
@@ -118,5 +119,6 @@ exports[`the app component renders the same as last time 1`] = `
       </table>
     </div>
   </header>
+  <div />
 </div>
 `;

@@ -1,20 +1,16 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
 
 import Alert from '../Alert'
-import { rootReducer } from '../../utils/store'
 
 describe('the Alert component', () => {
 
   const alertValue = true
-  const mockStore = createStore(rootReducer, { alert: { toggle: alertValue } })
-  const alertComponent =
-    <Provider store={mockStore}>
-      <Alert />
-    </Provider>
+  const mockHandleClick = jest.fn()
+  const alertComponent = <Alert
+    handleClick={mockHandleClick()}
+    toggle={alertValue}/>
   const alert = mount(alertComponent)
 
   it('renders with the right structure', () => {
@@ -27,7 +23,7 @@ describe('the Alert component', () => {
 
   it('renders on mount functions as expected', () => {
     alert.find('button').simulate('click')
-    expect(alert.find('div')).toHaveLength(1)
+    expect(mockHandleClick).toHaveBeenCalledTimes(1)
   })
 
   it('renders the same as last time with props', () => {

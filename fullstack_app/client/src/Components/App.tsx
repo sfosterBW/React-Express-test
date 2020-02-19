@@ -1,86 +1,53 @@
-import React, { FC, useState, useEffect } from 'react'
-import { createFruit, deleteFruit, fetchFruit, updateFruit } from '../utils/api'
-import { IFruit } from '../utils/interfaces'
-import { toggleAlert, toggleModal } from '../utils/actions'
-import { useDispatch } from 'react-redux'
+import React, { FC, useEffect } from 'react'
+import { RootState } from '../utils/store'
+import { useSelector, useDispatch } from 'react-redux'
 import './App.scss'
 import Alert from './Alert'
 import Form from './Form'
 import Modal from './Modal'
-import Row from './Row'
 import Table from './Table'
+import fruitService from '../utils/api'
+import { getFruits, toggleAlert, toggleModal, } from '../utils/actions'
 
 const App: FC = () => {
 
-  const [fruitList, setFruitList] = useState<Array<IFruit>>([])
-  const [modalFruit, setModalFruit] = useState<IFruit>()
+  const selectFruits = (state: RootState) => state.fruit.data
+  const fruits = useSelector(selectFruits)
+  const selectModalFruit = (state: RootState) => state.modal.fruit
+  const modalFruit = useSelector(selectModalFruit)
+  const selectModalToggle = (state: RootState) => state.modal.toggle
+  const modalToggle = useSelector(selectModalToggle)
+  const selectAlertToggle = (state: RootState) => state.alert.toggle
+  const alertToggle = useSelector(selectAlertToggle)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    async function initList() {
-      const res = await fetchFruit()
-      res ? setFruitList(res.data) : setFruitList([])
+    function initFruit() {
+      fruitService.fetchFruit()
+        .then(res => dispatch(getFruits(res)))
     }
-    initList()
+    initFruit()
   }, [])
-
-  const handleBestChange = async (fruit: IFruit) => {
-    const updatedFruit = fruit
-    updatedFruit.best = !updatedFruit.best
-    const res = await updateFruit(updatedFruit)
-    res.status === 200 ? setFruitList(res.data) : handleError("handleBestChange")
-  }
-
-  const handleError = (error: any) => {
-    console.error("App", error)
-    dispatch(toggleAlert(true))
-  }
-
-  const handleSubmit = async (fruit: IFruit) => {
-    if (fruit._id < 0) {
-      const res = await createFruit(fruit)
-      res.status === 200 ? setFruitList(res.data) : handleError("handleSubmit add")
-    } else if (fruit._id >= 0) {
-      const res = await updateFruit(fruit)
-      res.status === 200 ? setFruitList(res.data) : handleError("handleSubmit update")
-    } else {
-      console.log("handle submit unexpected error")
-    }
-    dispatch(toggleModal(false))
-  }
-
-  const handleRemove = async (fruit: IFruit) => {
-    const res = await deleteFruit(fruit._id)
-    res.status === 200 ? setFruitList(res.data) : handleError("handleSubmit")
-  }
-
-  const displayFruitList = (best: boolean) => {
-    const fruitRows = fruitList
-      .filter((i: IFruit) => i.best === best)
-      .map((i: IFruit) =>
-        <Row
-          key={`${i._id}${i.name}`}
-          fruit={i}
-          handleRemove={() => { handleRemove(i) }}
-          handleEdit={() => { handleBestChange(i) }}
-          openModal={() => {
-            dispatch(toggleModal(true))
-            setModalFruit(i)
-          }} />)
-    const tableBody = <tbody>{fruitRows}</tbody>
-    return tableBody
-  }
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Fruit dashboard</h1>
-        <Alert />
-        <Form handleSubmit={handleSubmit} />
-        <Table rows={displayFruitList(true)} title="True table" />
-        <Table rows={displayFruitList(false)} title="False table" />
+        <Alert
+          handleClick={(event) => {
+            event.preventDefault()
+            dispatch(toggleAlert(!alertToggle))
+          }}
+          toggle={alertToggle}/>
+        <Form />
+        <Table fruits={fruits} title="True table" type={true} />
+        <Table fruits={fruits} title="False table" type={false}/>
       </header>
-      <Modal fruit={modalFruit} handleSubmit={handleSubmit} title="This is a modal" />
+      <Modal
+        fruit={modalFruit}
+        handleClick={() => dispatch(toggleModal(!modalToggle))}
+        title="This is a modal"
+        toggle={modalToggle} />
     </div>
   )
 }

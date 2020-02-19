@@ -16,13 +16,14 @@ exports[`the Row component renders the same as last time 1`] = `
   </td>
   <td>
     <p>
-      false
+      true
     </p>
   </td>
   <td>
     <input
-      checked={false}
+      checked={true}
       name="1"
+      onChange={[Function]}
       type="checkbox"
       value={1}
     />
@@ -30,7 +31,7 @@ exports[`the Row component renders the same as last time 1`] = `
   <td>
     <button
       name="modal"
-      value="1"
+      onClick={[Function]}
     >
       Update
     </button>
@@ -38,6 +39,7 @@ exports[`the Row component renders the same as last time 1`] = `
   <td>
     <button
       name="remove"
+      onClick={[Function]}
       value="1"
     >
       Remove

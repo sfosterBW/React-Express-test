@@ -13,6 +13,7 @@ exports[`the Form component with custom props renders the same as last time 1`] 
   >
     <label
       htmlFor="name"
+      id="name"
     >
       Add a fruit:
     </label>
@@ -28,6 +29,7 @@ exports[`the Form component with custom props renders the same as last time 1`] 
   >
     <label
       htmlFor="best"
+      id="best"
     >
       Is it best?:
     </label>
@@ -36,7 +38,6 @@ exports[`the Form component with custom props renders the same as last time 1`] 
       name="best"
       onChange={[Function]}
       type="checkbox"
-      value="true"
     />
   </div>
   <button>
@@ -58,6 +59,7 @@ exports[`the Form component with default props renders the same as last time 1`]
   >
     <label
       htmlFor="name"
+      id="name"
     >
       Add a fruit:
     </label>
@@ -73,6 +75,7 @@ exports[`the Form component with default props renders the same as last time 1`]
   >
     <label
       htmlFor="best"
+      id="best"
     >
       Is it best?:
     </label>
@@ -81,7 +84,6 @@ exports[`the Form component with default props renders the same as last time 1`]
       name="best"
       onChange={[Function]}
       type="checkbox"
-      value="false"
     />
   </div>
   <button>

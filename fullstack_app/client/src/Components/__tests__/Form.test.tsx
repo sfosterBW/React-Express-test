@@ -4,12 +4,17 @@ import renderer from 'react-test-renderer'
 
 import Form from '../Form'
 
+const mockDispatch = jest.fn()
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+  useDispatch: () => mockDispatch
+}))
+
 describe('the Form component', () => {
 
   describe('with default props', () => {
 
-    const mockFunction = jest.fn()
-    const formComponent = <Form handleSubmit={mockFunction()} />
+    const formComponent = <Form  />
     const form = mount(formComponent)
 
     it('renders with the correct structure', () => {
@@ -26,7 +31,6 @@ describe('the Form component', () => {
       expect(form.find('InputText').props().value).toEqual("")
       expect(form.find('InputCheckbox').props().checked).toEqual(false)
       form.find('button').simulate('click')
-      expect(mockFunction).toHaveBeenCalled()
     })
 
     it('renders the same as last time', () => {
@@ -41,10 +45,7 @@ describe('the Form component', () => {
   describe('with custom props', () => {
 
     const testFruit = { _id: 2, name: "Banana", best: true }
-    const mockFunction = jest.fn()
-    const formComponent = <Form
-      fruit={testFruit}
-      handleSubmit={mockFunction()} />
+    const formComponent = <Form fruit={testFruit} />
     const form = mount(formComponent)
 
     it('functions properly with props', () => {
@@ -52,7 +53,6 @@ describe('the Form component', () => {
       expect(form.find('InputText').props().value).toEqual(testFruit.name)
       expect(form.find('InputCheckbox').props().checked).toEqual(testFruit.best)
       form.find('button').simulate('click')
-      expect(mockFunction).toHaveBeenCalled()
     })
 
     it('renders the same as last time', () => {

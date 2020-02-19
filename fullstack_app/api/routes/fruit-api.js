@@ -32,7 +32,7 @@ router.post("/new", function(req, res, next) {
     const fruitReq = req.body.new
     const newFruit = new Fruit(fruitReq.name, fruitReq.best)
     fruitList.push(newFruit)
-    res.status(200).send(fruitList)
+    res.status(200).send(newFruit)
   }
   catch (error) {
     next(error)
@@ -43,7 +43,7 @@ router.put("/update", function(req, res, next) {
   try {
     const index = fruitList.findIndex(i => i._id === req.body._id)
     fruitList[index] = req.body
-    res.status(200).send(fruitList)
+    res.status(200).send(fruitList[index])
   } catch (error) {
     next(error)
   }
@@ -53,7 +53,7 @@ router.delete("/delete", function(req, res, next) {
   try {
     const index = fruitList.findIndex(i => i._id == req.query.id)
     fruitList.splice(index, 1)
-    res.status(200).send(fruitList)
+    res.status(200).send(req.query.id)
   } catch (error) {
     next(error)
   }

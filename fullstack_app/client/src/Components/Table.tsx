@@ -1,11 +1,27 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC } from 'react'
+import { IFruit } from '../utils/interfaces'
+import Row from './Row'
 
 interface Props {
-  rows: ReactNode
+  fruits: IFruit[]
   title: string
+  type: boolean
 }
 
-const Table: FC<Props> = ({ rows, title }) => {
+const Table: FC<Props> = ({ fruits, title, type }) => {
+
+  const displayFruitList = (best: boolean) => {
+    if (fruits) {
+      const fruitRows = fruits
+        .filter((i) => i.best === best)
+        .map((i) => <Row key={`${i._id}${i.name}`} fruit={i} />)
+      const tableBody = <tbody>{fruitRows}</tbody>
+      return tableBody
+    } else {
+      return null
+    }
+  }
+
   return (
     <div className="fruit-table">
       <h2>{title}</h2>
@@ -20,7 +36,7 @@ const Table: FC<Props> = ({ rows, title }) => {
             <th>Remove</th>
           </tr>
         </thead>
-        {rows}
+        {displayFruitList(type)}
       </table>
     </div>
   )
