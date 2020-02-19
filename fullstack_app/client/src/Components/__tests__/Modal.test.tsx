@@ -7,7 +7,7 @@ import Modal from '../Modal'
 
 const mockDispatch = jest.fn()
 jest.mock('react-redux', () => ({
-  useSelector: jest.fn(),
+  useSelector: jest.fn().mockReturnValue(true),
   useDispatch: () => mockDispatch
 }))
 
@@ -16,25 +16,11 @@ const mockFruit = {
   name: "False Case",
   best: false
 }
-const mockClickFunction = jest.fn()
-const mockToggle = true
 const title = "This is a title"
-const modalComponent = <Modal
-  fruit={mockFruit}
-  handleClick={() => mockClickFunction()}
-  title={title}
-  toggle={mockToggle}/>
+const modalComponent = <Modal fruit={mockFruit} title={title} />
 const modal = mount(modalComponent)
 
 describe('the Modal component', () => {
-
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
-  afterAll(() => {
-    jest.restoreAllMocks()
-  })
 
   it('renders with the correct structure', () => {
     expect(modal).toBeDefined()

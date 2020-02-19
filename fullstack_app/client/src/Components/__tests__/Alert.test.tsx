@@ -4,13 +4,16 @@ import renderer from 'react-test-renderer'
 
 import Alert from '../Alert'
 
+const alertValue = true
+const mockDispatch = jest.fn()
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn().mockReturnValue(true),
+  useDispatch: () => mockDispatch
+}))
+
 describe('the Alert component', () => {
 
-  const alertValue = true
-  const mockHandleClick = jest.fn()
-  const alertComponent = <Alert
-    handleClick={mockHandleClick()}
-    toggle={alertValue}/>
+  const alertComponent = <Alert />
   const alert = mount(alertComponent)
 
   it('renders with the right structure', () => {
@@ -23,7 +26,6 @@ describe('the Alert component', () => {
 
   it('renders on mount functions as expected', () => {
     alert.find('button').simulate('click')
-    expect(mockHandleClick).toHaveBeenCalledTimes(1)
   })
 
   it('renders the same as last time with props', () => {
