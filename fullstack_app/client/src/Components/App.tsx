@@ -1,6 +1,8 @@
 import React, { FC, useState, useEffect } from 'react'
 import { createFruit, deleteFruit, fetchFruit, updateFruit } from '../utils/api'
 import { IFruit } from '../utils/interfaces'
+import { toggleAlert, toggleModal } from '../utils/actions'
+import { useDispatch } from 'react-redux'
 import './App.scss'
 import Alert from './Alert'
 import Form from './Form'
@@ -10,15 +12,14 @@ import Table from './Table'
 
 const App: FC = () => {
 
-  const [alertToggle, setAlertToggle] = useState<boolean>(false)
   const [fruitList, setFruitList] = useState<Array<IFruit>>([])
-  const [modalToggle, setModalToggle] = useState<boolean>(false)
   const [modalFruit, setModalFruit] = useState<IFruit>()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     async function initList() {
       const res = await fetchFruit()
-      setFruitList(res.data)
+      res ? setFruitList(res.data) : setFruitList([])
     }
     initList()
   }, [])
@@ -32,7 +33,7 @@ const App: FC = () => {
 
   const handleError = (error: any) => {
     console.error("App", error)
-    setAlertToggle(true)
+    dispatch(toggleAlert(true))
   }
 
   const handleSubmit = async (fruit: IFruit) => {
@@ -45,18 +46,13 @@ const App: FC = () => {
     } else {
       console.log("handle submit unexpected error")
     }
-    setModalToggle(false)
+    dispatch(toggleModal(false))
   }
 
   const handleRemove = async (fruit: IFruit) => {
     const res = await deleteFruit(fruit._id)
     res.status === 200 ? setFruitList(res.data) : handleError("handleSubmit")
   }
-
-  const displayAlert =
-    <Alert
-      onClose={() => { setAlertToggle(false) }}
-      message={String(alertToggle)} />
 
   const displayFruitList = (best: boolean) => {
     const fruitRows = fruitList
@@ -68,37 +64,23 @@ const App: FC = () => {
           handleRemove={() => { handleRemove(i) }}
           handleEdit={() => { handleBestChange(i) }}
           openModal={() => {
-            setModalToggle(true)
+            dispatch(toggleModal(true))
             setModalFruit(i)
           }} />)
-      const tableBody = <tbody>{fruitRows}</tbody>
-      return tableBody
-  }
-
-  const displayModal = () => {
-    if (modalFruit) {
-      return (
-        <Modal
-          form={<Form handleSubmit={handleSubmit} fruit={modalFruit} />}
-          onClose={() => { setModalToggle(false) }}
-          title="This is a modal" />
-      )
-    } else {
-      console.log("No modal fruit defined yet")
-      return null
-    }
+    const tableBody = <tbody>{fruitRows}</tbody>
+    return tableBody
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>Fruit dashboard</h1>
-        {alertToggle && displayAlert}
+        <Alert />
         <Form handleSubmit={handleSubmit} />
         <Table rows={displayFruitList(true)} title="True table" />
         <Table rows={displayFruitList(false)} title="False table" />
       </header>
-      {modalToggle && displayModal()}
+      <Modal fruit={modalFruit} handleSubmit={handleSubmit} title="This is a modal" />
     </div>
   )
 }

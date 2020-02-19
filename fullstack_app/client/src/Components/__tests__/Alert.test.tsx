@@ -1,27 +1,33 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
 import Alert from '../Alert'
+import { rootReducer } from '../../utils/store'
 
 describe('the Alert component', () => {
 
-  const message = "Test message"
-  const mockFunction = jest.fn()
-  const alertComponent = <Alert message={message} onClose={mockFunction()} />
+  const alertValue = true
+  const mockStore = createStore(rootReducer, { alert: { toggle: alertValue } })
+  const alertComponent =
+    <Provider store={mockStore}>
+      <Alert />
+    </Provider>
   const alert = mount(alertComponent)
 
   it('renders with the right structure', () => {
     expect(alert).toBeDefined()
-    expect(alert.find('div')).toHaveLength(1)
+    expect(alert.find('div')).toHaveLength(2)
     expect(alert.find('p')).toHaveLength(1)
-    expect(alert.find('p').text()).toBe(message)
+    expect(alert.find('p').text()).toBe(String(alertValue))
     expect(alert.find('button')).toHaveLength(1)
   })
 
   it('renders on mount functions as expected', () => {
     alert.find('button').simulate('click')
-    expect(mockFunction).toHaveBeenCalled()
+    expect(alert.find('div')).toHaveLength(1)
   })
 
   it('renders the same as last time with props', () => {
