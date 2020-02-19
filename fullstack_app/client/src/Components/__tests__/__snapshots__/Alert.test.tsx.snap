@@ -1,3 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`the Alert component renders the same as last time with props 1`] = `<div />`;
+exports[`the Alert component renders the same as last time with props 1`] = `
+<div>
+  <div>
+    <p>
+      true
+    </p>
+    <button>
+      ×
+    </button>
+  </div>
+</div>
+`;

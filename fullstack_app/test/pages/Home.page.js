@@ -114,7 +114,7 @@ module.exports = class HomePage {
   submitModalForm(name, best) {
     this.modal.waitForExist()
     this.modalFormNameInput.setValue(name)
-    if(String(best) !== this.modalFormBestInput.getValue()) {
+    if(String(best) !== this.modalFormBestInput.getAttribute("checked")) {
       this.modalFormBestInput.click()
     } else {
       console.log("You aren't changing this value")

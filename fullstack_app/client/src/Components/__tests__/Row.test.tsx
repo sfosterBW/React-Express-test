@@ -5,17 +5,16 @@ import renderer from 'react-test-renderer'
 
 import Row from '../Row'
 
+const mockDispatch = jest.fn()
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+  useDispatch: () => mockDispatch
+}))
+
 describe('the Row component', () => {
 
   const fruit = {_id: 1, name:"apple", best:false}
-  const mockEditFunction = jest.fn()
-  const mockRemoveFunction = jest.fn()
-  const mockOpenModalFunction = jest.fn()
-  const rowComponent = <Row
-    fruit={fruit}
-    handleEdit={mockEditFunction()}
-    handleRemove={mockRemoveFunction()}
-    openModal={mockOpenModalFunction()} />
+  const rowComponent = <Row fruit={fruit} />
   const row = mount(rowComponent)
 
   it('renders with the correct structure', () => {
@@ -37,10 +36,7 @@ describe('the Row component', () => {
   it('functions as expected',() => {
     row.find('button').at(0).simulate('click')
     row.find('button').at(1).simulate('click')
-    expect(mockOpenModalFunction).toHaveBeenCalledTimes(1)
-    expect(mockRemoveFunction).toHaveBeenCalledTimes(1)
     row.find('input').simulate('change')
-    expect(mockEditFunction).toHaveBeenCalledTimes(1)
   })
 
   it('renders the same as last time', () => {

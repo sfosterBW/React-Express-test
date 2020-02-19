@@ -26,13 +26,13 @@ describe('the homepage', () => {
     it('allows you to fill in the form', () => {
       homePage.addFruitToForm(name, best)
       assert(homePage.formNameInput.getValue() === name)
-      assert(homePage.formBestInput.getValue() === String(best))
+      assert(homePage.formBestInput.getAttribute("checked") === String(best))
     })
 
     it('submits, clears the form and updates the table', () => {
       homePage.submitForm()
       assert(homePage.formNameInput.getValue() === defaultName)
-      assert(homePage.formBestInput.getValue() === String(defaultBest))
+      assert(homePage.formBestInput.getAttribute("checked") === null) //Change to var
       assert(homePage.tableTrueTopColumnByName("name").getText() === name)
       assert(homePage.tableTrueTopColumnByName("best").getText() === String(best))
     })
@@ -41,7 +41,7 @@ describe('the homepage', () => {
       homePage.openTopItemModal()
       assert(homePage.modal.isExisting() === true)
       assert(homePage.modalFormNameInput.getValue() === name)
-      assert(homePage.modalFormBestInput.getValue() === String(best))
+      assert(homePage.modalFormBestInput.getAttribute("checked") === String(best))
     })
 
     it('submits an update to the name field', () => {

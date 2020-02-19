@@ -1,15 +1,26 @@
-import { combineReducers, compose, createStore } from "redux"
+import { applyMiddleware, combineReducers, createStore } from "redux"
+import thunkMiddleware from "redux-thunk"
+import { composeWithDevTools } from 'redux-devtools-extension'
 import {
   alertReducer,
+  fruitReducer,
   modalReducer } from './reducers'
-
-const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-  || compose
 
 export const rootReducer = combineReducers({
   alert: alertReducer,
+  fruit: fruitReducer,
   modal: modalReducer
 })
+
 export type RootState = ReturnType<typeof rootReducer>
 
-export const store = createStore(rootReducer, composeEnhancers())
+export default function configureStore(preloadedState: undefined) {
+  const middlewares = [thunkMiddleware]
+  const middlewareEnhancer = applyMiddleware(...middlewares)
+  const enhancers = [middlewareEnhancer]
+  const composedEnhancers = composeWithDevTools(...enhancers)
+  const store = createStore(rootReducer, preloadedState, composedEnhancers)
+  return store
+}
+
+export const store = configureStore(undefined)

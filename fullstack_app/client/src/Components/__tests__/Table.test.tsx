@@ -2,21 +2,16 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
+import { IFruit } from '../../utils/interfaces'
 
 import Table from '../Table'
 
 describe('the Table component', () => {
 
-  const rows = <tbody>
-    <tr>
-      <td>This is text</td>
-    </tr>
-    <tr>
-      <td>This is text</td>
-    </tr>
-  </tbody>
+  const fruits: IFruit[] = []
   const title = "This is a title"
-  const tableComponent = <Table rows={rows} title={title} />
+  const type = false
+  const tableComponent = <Table fruits={fruits} title={title} type={type} />
   const table = mount(tableComponent)
 
   it('renders with the right structure', () => {
@@ -26,10 +21,9 @@ describe('the Table component', () => {
     expect(table.find('h2').text()).toEqual(title)
     expect(table.find('table')).toHaveLength(1)
     expect(table.find('thead')).toHaveLength(1)
-    expect(table.find('tr')).toHaveLength(3)
+    expect(table.find('tr')).toHaveLength(1)
     expect(table.find('th')).toHaveLength(6)
     expect(table.find('tbody')).toHaveLength(1)
-    expect(table.find('tbody').containsMatchingElement(rows)).toBeTruthy()
   })
 
   it('renders the same as last time', () => {

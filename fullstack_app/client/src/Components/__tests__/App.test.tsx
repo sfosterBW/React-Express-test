@@ -1,24 +1,21 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
 
-import * as api from './../../utils/api'
-import { rootReducer } from '../../utils/reducers'
+import fruitService from './../../utils/api'
 import App from '../App'
 
-
+const mockDispatch = jest.fn()
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+  useDispatch: () => mockDispatch
+}))
 
 describe('the app component', () => {
 
   jest.mock('./../../utils/api')
-  const getSpy = jest.spyOn(api, 'fetchFruit')
-  const mockStore = createStore(rootReducer, { value: false })
-  const appComponent =
-    <Provider store={mockStore}>
-      <App />
-    </Provider>
+  const getSpy = jest.spyOn(fruitService, 'fetchFruit')
+  const appComponent =  <App />
   const app = mount(appComponent)
 
 

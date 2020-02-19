@@ -1,24 +1,18 @@
 import React, { FC, FormEvent } from 'react'
-import { RootState } from '../utils/store'
-import { toggleAlert } from '../utils/actions'
-import { useDispatch, useSelector } from 'react-redux'
 
-const Alert: FC = () => {
+interface Props {
+  handleClick: (event: FormEvent) => void
+  toggle: boolean
+}
 
-  const selectToggle = (state: RootState) => state.alert.toggle
-  const toggle = useSelector(selectToggle)
-  const dispatch = useDispatch()
+const Alert: FC<Props> = ({ handleClick, toggle }) => {
 
   const displayAlert = () => {
-    console.log(toggle)
     if(toggle) {
       return (
         <div>
           <p>{String(toggle)}</p>
-          <button onClick={(event: FormEvent) => {
-            event.preventDefault()
-            dispatch(toggleAlert(!toggle))
-          }}>&times;</button>
+          <button onClick={handleClick}>&times;</button>
         </div>
       )
     } else {

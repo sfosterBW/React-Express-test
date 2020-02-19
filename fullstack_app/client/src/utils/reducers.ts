@@ -1,9 +1,16 @@
-import {AlertState, ModalState} from './interfaces'
+import { AlertState, FruitState, ModalState } from './interfaces'
 import {
   TOGGLE_ALERT,
   AlertActionTypes,
   TOGGLE_MODAL,
-  ModalActionTypes } from './actions'
+  OPEN_MODAL,
+  ModalActionTypes,
+  GET_FRUITS,
+  CREATE_FRUIT,
+  REMOVE_FRUIT,
+  UPDATE_FRUIT,
+  FruitActionTypes,
+} from './actions'
 
 export const initialAlertState: AlertState = {
   toggle: false
@@ -22,7 +29,8 @@ export function alertReducer(
 }
 
 export const initialModalState: ModalState = {
-  toggle: false
+  toggle: false,
+  fruit: { _id: undefined, name: '', best: false }
 }
 
 export function modalReducer(
@@ -30,7 +38,46 @@ export function modalReducer(
   action: ModalActionTypes): ModalState {
   switch (action.type) {
     case TOGGLE_MODAL: {
-      return {...state, toggle: action.payload || false}
+      return { ...state, toggle: action.payload || false }
+    }
+    case OPEN_MODAL: {
+      return { toggle: true, fruit: action.payload }
+    }
+    default:
+      return { ...state }
+  }
+}
+
+export const initialFruitState: FruitState = {
+  data: []
+}
+
+export function fruitReducer(
+  state = initialFruitState,
+  action: FruitActionTypes
+): FruitState {
+  switch (action.type) {
+    case GET_FRUITS: {
+      return { ...state, data: action.payload }
+    }
+    case CREATE_FRUIT: {
+      return { ...state, data: state.data.concat(action.payload) }
+    }
+    case REMOVE_FRUIT: {
+      const newFruits = state.data.filter(i => i._id !== action.payload)
+      return { ...state, data: newFruits }
+    }
+    case UPDATE_FRUIT: {
+      const updateFruit = state.data.map((fruit) => {
+        if (fruit._id === action.payload._id) {
+          fruit.best = action.payload.best
+          fruit.name = action.payload.name
+          return fruit
+        } else {
+          return fruit
+        }
+      })
+      return { ...state, data: updateFruit }
     }
     default:
       return { ...state }

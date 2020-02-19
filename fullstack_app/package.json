@@ -19,6 +19,7 @@
     "chai-webdriverio": "^1.0.0",
     "chromedriver": "^79.0.0",
     "concurrently": "^3.5.1",
+    "redux-devtools-extension": "^2.13.8",
     "wdio-chromedriver-service": "^5.0.2"
   },
   "scripts": {

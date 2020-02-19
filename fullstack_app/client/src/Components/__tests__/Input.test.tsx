@@ -52,13 +52,11 @@ describe('the InputCheckbox component', () => {
   const checked = false
   const label = "This is a label"
   const name = "This is a name"
-  const value = String(checked)
   const inputCheckboxComponent = <InputCheckbox
     checked={checked}
     handleChange={mockFunction()}
     label={label}
-    name={name}
-    value={value} />
+    name={name} />
   const inputCheckbox = mount(inputCheckboxComponent)
 
   it('renders with the correct structure', () => {
@@ -71,14 +69,12 @@ describe('the InputCheckbox component', () => {
     expect(inputCheckbox.find('input').props().checked).toEqual(checked)
     expect(inputCheckbox.find('input').props().name).toEqual(name)
     expect(inputCheckbox.find('input').props().type).toEqual("checkbox")
-    expect(inputCheckbox.find('input').props().value).toEqual(value)
   })
 
   it('functions as expected', () => {
     expect(inputCheckbox.props().label).toEqual(label)
     expect(inputCheckbox.props().name).toEqual(name)
     expect(inputCheckbox.props().checked).toEqual(checked)
-    expect(inputCheckbox.props().value).toEqual(String(checked))
     inputCheckbox.simulate('change')
     expect(mockFunction).toHaveBeenCalled()
   })
