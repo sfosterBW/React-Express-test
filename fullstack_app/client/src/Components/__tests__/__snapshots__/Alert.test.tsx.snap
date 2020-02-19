@@ -6,7 +6,9 @@ exports[`the Alert component renders the same as last time with props 1`] = `
     <p>
       true
     </p>
-    <button>
+    <button
+      onClick={[Function]}
+    >
       ×
     </button>
   </div>
