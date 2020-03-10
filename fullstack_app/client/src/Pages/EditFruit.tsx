@@ -2,8 +2,7 @@ import React, { FC } from 'react'
 import { RouteComponentProps} from '@reach/router'
 import { IFruit } from '../utils/interfaces'
 import Banner from '../Components/Banner/Banner'
-import Table from '../Components/Table/Table'
-import styles from '../Components/App/App.module.css'
+import List from '../Components/List/List'
 
 interface Props extends RouteComponentProps {
   fruits: IFruit[]
@@ -12,10 +11,10 @@ interface Props extends RouteComponentProps {
 
 const EditFruit: FC<Props> = ({fruits, title}) => {
   return (
-    <div className={styles.main}>
+    <>
       <Banner flavour="flavourThree" size="large" title={title} />
-      <Table fruits={fruits} />
-    </div>
+      <List fruits={fruits} />
+    </>
   )
 }
 

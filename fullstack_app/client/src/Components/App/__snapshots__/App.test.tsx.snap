@@ -4,9 +4,7 @@ exports[`the app component renders the same as last time 1`] = `
 <div
   className="App"
 >
-  <header
-    className="App-header"
-  >
+  <header>
     <nav
       className="wrapper"
     >
@@ -66,23 +64,19 @@ exports[`the app component renders the same as last time 1`] = `
       }
       tabIndex="-1"
     >
-      <div
-        className="main"
+      <section
+        className="wrapper"
       >
-        <section
-          className="wrapper"
+        <div
+          className="hero large flavourOne"
         >
-          <div
-            className="hero large flavourOne"
+          <h1
+            className="title"
           >
-            <h1
-              className="title"
-            >
-              Add Fruit and stuff
-            </h1>
-          </div>
-        </section>
-      </div>
+            Add Fruit and stuff
+          </h1>
+        </div>
+      </section>
     </div>
   </main>
   <div />
