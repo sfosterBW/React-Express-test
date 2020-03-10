@@ -38,7 +38,7 @@ const App: FC = () => {
           <EditFruit fruits={fruits} path="/edit" title="True table"/>
         </Router>
       </main>
-      <Modal fruit={modalFruit} title="This is a modal" />
+      <Modal fruit={modalFruit} />
     </div>
   )
 }

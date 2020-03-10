@@ -9,11 +9,12 @@ import styles from './Form.module.css'
 
 interface Props {
   fruit?: IFruit
+  title?: string
 }
 
 const defaultFruit = { _id: undefined, name: "", best: false }
 
-const Form: FC<Props> = ({ fruit = defaultFruit }) => {
+const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) => {
 
   const [best, setBest] = useState<boolean>(fruit.best)
   const name = useField(fruit.name, "Add a fruit", "name", "text")
@@ -51,7 +52,7 @@ const Form: FC<Props> = ({ fruit = defaultFruit }) => {
 
   return (
     <form className={styles.form} onSubmit={(event) => submit(event)}>
-      <h2 className={styles.title}>Add a new fruit</h2>
+      <h2 className={styles.title}>{title}</h2>
       <InputText {...name} />
       <InputCheckbox
         checked={best}

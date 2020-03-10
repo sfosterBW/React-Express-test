@@ -8,12 +8,12 @@ exports[`the Alert component renders the same as last time with props 1`] = `
     className="alert"
   >
     <p
-      className="alert-text"
+      className="message"
     >
       true
     </p>
     <button
-      className="alert-button"
+      className="button"
       onClick={[Function]}
     >
       ×

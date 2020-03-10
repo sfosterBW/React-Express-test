@@ -8,11 +8,6 @@ exports[`the modal component renders the same as last time 1`] = `
     <div
       className="modal"
     >
-      <h2
-        className="title"
-      >
-        This is a title
-      </h2>
       <form
         className="form"
         onSubmit={[Function]}
@@ -20,7 +15,7 @@ exports[`the modal component renders the same as last time 1`] = `
         <h2
           className="title"
         >
-          Add a new fruit
+          Edit fruit
         </h2>
         <div
           className="wrapper"

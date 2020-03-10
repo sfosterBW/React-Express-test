@@ -16,8 +16,7 @@ const mockFruit = {
   name: "False Case",
   best: false
 }
-const title = "This is a title"
-const component = <Modal fruit={mockFruit} title={title} />
+const component = <Modal fruit={mockFruit} />
 const wrapper = mount(component)
 
 describe('the modal component', () => {
@@ -26,8 +25,7 @@ describe('the modal component', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.find('section')).toHaveLength(1)
     expect(wrapper.find('div')).toHaveLength(5)
-    expect(wrapper.find('h2')).toHaveLength(2)
-    expect(wrapper.find('h2').at(0).text()).toEqual(title)
+    expect(wrapper.find('h2')).toHaveLength(1)
     expect(wrapper.find('form')).toHaveLength(1)
     expect(wrapper.find({name: 'close'})).toHaveLength(1)
   })

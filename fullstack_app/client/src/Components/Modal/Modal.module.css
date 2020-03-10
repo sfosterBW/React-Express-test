@@ -12,10 +12,16 @@
 .modal {
   position: relative;
   border-radius: 5px;
+  background: lightgray;
+}
+
+.modal form {
+  background: lightgray;
 }
 
 .title {
   font-size: 3vmin;
+  text-align: center;
 }
 
 .close {

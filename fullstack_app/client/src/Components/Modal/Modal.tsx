@@ -8,10 +8,9 @@ import styles from './Modal.module.css'
 
 interface Props {
   fruit: IFruit | undefined
-  title: string
 }
 
-const Modal: FC<Props> = ({ fruit, title }) => {
+const Modal: FC<Props> = ({ fruit }) => {
 
   const selectToggle = (state: RootState) => state.modal.toggle
   const toggle = useSelector(selectToggle)
@@ -22,8 +21,7 @@ const Modal: FC<Props> = ({ fruit, title }) => {
       return (
         <section className={styles.wrapper}>
           <div className={styles.modal}>
-            <h2 className={styles.title}>{title}</h2>
-            <Form fruit={fruit} />
+            <Form fruit={fruit} title="Edit fruit" />
             <button
               className={styles.close}
               name="close"
