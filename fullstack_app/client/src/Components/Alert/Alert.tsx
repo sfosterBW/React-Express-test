@@ -27,7 +27,7 @@ const Alert: FC = () => {
   }
 
   return (
-    <div className="alert-wrapper">{ displayAlert() }</div>
+    <div className={styles.wrapper}>{ displayAlert() }</div>
   )
 }
 
