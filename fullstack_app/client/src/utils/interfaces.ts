@@ -4,7 +4,7 @@ export interface IFruit {
   name: string
   best: boolean
 }
-
+ 
 export interface IFruitResponse {
   status: number
 }

@@ -1,5 +1,5 @@
 import { IFruit } from './interfaces'
-
+ 
 //Action const
 export const TOGGLE_ALERT = "TOGGLE_ALERT"
 

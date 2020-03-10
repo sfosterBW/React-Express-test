@@ -1,0 +1,27 @@
+.wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  position: relative;
+  border-radius: 5px;
+}
+
+.title {
+  font-size: 3vmin;
+}
+
+.close {
+  position: absolute;
+  top: 1.5vmin;
+  right: 0px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

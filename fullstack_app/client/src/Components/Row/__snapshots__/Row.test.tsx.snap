@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the Row component renders the same as last time 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="header"
+    onClick={[Function]}
+  >
+    <div
+      className="section"
+    >
+      <h3
+        className="subtitle"
+      >
+        apple
+      </h3>
+    </div>
+  </div>
+  <div
+    className="body undefined"
+  >
+    <div
+      className="section"
+    >
+      <h3
+        className="subtitle"
+      >
+        Best
+      </h3>
+      <input
+        checked={true}
+        className="button"
+        id="1"
+        name="1"
+        onChange={[Function]}
+        type="checkbox"
+        value={1}
+      />
+      <label
+        htmlFor="1"
+      >
+        true
+      </label>
+    </div>
+    <div
+      className="section"
+    >
+      <h3
+        className="subtitle"
+      >
+        Edit
+      </h3>
+      <button
+        className="button"
+        name="modal"
+        onClick={[Function]}
+      >
+        Update
+      </button>
+      <button
+        className="button"
+        name="remove"
+        onClick={[Function]}
+        value="1"
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the modal component renders the same as last time 1`] = `
+<div>
+  <section
+    className="wrapper"
+  >
+    <div
+      className="modal"
+    >
+      <h2
+        className="title"
+      >
+        This is a title
+      </h2>
+      <form
+        className="form"
+        onSubmit={[Function]}
+      >
+        <h2
+          className="title"
+        >
+          Add a new fruit
+        </h2>
+        <div
+          className="wrapper"
+        >
+          <label
+            className="label"
+            htmlFor="name"
+          >
+            Add a fruit
+          </label>
+          <input
+            className="text"
+            id="name"
+            name="name"
+            onChange={[Function]}
+            type="text"
+            value="False Case"
+          />
+        </div>
+        <div
+          className="wrapper"
+        >
+          <label
+            className="label"
+            htmlFor="best"
+          >
+            Is it best?
+          </label>
+          <div
+            className="checkboxWrapper"
+          >
+            <input
+              checked={false}
+              className="checkbox"
+              id="best"
+              name="best"
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <label
+              className="checkboxLabel"
+              htmlFor="best"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            >
+              <span
+                className="checkboxButton"
+              />
+            </label>
+          </div>
+        </div>
+        <button
+          className="button"
+        >
+          Add new fruit
+        </button>
+      </form>
+      <button
+        className="close"
+        name="close"
+        onClick={[Function]}
+      >
+        ×
+      </button>
+    </div>
+  </section>
+</div>
+`;

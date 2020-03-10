@@ -1,0 +1,36 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+}
+
+.left, .right {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 1vmin;
+}
+
+.right {
+  margin-left: auto;
+  margin-right: 2vmin;
+}
+
+.logo, .title, .link {
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: middle;
+  margin: 0 2vmin;
+}
+
+.logo {
+
+}
+
+.title {
+  font-size: calc(10px + 2vmin);
+  font-weight: bold;
+}
+
+.link {
+  font-size: calc(4px + 2vmin);
+}

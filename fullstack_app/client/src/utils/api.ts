@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { IFruit } from './interfaces'
-
+ 
 axios.defaults.baseURL = '/fruit-api/'
 
 const fetchFruit = async () => {

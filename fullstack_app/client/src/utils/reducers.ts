@@ -11,7 +11,7 @@ import {
   UPDATE_FRUIT,
   FruitActionTypes,
 } from './actions'
-
+ 
 export const initialAlertState: AlertState = {
   toggle: false
 }

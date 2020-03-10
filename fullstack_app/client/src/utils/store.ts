@@ -11,7 +11,7 @@ export const rootReducer = combineReducers({
   fruit: fruitReducer,
   modal: modalReducer
 })
-
+ 
 export type RootState = ReturnType<typeof rootReducer>
 
 export default function configureStore(preloadedState: undefined) {
