@@ -1,0 +1,36 @@
+.form {
+  padding: 4vmin 6vmin;
+  border-radius: 0.5vmin;
+  background: #f0bbc5b5;
+  margin: 3vmin;
+}
+
+.title {
+  font-size: calc(16px + 2vmin);
+  text-align: center;
+}
+
+.button {
+  display: flex;
+  margin: 0 auto;
+  padding: 2vmin 4vmin;
+  font-size: calc(12px + 1vmin);
+  font-weight: bold;
+  color: white;
+  text-shadow: 0.2vmin 0.2vmin gray;
+  border-radius: 0.5vmin;
+  background: #1ab545cc;
+}
+
+.button:hover {
+  position: relative;
+  top: -0.1vmin;
+  left: -0.1vmin;
+  box-shadow: 0 0.5vmin 0.5vmin rgba(0, 0, 0, 0.75);
+}
+
+.button:active {
+  position: relative;
+  top: 0.1vmin;
+  left: 0.1vmin;
+}

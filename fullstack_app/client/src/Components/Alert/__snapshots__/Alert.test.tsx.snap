@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the Alert component renders the same as last time with props 1`] = `
+<div
+  className="alert-wrapper"
+>
+  <section
+    className="alert"
+  >
+    <p
+      className="message"
+    >
+      true
+    </p>
+    <button
+      className="button"
+      onClick={[Function]}
+    >
+      ×
+    </button>
+  </section>
+</div>
+`;

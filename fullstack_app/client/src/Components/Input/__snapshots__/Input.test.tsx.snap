@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the InputCheckbox component renders the same as last time 1`] = `
+<div
+  className="wrapper"
+>
+  <label
+    className="label"
+    htmlFor="This is a name"
+  >
+    This is a label
+  </label>
+  <div
+    className="checkboxWrapper"
+  >
+    <input
+      checked={false}
+      className="checkbox"
+      id="This is a name"
+      name="This is a name"
+      type="checkbox"
+    />
+    <label
+      className="checkboxLabel"
+      htmlFor="This is a name"
+      style={
+        Object {
+          "background": undefined,
+        }
+      }
+    >
+      <span
+        className="checkboxButton"
+      />
+    </label>
+  </div>
+</div>
+`;
+
+exports[`the InputText component renders the same as last time 1`] = `
+<div
+  className="wrapper"
+>
+  <label
+    className="label"
+    htmlFor="This is a name"
+  >
+    This is a label
+  </label>
+  <input
+    className="text"
+    id="This is a name"
+    name="This is a name"
+    type="text"
+    value="This is a value"
+  />
+</div>
+`;

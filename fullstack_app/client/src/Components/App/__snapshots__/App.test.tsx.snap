@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the app component renders the same as last time 1`] = `
+<div
+  className="App"
+>
+  <header>
+    <nav
+      className="wrapper"
+    >
+      <div
+        className="left"
+      >
+        <a
+          aria-current="page"
+          href="/"
+          onClick={[Function]}
+        >
+          <img
+            alt="logo"
+            className="logo"
+            src="https://img.icons8.com/cotton/64/000000/apple--v1.png"
+          />
+        </a>
+        <h2
+          className="title"
+        >
+          Fruit Dashboard
+        </h2>
+      </div>
+      <div
+        className="right"
+      >
+        <a
+          className="link"
+          href="/add"
+          onClick={[Function]}
+          rel="nofollower noreferrer"
+          title="Add a new fruit to your list"
+        >
+          Add new fruit
+        </a>
+        <a
+          className="link"
+          href="/edit"
+          onClick={[Function]}
+          rel="nofollower noreferrer"
+          title="View and edit your list of fruit"
+        >
+          Edit fruit
+        </a>
+      </div>
+    </nav>
+  </header>
+  <main
+    className="main"
+  >
+    <div
+      className="main"
+      style={
+        Object {
+          "outline": "none",
+        }
+      }
+      tabIndex="-1"
+    >
+      <section
+        className="wrapper"
+      >
+        <div
+          className="hero large flavourOne"
+        >
+          <h1
+            className="title"
+          >
+            Add Fruit and stuff
+          </h1>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div />
+</div>
+`;

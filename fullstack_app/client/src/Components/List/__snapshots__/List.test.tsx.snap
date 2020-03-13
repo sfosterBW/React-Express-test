@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the List component renders the same as last time 1`] = `
+<section
+  className="wrapper"
+>
+  <div
+    className="filters"
+  >
+    <button
+      className="filter"
+      onClick={[Function]}
+    >
+      All
+    </button>
+    <button
+      className="filter"
+      onClick={[Function]}
+    >
+      Best
+    </button>
+    <button
+      className="filter"
+      onClick={[Function]}
+    >
+      Not best
+    </button>
+  </div>
+  <div
+    className="devices"
+  >
+    <p>
+      Nothing here...
+    </p>
+  </div>
+</section>
+`;
