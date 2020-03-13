@@ -1,5 +1,6 @@
 .wrapper {
-  margin: 0 3vmin 3vmin 3vmin;
+  margin-top: 0;
+  margin-bottom: 3vmin;
 }
 
 .hero {

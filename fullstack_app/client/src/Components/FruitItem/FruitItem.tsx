@@ -29,6 +29,8 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
     }
   }
 
+  const showHide = () => activeToggle ? "calc(60px + 8vmin)" : "0"
+
   return (
     <div className={styles.row}>
       <div className={styles.header} onClick={() => setActiveToggle(!activeToggle)}>
@@ -36,7 +38,11 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
           <h3 className={styles.subtitle}>{fruit.name}</h3>
         </div>
       </div>
-      <div className={`${styles.body} ${activeToggle ? styles.active : undefined}`}>
+      <div
+        className={styles.active}
+        style={{
+          height: showHide(),
+          transition: "all 0.5s"}}>
         <div className={styles.section}>
           <h3 className={styles.subtitle}>Best</h3>
           <input
