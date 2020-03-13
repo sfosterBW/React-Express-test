@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useCallback } from 'react'
 import { Router } from "@reach/router"
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../utils/store'
@@ -19,14 +19,16 @@ const App: FC = () => {
   const selectModalFruit = (state: RootState) => state.modal.fruit
   const modalFruit = useSelector(selectModalFruit)
   const dispatch = useDispatch()
+  //Used to ensure the same values are used on re-render
+  const effectDispatch = useCallback(dispatch, [])
 
   useEffect(() => {
-    function initFruit() {
+    const initFruit = () => {
       fruitService.fetchFruit()
-        .then(res => dispatch(getFruits(res)))
+        .then(res => effectDispatch(getFruits(res)))
     }
     initFruit()
-  }, [])
+  }, [effectDispatch])
 
   return (
     <div className="App">
