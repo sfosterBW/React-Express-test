@@ -47,11 +47,10 @@ const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) =>
     event.preventDefault()
     if (name.value.length > 0) {
       const updateFruit: IFruit = fruit
-      updateFruit.best = best
-      updateFruit.name = name.value
+      Object.assign(updateFruit, { best: best, name: name.value })
+      handleSubmit(updateFruit)
       name.reset()
       setBest(false)
-      handleSubmit(updateFruit)
     } else {
       dispatch(toggleAlert(true))
     }

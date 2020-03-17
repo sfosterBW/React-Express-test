@@ -1,5 +1,5 @@
 import { useState } from 'react'
- 
+
 export const useField = (
   initValue: string,
   label: string,
@@ -13,7 +13,7 @@ export const useField = (
   }
 
   const reset = () => {
-    setValue(initValue)
+    setValue("")
   }
 
   return {
