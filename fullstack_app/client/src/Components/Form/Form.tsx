@@ -46,9 +46,11 @@ const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) =>
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (name.value.length > 0) {
-      const updateFruit: IFruit = fruit
-      Object.assign(updateFruit, { best: best, name: name.value })
-      handleSubmit(updateFruit)
+      handleSubmit({
+        _id: fruit._id,
+        best: best,
+        name: name.value,
+      })
       name.reset()
       setBest(false)
     } else {
