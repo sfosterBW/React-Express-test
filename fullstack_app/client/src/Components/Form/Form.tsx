@@ -1,10 +1,11 @@
 import React, { FC, FormEvent, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import fruitService from '../../utils/api'
 import { InputCheckbox, InputText } from '../Input/Input'
 import { useField } from '../../utils/hooks'
 import { IFruit } from '../../utils/interfaces'
-import { createFruit, toggleModal, updateFruit } from '../../utils/actions'
+import { RootState } from '../../utils/store'
+import { createFruit, toggleAlert, toggleModal, updateFruit } from '../../utils/actions'
 import styles from './Form.module.css'
 
 interface Props {
@@ -18,6 +19,8 @@ const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) =>
 
   const [best, setBest] = useState<boolean>(fruit.best)
   const name = useField(fruit.name, "Add a fruit", "name", "text")
+  const selectModal = (state: RootState) => state.modal.toggle
+  const modal = useSelector(selectModal)
   const dispatch = useDispatch()
 
   const setter = (set: any) =>
@@ -27,13 +30,17 @@ const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) =>
       set(newValue)
     }
 
-  const handleSubmit = (fruit: IFruit) => {
+  const handleSubmit = async (fruit: IFruit) => {
     if (fruit._id) {
-      fruitService.updateFruit(fruit).then(res => dispatch(updateFruit(res)))
+      const res = await fruitService.updateFruit(fruit)
+      res.status === 201 ? dispatch(updateFruit(res.data))
+        : dispatch(toggleAlert(true))
     } else {
-      fruitService.createFruit(fruit).then(res => dispatch(createFruit(res)))
+      const res = await fruitService.createFruit(fruit)
+      res.status === 201 ? dispatch(createFruit(res.data))
+        : dispatch(toggleAlert(true))
     }
-    dispatch(toggleModal(false))
+    modal && dispatch(toggleModal(false))
   }
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -46,7 +53,7 @@ const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) =>
       setBest(false)
       handleSubmit(updateFruit)
     } else {
-      alert("You need to add a name")
+      dispatch(toggleAlert(true))
     }
   }
 

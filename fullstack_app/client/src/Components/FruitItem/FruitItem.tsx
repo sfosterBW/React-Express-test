@@ -15,15 +15,17 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   const [activeToggle, setActiveToggle] = useState<boolean>(active)
   const dispatch = useDispatch()
 
-  const handleEdit = (fruit: IFruit) => {
+  const handleEdit = async (fruit: IFruit) => {
     const newFruit = fruit
     newFruit.best = !newFruit.best
-    fruitService.updateFruit(newFruit).then(res => dispatch(updateFruit(res)))
+    const res = await fruitService.updateFruit(newFruit)
+    res.status === 201 ? dispatch(updateFruit(res.data)) : console.log(res)
   }
 
-  const handleRemove = (fruit: IFruit) => {
+  const handleRemove = async (fruit: IFruit) => {
     if(fruit._id){
-      fruitService.deleteFruit(fruit._id).then((res) => dispatch(removeFruit(res)))
+      const res = await fruitService.deleteFruit(fruit._id)
+      res.status === 200 ? dispatch(removeFruit(res.data)) : console.log(res)
     } else {
       console.log("Fruit undefined", fruit)
     }

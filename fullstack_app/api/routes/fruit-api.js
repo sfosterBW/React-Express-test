@@ -29,10 +29,16 @@ router.get("/list", function(req, res, next) {
 
 router.post("/new", function(req, res, next) {
   try {
-    const fruitReq = req.body.new
-    const newFruit = new Fruit(fruitReq.name, fruitReq.best)
-    fruitList.push(newFruit)
-    res.status(200).send(newFruit)
+    const fruit = req.body.new
+    if(typeof fruit.name !== "string" || typeof fruit.best !== "boolean") {
+      res.status(400).send("Incorrect format")
+    } else if (fruit.name.length === 0 || fruit.name.length > 50) {
+      res.status(400).send("Name too long")
+    } else {
+      const newFruit = new Fruit(fruit.name, fruit.best)
+      fruitList.push(newFruit)
+      res.status(201).send(newFruit)
+    }
   }
   catch (error) {
     next(error)
@@ -41,9 +47,18 @@ router.post("/new", function(req, res, next) {
 
 router.put("/update", function(req, res, next) {
   try {
-    const index = fruitList.findIndex(i => i._id === req.body._id)
-    fruitList[index] = req.body
-    res.status(200).send(fruitList[index])
+    const fruit = req.body
+    const index = fruitList.findIndex(i => i._id === fruit._id)
+    if (typeof fruit.name !== "string" || typeof fruit.best !== "boolean") {
+      res.status(400).send("Incorrect format")
+    } else if (fruit.name.length === 0 || fruit.name.length > 50) {
+      res.status(400).send("Name too long")
+    } else if (index === -1) {
+      res.status(404).send("Fruit not found")
+    } else {
+      fruitList[index] = fruit
+      res.status(201).send(fruitList[index])
+    }
   } catch (error) {
     next(error)
   }
@@ -51,9 +66,14 @@ router.put("/update", function(req, res, next) {
 
 router.delete("/delete", function(req, res, next) {
   try {
-    const index = fruitList.findIndex(i => i._id == req.query.id)
-    fruitList.splice(index, 1)
-    res.status(200).send(req.query.id)
+    const { id } = req.query
+    const index = fruitList.findIndex(i => i._id == id)
+    if (index === -1) {
+      res.status(404).send("Fruit not found")
+    } else {
+      fruitList.splice(index, 1)
+      res.status(200).send(id)
+    }
   } catch (error) {
     next(error)
   }
