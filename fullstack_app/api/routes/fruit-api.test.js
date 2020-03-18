@@ -1,50 +1,127 @@
 const request = require('supertest')
 const app = require('../app')
 
-const addFruit = {
-  _id: -1,
-  name: "Apple",
-  best: false
+
+const testcase = {
+  add: {
+    success: {
+      _id: -1,
+      name: "Apple",
+      best: false,
+    },
+    typeError: {
+      _id: -1,
+      name: 1,
+      best: "Apple",
+    },
+    nameTooLong: {
+      _id: -1,
+      name: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
+      best: false,
+    },
+  },
+  get: {
+    success: {
+      _id: 1,
+      name: "Apple",
+      best: false
+    }
+  },
+  update: {
+    success: {
+      _id: 1,
+      name: "Banana",
+      best: true
+    },
+    typeError: {
+      _id: 1,
+      name: 1,
+      best: "Apple",
+    },
+    nameTooLong: {
+      _id: 1,
+      name: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
+      best: false,
+    },
+    wrongId: {
+      _id: 2,
+      name: "Banana",
+      best: true
+    }
+  },
+  delete: {
+    success: [],
+  }
 }
 
-const getFruit = {
-  _id: 1,
-  name: "Apple",
-  best: false
-}
-
-const updateFruit = {
-  _id: 1,
-  name: "Banana",
-  best: true
-}
-
-describe('post a new fruit', () => {
+describe('add a new fruit', () => {
   it('should return success message', async () => {
     const res = await request(app)
       .post('/fruit-api/new')
-      .send({ new: addFruit })
-    expect(res.status).toEqual(200)
-    expect(res.body).toEqual([getFruit])
+      .send({ new: testcase.add.success })
+    expect(res.status).toEqual(201)
+    expect(res.body).toEqual(testcase.get.success)
+  })
+
+  it('should error with the wrong type', async () => {
+    const res = await request(app)
+      .post('/fruit-api/new')
+      .send({ new: testcase.add.typeError })
+    expect(res.status).toEqual(400)
+    expect(res.text).toEqual("Incorrect format")
+  })
+
+  it('should error with the wrong type', async () => {
+    const res = await request(app)
+      .post('/fruit-api/new')
+      .send({ new: testcase.add.nameTooLong })
+    expect(res.status).toEqual(400)
+    expect(res.text).toEqual("Name too long")
   })
 })
 
 describe('get fruit list', () => {
-  it('should return a list', async () => {
+  it('should return a list with the right link', async () => {
     const res = await request(app)
       .get('/fruit-api/list')
     expect(res.status).toEqual(200)
-    expect(res.body).toEqual([getFruit])
+    expect(res.body).toEqual([testcase.get.success])
   })
 })
 
 describe('update an existing fruit', () => {
-  it('should return a success message', async () => {
+  it('should return a success message with the right data', async () => {
     const res = await request(app)
       .put('/fruit-api/update')
-      .send(updateFruit)
-    expect(res.status).toEqual(200)
-    expect(res.body).toEqual([updateFruit])
+      .send(testcase.update.success)
+    expect(res.status).toEqual(201)
+    expect(res.body).toEqual(testcase.update.success)
+  })
+
+  describe('should return an error if', () => {
+    it('the wrong type is used', async () => {
+      const res = await request(app)
+        .put('/fruit-api/update')
+        .send(testcase.update.typeError)
+      expect(res.status).toEqual(400)
+      expect(res.text).toEqual("Incorrect format")
+    })
+
+    it('the name is too long', async () => {
+      const res = await request(app)
+        .put('/fruit-api/update')
+        .send(testcase.update.nameTooLong)
+      expect(res.status).toEqual(400)
+      expect(res.text).toEqual("Name too long")
+    })
+
+    it('the fruit cannot be found', async () => {
+      const res = await request(app)
+        .put('/fruit-api/update')
+        .send(testcase.update.wrongId)
+      expect(res.status).toEqual(404)
+      expect(res.text).toEqual("Fruit not found")
+    })
   })
 })
 
@@ -53,17 +130,23 @@ describe('get updated fruit list', () => {
     const res = await request(app)
       .get('/fruit-api/list')
     expect(res.status).toEqual(200)
-    expect(res.body).toEqual([updateFruit])
+    expect(res.body).toEqual([testcase.update.success])
   })
 })
 
 describe('delete a fruit from the list', () => {
   it('should return a success message', async () => {
     const res = await request(app)
-      .delete('/fruit-api/delete')
-      .send("id=1")
+      .delete(`/fruit-api/delete?id=${testcase.update.success._id}`)
     expect(res.status).toEqual(200)
-    expect(res.body).toEqual([])
+    expect(res.text).toEqual(String(testcase.update.success._id))
+  })
+
+  it('should return an error if fruit not found', async () => {
+    const res = await request(app)
+      .delete(`/fruit-api/delete?id=${testcase.update.wrongId._id}`)
+    expect(res.status).toEqual(404)
+    expect(res.text).toEqual("Fruit not found")
   })
 })
 
@@ -72,6 +155,6 @@ describe('get empty fruit list', () => {
     const res = await request(app)
       .get('/fruit-api/list')
     expect(res.status).toEqual(200)
-    expect(res.body).toEqual([])
+    expect(res.body).toEqual(testcase.delete.success)
   })
 })
