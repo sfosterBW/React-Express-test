@@ -1,7 +1,7 @@
-var express = require("express")
-var router = express.Router()
+const express = require('express')
+const router = express.Router()
 
-const fruitList = []
+let fruitList = []
 
 class Fruit {
   constructor(name, best) {
@@ -19,25 +19,25 @@ class Fruit {
   }
 }
 
-router.get("/list", function(req, res, next) {
+router.get('/list', (request, response, next) => {
   try {
-    res.status(200).send(fruitList);
+    response.status(200).send(fruitList)
   } catch (error) {
     next(error)
   }
 })
 
-router.post("/new", function(req, res, next) {
+router.post('/new', (request, response, next) => {
   try {
-    const fruit = req.body.new
-    if(typeof fruit.name !== "string" || typeof fruit.best !== "boolean") {
-      res.status(400).send("Incorrect format")
-    } else if (fruit.name.length === 0 || fruit.name.length > 50) {
-      res.status(400).send("Name too long")
+    const { name, best } = request.body.new
+    if(typeof name !== "string" || typeof best !== "boolean") {
+      response.status(400).send("Incorrect format")
+    } else if (name.length === 0 || name.length > 50) {
+      response.status(400).send("Name too long")
     } else {
-      const newFruit = new Fruit(fruit.name, fruit.best)
-      fruitList.push(newFruit)
-      res.status(201).send(newFruit)
+      const newFruit = new Fruit(name, best)
+      fruitList = fruitList.concat(newFruit)
+      response.status(201).send(newFruit)
     }
   }
   catch (error) {
@@ -45,38 +45,40 @@ router.post("/new", function(req, res, next) {
   }
 })
 
-router.put("/update", function(req, res, next) {
+router.put('/update', (request, response, next) => {
   try {
-    const fruit = req.body
-    const index = fruitList.findIndex(i => i._id === fruit._id)
-    if (typeof fruit.name !== "string" || typeof fruit.best !== "boolean") {
-      res.status(400).send("Incorrect format")
-    } else if (fruit.name.length === 0 || fruit.name.length > 50) {
-      res.status(400).send("Name too long")
+    const { _id, name, best } = request.body
+    const index = fruitList.findIndex(i => i._id === _id)
+    if (typeof name !== "string" || typeof best !== "boolean") {
+      response.status(400).send("Incorrect format")
+    } else if (name.length === 0 || name.length > 50) {
+      response.status(400).send("Name too long")
     } else if (index === -1) {
-      res.status(404).send("Fruit not found")
+      response.status(404).send("Fruit not found")
     } else {
-      fruitList[index] = fruit
-      res.status(201).send(fruitList[index])
+      const updatedFruit = Object.assign({}, { _id, name, best })
+      fruitList = fruitList
+        .map(fruit => fruit._id === updatedFruit._id ? updatedFruit : fruit)
+      response.status(201).send(updatedFruit)
     }
   } catch (error) {
     next(error)
   }
 })
 
-router.delete("/delete", function(req, res, next) {
+router.delete('/delete', (request, response, next) => {
   try {
-    const { id } = req.query
-    const index = fruitList.findIndex(i => i._id == id)
+    const { id } = request.query
+    const index = fruitList.findIndex(fruit => fruit._id === Number(id))
     if (index === -1) {
-      res.status(404).send("Fruit not found")
+      response.status(404).send("Fruit not found")
     } else {
-      fruitList.splice(index, 1)
-      res.status(200).send(id)
+      fruitList = fruitList.filter(fruit => fruit._id !== Number(id))
+      response.status(200).send(id)
     }
   } catch (error) {
     next(error)
   }
 })
 
-module.exports = router;
+module.exports = router
