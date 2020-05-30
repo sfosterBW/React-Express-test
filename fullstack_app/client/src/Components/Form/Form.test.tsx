@@ -44,7 +44,7 @@ describe('the Form component', () => {
 
   describe('with custom props', () => {
 
-    const testFruit = { _id: 2, name: "Banana", best: true }
+    const testFruit = { id: "2", name: "Banana", best: true }
     const formComponent = <Form fruit={testFruit} />
     const form = mount(formComponent)
 

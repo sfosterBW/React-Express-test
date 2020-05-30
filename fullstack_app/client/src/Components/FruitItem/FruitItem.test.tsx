@@ -13,7 +13,7 @@ jest.mock('react-redux', () => ({
 
 describe('the FruitItem component', () => {
 
-  const fruit = {_id: 1, name:"apple", best:false}
+  const fruit = {id: "1", name:"apple", best:false}
   const component = <FruitItem fruit={fruit} />
   const wrapper = mount(component)
 
@@ -25,9 +25,9 @@ describe('the FruitItem component', () => {
     expect(wrapper.find('h3').at(1).text()).toEqual("Best")
     expect(wrapper.find('label')).toHaveLength(1)
     expect(wrapper.find('label').text()).toEqual(String(fruit.best))
-    expect(wrapper.find('label').props().htmlFor).toEqual(String(fruit._id))
+    expect(wrapper.find('label').props().htmlFor).toEqual(String(fruit.id))
     expect(wrapper.find('input')).toHaveLength(1)
-    expect(wrapper.find('input').props().name).toEqual(String(fruit._id))
+    expect(wrapper.find('input').props().name).toEqual(String(fruit.id))
     expect(wrapper.find('input').props().type).toEqual('checkbox')
     expect(wrapper.find('button')).toHaveLength(2)
     expect(wrapper.find('button').at(0).props().name).toEqual('modal')

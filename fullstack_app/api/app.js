@@ -7,7 +7,7 @@ var logger = require('morgan');
 var cors = require("cors");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var fruitAPIRouter = require("./routes/fruit-api");
+var fruitAPIRouter = require("./routes/fruits");
 var app = express();
 
 // view engine setup

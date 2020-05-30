@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
@@ -12,7 +11,7 @@ jest.mock('react-redux', () => ({
 }))
 
 const mockFruit = {
-  _id: 1,
+  id: "1",
   name: "False Case",
   best: false
 }

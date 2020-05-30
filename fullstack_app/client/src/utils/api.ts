@@ -19,14 +19,16 @@ const createFruit = async (fruit: { name: string, best: boolean }) => {
 
 const updateFruit = async (fruit: IFruit) => {
   try {
+    console.log('submit update', fruit)
     const response = await axios.put('update', fruit)
+    console.log('response', response)
     return response
   } catch (error) {
     return error
   }
 }
 
-const deleteFruit = async (id: number) => {
+const deleteFruit = async (id: string) => {
   try {
     const deleteData = { params: { id: id } }
     const response = await axios.delete('delete', deleteData)

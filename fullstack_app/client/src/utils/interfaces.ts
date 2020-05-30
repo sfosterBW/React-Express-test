@@ -1,10 +1,10 @@
 //Objects
 export interface IFruit {
-  _id: number | undefined
+  id: string | undefined
   name: string
   best: boolean
 }
- 
+
 export interface IFruitResponse {
   status: number
 }

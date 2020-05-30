@@ -1,0 +1,12 @@
+[
+  {
+    id: "1",
+    name: "Apple",
+    best: false
+  },
+  {
+    id: "2",
+    name: "Orange",
+    best: true
+  }
+]

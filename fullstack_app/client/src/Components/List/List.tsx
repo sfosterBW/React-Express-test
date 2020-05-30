@@ -15,7 +15,7 @@ const List: FC<Props> = ({ fruits }) => {
   const displayFruitList = () => {
     const filterFruit = fruits.filter((i) => filter === i.best || filter === undefined)
     if (filterFruit.length > 0) {
-      return filterFruit.map((i) => <FruitItem key={`${i._id}${i.name}`} fruit={i} />)
+      return filterFruit.map((i) => <FruitItem key={i.id} fruit={i} />)
     } else {
       return <p>Nothing here...</p>
     }

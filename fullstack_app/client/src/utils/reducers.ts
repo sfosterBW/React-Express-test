@@ -11,7 +11,7 @@ import {
   UPDATE_FRUIT,
   FruitActionTypes,
 } from './actions'
- 
+
 export const initialAlertState: AlertState = {
   toggle: false
 }
@@ -30,7 +30,7 @@ export function alertReducer(
 
 export const initialModalState: ModalState = {
   toggle: false,
-  fruit: { _id: undefined, name: '', best: false }
+  fruit: { id: undefined, name: '', best: false }
 }
 
 export function modalReducer(
@@ -64,12 +64,12 @@ export function fruitReducer(
       return { ...state, data: state.data.concat(action.payload) }
     }
     case REMOVE_FRUIT: {
-      const newFruits = state.data.filter(i => i._id !== action.payload)
+      const newFruits = state.data.filter(i => i.id !== action.payload)
       return { ...state, data: newFruits }
     }
     case UPDATE_FRUIT: {
       const updateFruit = state.data.map((fruit) => {
-        if (fruit._id === action.payload._id) {
+        if (fruit.id === action.payload.id) {
           fruit.best = action.payload.best
           fruit.name = action.payload.name
           return fruit

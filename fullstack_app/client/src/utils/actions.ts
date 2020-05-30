@@ -1,5 +1,5 @@
 import { IFruit } from './interfaces'
- 
+
 //Action const
 export const TOGGLE_ALERT = "TOGGLE_ALERT"
 
@@ -72,7 +72,7 @@ interface CreateFruit {
 
 interface RemoveFruit {
   type: typeof REMOVE_FRUIT,
-  payload: number
+  payload: string
 }
 
 interface UpdateFruit {
@@ -98,7 +98,7 @@ export const createFruit = (fruit: IFruit): FruitActionTypes => {
   }
 }
 
-export const removeFruit = (id: number): FruitActionTypes => {
+export const removeFruit = (id: string): FruitActionTypes => {
   return {
     type: REMOVE_FRUIT,
     payload: id,

@@ -13,7 +13,7 @@ interface Props {
   title?: string
 }
 
-const defaultFruit = { _id: undefined, name: "", best: false }
+const defaultFruit = { id: undefined, name: "", best: false }
 
 const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) => {
 
@@ -31,7 +31,7 @@ const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) =>
     }
 
   const handleSubmit = async (fruit: IFruit) => {
-    if (fruit._id) {
+    if (fruit.id) {
       const res = await fruitService.updateFruit(fruit)
       res.status === 201 ? dispatch(updateFruit(res.data))
         : dispatch(toggleAlert(true))
@@ -47,7 +47,7 @@ const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) =>
     event.preventDefault()
     if (name.value.length > 0) {
       handleSubmit({
-        _id: fruit._id,
+        id: fruit.id,
         best: best,
         name: name.value,
       })

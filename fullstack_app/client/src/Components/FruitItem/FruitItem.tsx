@@ -19,13 +19,23 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
     const newFruit = fruit
     newFruit.best = !newFruit.best
     const res = await fruitService.updateFruit(newFruit)
-    res.status === 201 ? dispatch(updateFruit(res.data)) : console.log(res)
+    try{
+      dispatch(updateFruit(res.data))
+    }
+    catch (error) {
+      console.log(error)
+    }
   }
 
   const handleRemove = async (fruit: IFruit) => {
-    if(fruit._id){
-      const res = await fruitService.deleteFruit(fruit._id)
-      res.status === 200 ? dispatch(removeFruit(res.data)) : console.log(res)
+    if(fruit.id){
+      const res = await fruitService.deleteFruit(fruit.id)
+      try {
+        dispatch(removeFruit(String(res.data)))
+      }
+      catch (error) {
+        console.log(error)
+      }
     } else {
       console.log("Fruit undefined", fruit)
     }
@@ -50,12 +60,12 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
           <input
             checked={fruit.best}
             className={styles.button}
-            id={`${fruit._id}`}
-            name={`${fruit._id}`}
+            id={`${fruit.id}`}
+            name={`${fruit.id}`}
             onChange={() => handleEdit(fruit)}
             type="checkbox"
-            value={fruit._id} />
-          <label htmlFor={`${fruit._id}`}>{fruit.best.toString()}</label>
+            value={fruit.id} />
+          <label htmlFor={`${fruit.id}`}>{fruit.best.toString()}</label>
         </div>
         <div className={styles.section}>
           <h3 className={styles.subtitle}>Edit</h3>
@@ -69,7 +79,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             className={styles.button}
             name="remove"
             onClick={() => handleRemove(fruit)}
-            value={`${fruit._id}`}>
+            value={`${fruit.id}`}>
             Remove
           </button>
         </div>

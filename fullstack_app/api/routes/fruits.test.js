@@ -1,60 +1,21 @@
 const request = require('supertest')
 const app = require('../app')
+const fruitService = require('../services/fruitService')
+const helper = require('../utils/test-helper')
 
-
-const testcase = {
-  add: {
-    success: {
-      _id: -1,
-      name: "Apple",
-      best: false,
-    },
-    typeError: {
-      _id: -1,
-      name: 1,
-      best: "Apple",
-    },
-    nameTooLong: {
-      _id: -1,
-      name: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
-      best: false,
-    },
-  },
-  get: {
-    success: {
-      _id: 1,
-      name: "Apple",
-      best: false
-    }
-  },
-  update: {
-    success: {
-      _id: 1,
-      name: "Banana",
-      best: true
-    },
-    typeError: {
-      _id: 1,
-      name: 1,
-      best: "Apple",
-    },
-    nameTooLong: {
-      _id: 1,
-      name: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
-      best: false,
-    },
-    wrongId: {
-      _id: 2,
-      name: "Banana",
-      best: true
-    }
-  },
-  delete: {
-    success: [],
-  }
-}
+beforeEach(async () => {
+  await fruitService.resetFruit()
+  const fruitPromiseArray = helper.initialFruits
+    .map(fruit => fruitService.addFruit(fruit))
+  await Promise.all(fruitPromiseArray)
+})
 
 describe('add a new fruit', () => {
+  it('initiates properly', async () => {
+    const res = await request(app).get('/fruit-api/list')
+    expect(res.body).toHaveLength(helper.initialFruits.length)
+  })
+
   it('should return success message', async () => {
     const res = await request(app)
       .post('/fruit-api/new')
@@ -94,6 +55,7 @@ describe('update an existing fruit', () => {
     const res = await request(app)
       .put('/fruit-api/update')
       .send(testcase.update.success)
+      console.log(res.body)
     expect(res.status).toEqual(201)
     expect(res.body).toEqual(testcase.update.success)
   })
@@ -129,6 +91,7 @@ describe('get updated fruit list', () => {
   it('should return a list', async () => {
     const res = await request(app)
       .get('/fruit-api/list')
+      console.log(res.body)
     expect(res.status).toEqual(200)
     expect(res.body).toEqual([testcase.update.success])
   })
