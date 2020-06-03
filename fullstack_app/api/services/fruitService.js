@@ -21,7 +21,7 @@ const findById = (id) => {
 const getFruits = () => fruits
 
 const addFruit = (fruit) => {
-  const id = new Date().getTime().toString()
+  const id = `${new Date().getTime().toString()}${Math.floor(Math.random() * 1000)}`
   const newFruit = { ...fruit, id }
 
   fruits.push(newFruit)
@@ -29,8 +29,13 @@ const addFruit = (fruit) => {
 }
 
 const updateFruit = (id, fruit) => {
-  const {name, best} = fruit
+  const { name, best } = fruit
   const currentFruit = findById(id)
+
+  if(!currentFruit) {
+    throw new Error('Fruit not found')
+  }
+
   const updatedFruit = {...currentFruit, name, best}
   fruits = fruits.map(fruit => fruit.id === id ? updatedFruit : fruit)
   return updatedFruit
@@ -56,5 +61,6 @@ module.exports = {
   findById,
   updateFruit,
   deleteFruit,
-  resetFruit
+  resetFruit,
+  fruits
 }

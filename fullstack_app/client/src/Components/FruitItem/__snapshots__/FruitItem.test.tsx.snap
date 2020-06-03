@@ -19,7 +19,13 @@ exports[`the FruitItem component renders the same as last time 1`] = `
     </div>
   </div>
   <div
-    className="body undefined"
+    className="active"
+    style={
+      Object {
+        "height": "0",
+        "transition": "all 0.5s",
+      }
+    }
   >
     <div
       className="section"
@@ -36,7 +42,7 @@ exports[`the FruitItem component renders the same as last time 1`] = `
         name="1"
         onChange={[Function]}
         type="checkbox"
-        value={1}
+        value="1"
       />
       <label
         htmlFor="1"

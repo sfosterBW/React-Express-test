@@ -1,4 +1,8 @@
-const initialFruits = [
+const fruitService = require('../services/fruitService')
+
+const fruits = fruitService.fruits
+
+let initialFruits = [
   {
     id: "1",
     name: "Apple",
@@ -16,4 +20,4 @@ const initialFruits = [
   }
 ]
 
-module.exports = { initialFruits }
+module.exports = { initialFruits, fruits }

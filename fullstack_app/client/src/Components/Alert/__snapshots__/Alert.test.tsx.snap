@@ -2,7 +2,7 @@
 
 exports[`the Alert component renders the same as last time with props 1`] = `
 <div
-  className="alert-wrapper"
+  className="wrapper"
 >
   <section
     className="alert"

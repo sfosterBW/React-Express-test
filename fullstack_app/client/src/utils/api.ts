@@ -1,16 +1,16 @@
 import axios from 'axios'
 import { IFruit } from './interfaces'
 
-axios.defaults.baseURL = '/fruit-api/'
+axios.defaults.baseURL = '/fruit-api'
 
 const fetchFruit = async () => {
-  const response = await axios.get("list")
+  const response = await axios.get('/')
   return response.data
 }
 
 const createFruit = async (fruit: { name: string, best: boolean }) => {
   try {
-    const response = await axios.post('new', { new: fruit })
+    const response = await axios.post('/', fruit)
     return response
   } catch (error) {
     return error
@@ -20,7 +20,7 @@ const createFruit = async (fruit: { name: string, best: boolean }) => {
 const updateFruit = async (fruit: IFruit) => {
   try {
     console.log('submit update', fruit)
-    const response = await axios.put('update', fruit)
+    const response = await axios.put(`/${fruit.id}`, fruit)
     console.log('response', response)
     return response
   } catch (error) {
@@ -30,8 +30,7 @@ const updateFruit = async (fruit: IFruit) => {
 
 const deleteFruit = async (id: string) => {
   try {
-    const deleteData = { params: { id: id } }
-    const response = await axios.delete('delete', deleteData)
+    const response = await axios.delete(`/${id}`)
     return response
   } catch (error) {
     return error
