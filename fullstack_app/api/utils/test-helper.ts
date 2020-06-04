@@ -3,7 +3,7 @@ import { Fruit } from '../utils/types'
 
 const fruits: Fruit[] = fruitService.fruits
 
-let initialFruits: Fruit[] = [
+const initialFruits: Fruit[] = [
   {
     id: "1",
     name: "Apple",

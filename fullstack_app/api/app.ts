@@ -15,6 +15,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //TODO: Exclude ts test from running
+//TODO: Add parsing to all inputs
+//TOPO: Tweak linting rules
 
 app.use('/', indexRouter)
 app.use("/fruit-api", fruitAPIRouter)
