@@ -1,12 +1,12 @@
-const express = require('express')
+import express from 'express'
+import fruitService from '../services/fruitService'
 const router = express.Router()
-const fruitService = require('../services/fruitService')
 
-router.get('/', (request, response) => {
+router.get('/', (_request, response) => {
   response.status(200).send(fruitService.getFruits())
 })
 
-router.post('/', async (request, response) => {
+router.post('/', (request, response) => {
   const { name, best } = request.body
 
   if (typeof name !== "string" || typeof best !== "boolean") {
@@ -17,11 +17,11 @@ router.post('/', async (request, response) => {
     response.status(400).send("Name too long")
   }
 
-  const newFruit = await fruitService.addFruit({ name, best })
+  const newFruit = fruitService.addFruit({ name, best })
   response.status(201).send(newFruit)
 })
 
-router.put('/:id', async (request, response) => {
+router.put('/:id', (request, response) => {
   const { id } = request.params
   const fruit = request.body
 
@@ -33,15 +33,15 @@ router.put('/:id', async (request, response) => {
     response.status(400).send("Name too long")
   }
 
-  const updatedFruit = await fruitService.updateFruit(id, fruit)
+  const updatedFruit = fruitService.updateFruit(id, fruit)
   response.status(201).send(updatedFruit)
 })
 
-router.delete('/:id', async (request, response) => {
+router.delete('/:id', (request, response) => {
   const { id } = request.params
 
-  await fruitService.deleteFruit(id)
+  fruitService.deleteFruit(id)
   response.status(200).send(id)
 })
 
-module.exports = router
+export default router

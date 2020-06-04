@@ -1,10 +1,10 @@
-const request = require('supertest')
-const app = require('../app')
-const fruitService = require('../services/fruitService')
-const helper = require('../utils/test-helper')
+import request from 'supertest'
+import app from '../app'
+import fruitService from '../services/fruitService'
+import helper from '../utils/test-helper'
 
 beforeEach(async () => {
-  await fruitService.resetFruit()
+  fruitService.resetFruit()
   const fruitPromiseArray = helper.initialFruits
     .map(fruit => fruitService.addFruit(fruit))
   await Promise.all(fruitPromiseArray)
