@@ -16,7 +16,6 @@ interface Props {
 const defaultFruit = { id: undefined, name: "", best: false }
 
 const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) => {
-
   const [best, setBest] = useState<boolean>(fruit.best)
   const name = useField(fruit.name, "Add a fruit", "name", "text")
   const selectModal = (state: RootState) => state.modal.toggle
@@ -33,12 +32,18 @@ const Form: FC<Props> = ({ fruit = defaultFruit, title = "Add a new fruit" }) =>
   const handleSubmit = async (fruit: IFruit) => {
     if (fruit.id) {
       const res = await fruitService.updateFruit(fruit)
-      res.status === 201 ? dispatch(updateFruit(res.data))
-        : dispatch(toggleAlert(true))
+      if(res.status === 201) {
+        dispatch(updateFruit(res.data))
+      } else {
+        dispatch(toggleAlert(true))
+      }
     } else {
       const res = await fruitService.createFruit(fruit)
-      res.status === 201 ? dispatch(createFruit(res.data))
-        : dispatch(toggleAlert(true))
+      if(res.status === 201) {
+        dispatch(createFruit(res.data))
+      } else {
+        dispatch(toggleAlert(true))
+      }
     }
     modal && dispatch(toggleModal(false))
   }

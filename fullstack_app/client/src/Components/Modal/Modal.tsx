@@ -6,36 +6,30 @@ import { IFruit } from '../../utils/interfaces'
 import Form from '../Form/Form'
 import styles from './Modal.module.css'
 
-interface Props {
-  fruit: IFruit | undefined
-}
-
-const Modal: FC<Props> = ({ fruit }) => {
-
+const Modal: FC<{fruit: IFruit | undefined}> = ({ fruit }) => {
   const selectToggle = (state: RootState) => state.modal.toggle
   const toggle = useSelector(selectToggle)
   const dispatch = useDispatch()
 
-  const displayModal = () => {
-    if (toggle && fruit) {
-      return (
-        <section className={styles.wrapper}>
-          <div className={styles.modal}>
-            <Form fruit={fruit} title="Edit fruit" />
-            <button
-              className={styles.close}
-              name="close"
-              onClick={() => dispatch(toggleModal(!toggle))}>
-              &times;
-              </button>
-          </div>
-        </section>
-      )
-    }
+  if(!toggle || !fruit) {
+    return null
   }
 
   return (
-    <div>{displayModal()}</div>
+    <div>
+      <section className={styles.wrapper}>
+        <div className={styles.modal}>
+          <Form fruit={fruit} title="Edit fruit" />
+          <button
+            className={styles.close}
+            name="close"
+            onClick={() => dispatch(toggleModal(!toggle))}
+          >
+            &times;
+          </button>
+        </div>
+      </section>
+    </div>
   )
 }
 

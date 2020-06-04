@@ -79,6 +79,5 @@ exports[`the app component renders the same as last time 1`] = `
       </section>
     </div>
   </main>
-  <div />
 </div>
 `;

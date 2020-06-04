@@ -11,31 +11,21 @@ interface Props {
 }
 
 const FruitItem: FC<Props> = ({ active = false, fruit }) => {
-
   const [activeToggle, setActiveToggle] = useState<boolean>(active)
   const dispatch = useDispatch()
 
   const handleEdit = async (fruit: IFruit) => {
     const newFruit = fruit
     newFruit.best = !newFruit.best
+
     const res = await fruitService.updateFruit(newFruit)
-    try{
-      dispatch(updateFruit(res.data))
-    }
-    catch (error) {
-      console.log(error)
-    }
+    dispatch(updateFruit(res.data))
   }
 
   const handleRemove = async (fruit: IFruit) => {
     if(fruit.id){
       const res = await fruitService.deleteFruit(fruit.id)
-      try {
-        dispatch(removeFruit(String(res.data)))
-      }
-      catch (error) {
-        console.log(error)
-      }
+      dispatch(removeFruit(String(res.data)))
     } else {
       console.log("Fruit undefined", fruit)
     }
@@ -45,18 +35,24 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
 
   return (
     <div className={styles.row}>
-      <div className={styles.header} onClick={() => setActiveToggle(!activeToggle)}>
+      <div
+        className={styles.header}
+        onClick={() => setActiveToggle(!activeToggle)}
+      >
         <div className={styles.section}>
-          <h3 className={styles.subtitle}>{fruit.name}</h3>
+          <h3 className={styles.subtitle}>
+            {fruit.name}
+          </h3>
         </div>
       </div>
       <div
         className={styles.active}
-        style={{
-          height: showHide(),
-          transition: "all 0.5s"}}>
+        style={{ height: showHide(), transition: "all 0.5s" }}
+      >
         <div className={styles.section}>
-          <h3 className={styles.subtitle}>Best</h3>
+          <h3 className={styles.subtitle}>
+            Best
+          </h3>
           <input
             checked={fruit.best}
             className={styles.button}
@@ -64,22 +60,29 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             name={`${fruit.id}`}
             onChange={() => handleEdit(fruit)}
             type="checkbox"
-            value={fruit.id} />
-          <label htmlFor={`${fruit.id}`}>{fruit.best.toString()}</label>
+            value={fruit.id}
+          />
+          <label htmlFor={`${fruit.id}`}>
+            {fruit.best.toString()}
+          </label>
         </div>
         <div className={styles.section}>
-          <h3 className={styles.subtitle}>Edit</h3>
+          <h3 className={styles.subtitle}>
+            Edit
+          </h3>
           <button
             className={styles.button}
             name="modal"
-            onClick={() => dispatch(openModal(fruit))}>
+            onClick={() => dispatch(openModal(fruit))}
+          >
             Update
           </button>
           <button
             className={styles.button}
             name="remove"
             onClick={() => handleRemove(fruit)}
-            value={`${fruit.id}`}>
+            value={`${fruit.id}`}
+          >
             Remove
           </button>
         </div>

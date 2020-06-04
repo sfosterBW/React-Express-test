@@ -8,7 +8,6 @@ interface Props {
 }
 
 const Banner: FC<Props> = ({flavour = "flavourOne", size, title}) => {
-
   return (
     <section className={styles.wrapper}>
       <div className={`${styles.hero} ${styles[size]} ${styles[flavour]}`}>

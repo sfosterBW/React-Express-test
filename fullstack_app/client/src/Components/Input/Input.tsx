@@ -12,8 +12,8 @@ export const InputText: FC<InputTextProps> = ({
   handleChange,
   label,
   name,
-  value }) => {
-
+  value
+}) => {
   return (
     <div className={styles.wrapper}>
       <label className={styles.label} htmlFor={name}>
@@ -25,7 +25,8 @@ export const InputText: FC<InputTextProps> = ({
         onChange={handleChange}
         name={name}
         type="text"
-        value={value} />
+        value={value}
+      />
     </div>
   )
 }
@@ -41,8 +42,8 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
   checked,
   handleChange,
   label,
-  name, }) => {
-
+  name
+}) => {
   const styleBackground = () => {
     const color: string = '#1ab545'
     return checked ? color : undefined
@@ -60,12 +61,14 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
           id={name}
           onChange={handleChange}
           name={name}
-          type="checkbox" />
+          type="checkbox"
+        />
         <label
           style={{background: styleBackground()}}
           className={styles.checkboxLabel}
-          htmlFor={name}>
-          <span className={styles.checkboxButton}></span>
+          htmlFor={name}
+        >
+          <span className={styles.checkboxButton} />
         </label>
       </div>
     </div>
