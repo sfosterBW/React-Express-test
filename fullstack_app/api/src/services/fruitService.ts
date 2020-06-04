@@ -54,7 +54,11 @@ const deleteFruit = (id: string): void => {
 }
 
 const resetFruit = (): void => {
-  fruits = []
+  if(process.env.NODE_ENV === 'test') {
+    fruits = []
+  } else {
+    console.log('can only be called during testing')
+  }
 }
 
 export default {

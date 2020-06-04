@@ -1,7 +1,7 @@
 import fruitService from '../services/fruitService'
 import { Fruit } from '../utils/types'
 
-const fruits: Fruit[] = fruitService.fruits
+const fruits = (): Fruit[] => fruitService.getFruits()
 
 const initialFruits: Fruit[] = [
   {
