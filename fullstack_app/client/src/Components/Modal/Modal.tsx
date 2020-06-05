@@ -3,7 +3,8 @@ import { RootState } from '../../utils/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleModal } from '../../utils/actions'
 import { IFruit } from '../../utils/interfaces'
-import Form from '../Form/Form'
+import EditForm from '../Form/EditForm'
+import NewForm from '../Form/NewForm'
 import styles from './Modal.module.css'
 
 const Modal: FC<{fruit: IFruit | undefined}> = ({ fruit }) => {
@@ -19,7 +20,8 @@ const Modal: FC<{fruit: IFruit | undefined}> = ({ fruit }) => {
     <div>
       <section className={styles.wrapper}>
         <div className={styles.modal}>
-          <Form fruit={fruit} title="Edit fruit" />
+          {!fruit && <NewForm />}
+          {fruit && <EditForm fruit={fruit} title="Edit fruit" />}
           <button
             className={styles.close}
             name="close"

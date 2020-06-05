@@ -73,7 +73,7 @@ exports[`the modal component renders the same as last time 1`] = `
         <button
           className="button"
         >
-          Add new fruit
+          Edit fruit
         </button>
       </form>
       <button

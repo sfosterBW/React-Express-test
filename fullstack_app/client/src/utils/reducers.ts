@@ -30,7 +30,7 @@ export function alertReducer(
 
 export const initialModalState: ModalState = {
   toggle: false,
-  fruit: { id: undefined, name: '', best: false }
+
 }
 
 export function modalReducer(

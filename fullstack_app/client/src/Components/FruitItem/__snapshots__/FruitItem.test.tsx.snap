@@ -36,7 +36,7 @@ exports[`the FruitItem component renders the same as last time 1`] = `
         Best
       </h3>
       <input
-        checked={true}
+        checked={false}
         className="button"
         id="1"
         name="1"
@@ -47,7 +47,7 @@ exports[`the FruitItem component renders the same as last time 1`] = `
       <label
         htmlFor="1"
       >
-        true
+        false
       </label>
     </div>
     <div

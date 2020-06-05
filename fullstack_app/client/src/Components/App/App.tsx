@@ -13,7 +13,6 @@ import Home from '../../Pages/Home'
 import styles from './App.module.css'
 
 const App: FC = () => {
-
   const selectFruits = (state: RootState) => state.fruit.data
   const fruits = useSelector(selectFruits)
   const selectModalFruit = (state: RootState) => state.modal.fruit

@@ -1,9 +1,11 @@
 //Objects
 export interface IFruit {
-  id: string | undefined
+  id: string
   name: string
   best: boolean
 }
+
+export type NewFruit = Omit<IFruit, 'id'>
 
 export interface IFruitResponse {
   status: number
@@ -20,5 +22,5 @@ export interface FruitState {
 
 export interface ModalState {
   toggle: boolean,
-  fruit: IFruit
+  fruit?: IFruit
 }
