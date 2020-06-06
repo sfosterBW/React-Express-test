@@ -32,7 +32,7 @@ exports[`the modal component renders the same as last time 1`] = `
             name="name"
             onChange={[Function]}
             type="text"
-            value="False Case"
+            value="apple"
           />
         </div>
         <div

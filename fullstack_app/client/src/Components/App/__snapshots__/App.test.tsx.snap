@@ -22,11 +22,12 @@ exports[`the app component renders the same as last time 1`] = `
             src="https://img.icons8.com/cotton/64/000000/apple--v1.png"
           />
         </a>
-        <h2
+        <div
           className="title"
+          id="title"
         >
           Fruit Dashboard
-        </h2>
+        </div>
       </div>
       <div
         className="right"

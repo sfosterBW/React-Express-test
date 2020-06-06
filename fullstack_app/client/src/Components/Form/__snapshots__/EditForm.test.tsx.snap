@@ -25,7 +25,7 @@ exports[`the Edit Form component renders the same as last time 1`] = `
       name="name"
       onChange={[Function]}
       type="text"
-      value="Banana"
+      value="apple"
     />
   </div>
   <div
@@ -41,7 +41,7 @@ exports[`the Edit Form component renders the same as last time 1`] = `
       className="checkboxWrapper"
     >
       <input
-        checked={true}
+        checked={false}
         className="checkbox"
         id="best"
         name="best"
@@ -53,7 +53,7 @@ exports[`the Edit Form component renders the same as last time 1`] = `
         htmlFor="best"
         style={
           Object {
-            "background": "#1ab545",
+            "background": undefined,
           }
         }
       >
