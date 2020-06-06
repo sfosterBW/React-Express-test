@@ -1,14 +1,14 @@
 # A project to learn about running a React app and an Express app side by side
 
-##Quick start
+## Quick start
 
 Run command cd /fullstack_app && npm start to see the app.
 
-##More information
+## More information
 
 This project is split into three parts:
 
-###Part 1
+### Part 1
 
 /fullstack-app contains the end to end test suite and runs both apps concurrently.
 
@@ -16,7 +16,7 @@ Use npm start to see the app on http://localhost:3000
 
 The end to end tests use Cypress.io and can be run with npm test.
 
-###Part 2
+### Part 2
 
 /fullstack_app/api contains a node app using typescript which manages the data.
 
@@ -30,7 +30,7 @@ The test suite uses Jest for unit test, run npm test.
 
 ESLint is configured to maintain the style of the code and enforce typescript rules, run npm run lint.
 
-###Part 3
+### Part 3
 
 /fullstack_app/client contains the react app which lets users see and manage data.
 
