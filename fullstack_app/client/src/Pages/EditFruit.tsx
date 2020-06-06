@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import { RouteComponentProps} from '@reach/router'
-import { IFruit } from '../utils/interfaces'
+import { Fruit } from '../utils/interfaces'
 import Banner from '../Components/Banner/Banner'
 import List from '../Components/List/List'
 
 interface Props extends RouteComponentProps {
-  fruits: IFruit[]
+  fruits: Fruit[]
   title: string
 }
 

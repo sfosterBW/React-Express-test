@@ -2,7 +2,7 @@ describe('The home page', () => {
 
   before(() => {
     cy.visit('http://localhost:3000')
-    cy.title().should('eq', 'React App')
+    cy.title().should('eq', 'Fruit Dashboard')
   })
 
   it('should have a nav', () => {

@@ -44,7 +44,7 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
   label,
   name
 }) => {
-  const styleBackground = () => {
+  const styleBackground = (): string | undefined => {
     const color: string = '#1ab545'
     return checked ? color : undefined
   }

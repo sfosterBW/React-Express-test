@@ -5,7 +5,6 @@ import renderer from 'react-test-renderer'
 import Banner from './Banner'
 
 describe('the Alert component', () => {
-
   const size = "large"
   const title = "Title"
   const component = <Banner size={size} title={title}/>

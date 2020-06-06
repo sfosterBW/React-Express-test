@@ -12,6 +12,11 @@ import EditFruit from '../../Pages/EditFruit'
 import Home from '../../Pages/Home'
 import styles from './App.module.css'
 
+//TODO: Create a proper homepage
+//TODO: Add notification to new fruit creation page
+//TODO: Add error messages
+//TODO: Add descriptions to Fruit
+
 const App: FC = () => {
   const selectFruits = (state: RootState) => state.fruit.data
   const fruits = useSelector(selectFruits)

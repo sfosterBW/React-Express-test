@@ -38,10 +38,8 @@ const NewForm: FC<{title?: string}> = ({ title = "Add a new fruit" }) => {
   const submit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     if (name.value.length > 0) {
-      handleSubmit({
-        best: best,
-        name: name.value,
-      })
+      const newFruit: NewFruit = { name: name.value, best }
+      handleSubmit(newFruit)
       name.reset()
       setBest(false)
     } else {

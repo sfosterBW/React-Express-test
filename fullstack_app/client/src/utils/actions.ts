@@ -1,4 +1,4 @@
-import { IFruit } from './interfaces'
+import { Fruit } from './interfaces'
 
 //Action const
 export const TOGGLE_ALERT = "TOGGLE_ALERT"
@@ -10,10 +10,10 @@ interface ToggleAlert {
 }
 
 //Action type
-export type AlertActionTypes = ToggleAlert
+export type AlertActions = ToggleAlert
 
 //Action
-export function toggleAlert(alertValue: boolean): AlertActionTypes {
+export function toggleAlert(alertValue: boolean): AlertActions {
   return {
     type: TOGGLE_ALERT,
     payload: alertValue
@@ -32,21 +32,21 @@ interface ToggleModal {
 
 interface OpenModal {
   type: typeof OPEN_MODAL,
-  payload: IFruit
+  payload: Fruit
 }
 
 //Action type
-export type ModalActionTypes = ToggleModal | OpenModal
+export type ModalActions = ToggleModal | OpenModal
 
 //Action
-export function toggleModal(modalValue: boolean): ModalActionTypes {
+export function toggleModal(modalValue: boolean): ModalActions {
   return {
     type: TOGGLE_MODAL,
     payload: modalValue,
   }
 }
 
-export function openModal(fruit: IFruit): ModalActionTypes {
+export function openModal(fruit: Fruit): ModalActions {
   return {
     type: OPEN_MODAL,
     payload: fruit,
@@ -62,12 +62,12 @@ export const UPDATE_FRUIT = 'UPDATE_FRUIT'
 //Action shape
 interface GetFruits {
   type: typeof GET_FRUITS,
-  payload: IFruit[]
+  payload: Fruit[]
 }
 
 interface CreateFruit {
   type: typeof CREATE_FRUIT,
-  payload: IFruit
+  payload: Fruit
 }
 
 interface RemoveFruit {
@@ -77,35 +77,35 @@ interface RemoveFruit {
 
 interface UpdateFruit {
   type: typeof UPDATE_FRUIT,
-  payload: IFruit
+  payload: Fruit
 }
 
 //Action types
-export type FruitActionTypes = GetFruits | CreateFruit | RemoveFruit | UpdateFruit
+export type FruitActions = GetFruits | CreateFruit | RemoveFruit | UpdateFruit
 
 //Actions
-export const getFruits = (fruits: IFruit[]): FruitActionTypes => {
+export const getFruits = (fruits: Fruit[]): FruitActions => {
   return {
     type: GET_FRUITS,
     payload: fruits
   }
 }
 
-export const createFruit = (fruit: IFruit): FruitActionTypes => {
+export const createFruit = (fruit: Fruit): FruitActions => {
   return {
     type: CREATE_FRUIT,
     payload: fruit,
   }
 }
 
-export const removeFruit = (id: string): FruitActionTypes => {
+export const removeFruit = (id: string): FruitActions => {
   return {
     type: REMOVE_FRUIT,
     payload: id,
   }
 }
 
-export const updateFruit = (fruit: IFruit): FruitActionTypes => {
+export const updateFruit = (fruit: Fruit): FruitActions => {
   return {
     type: UPDATE_FRUIT,
     payload: fruit,

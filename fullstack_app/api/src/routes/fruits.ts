@@ -9,13 +9,12 @@ router.get('/', (_request, response) => {
 
 router.post('/', (request, response) => {
   const newFruit = toNewFruit(request.body)
-  console.log('parsed', newFruit)
+
   if (newFruit.name.length < 1 || newFruit.name.length > 50) {
     response.status(400).send("Name too long")
   }
 
   const fruit = fruitService.addFruit(newFruit)
-  console.log('added', fruit)
   response.status(201).send(fruit)
 })
 

@@ -12,7 +12,6 @@ jest.mock('react-redux', () => ({
 }))
 
 describe('the Alert component', () => {
-
   const component = <Alert />
   const wrapper = mount(component)
 

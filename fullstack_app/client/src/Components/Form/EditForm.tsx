@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import fruitService from '../../utils/api'
 import { InputCheckbox, InputText } from '../Input/Input'
 import { useField } from '../../utils/hooks'
-import { IFruit } from '../../utils/interfaces'
+import { Fruit } from '../../utils/interfaces'
 import { RootState } from '../../utils/store'
 import { toggleAlert, toggleModal, updateFruit } from '../../utils/actions'
 import styles from './Form.module.css'
 
 interface Props {
-  fruit: IFruit
+  fruit: Fruit
   title?: string
 }
 
@@ -21,14 +21,14 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
   const dispatch = useDispatch()
 
   const setter = (set: any) => (
-    (event: any) => {
+    (event: any): void => {
       const { checked, type, value } = event.target
       const newValue = type === "checkbox" ? checked : value
       set(newValue)
     }
   )
 
-  const handleSubmit = async (fruit: IFruit): Promise<void> => {
+  const handleSubmit = async (fruit: Fruit): Promise<void> => {
     try {
       const updatedFruit = await fruitService.updateFruit(fruit)
       dispatch(updateFruit(updatedFruit))

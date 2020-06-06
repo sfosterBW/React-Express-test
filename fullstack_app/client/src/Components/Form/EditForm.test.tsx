@@ -1,6 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
+import { fruit } from '../../utils/test-helper'
 
 import EditForm from './EditForm'
 
@@ -11,14 +12,13 @@ jest.mock('react-redux', () => ({
 }))
 
 describe('the Edit Form component', () => {
-  const testFruit = { id: "2", name: "Banana", best: true }
-  const formComponent = <EditForm fruit={testFruit} />
+  const formComponent = <EditForm fruit={fruit} />
   const form = mount(formComponent)
 
   it('functions properly with props', () => {
     expect(form).toBeDefined()
-    expect(form.find('InputText').props().value).toEqual(testFruit.name)
-    expect(form.find('InputCheckbox').props().checked).toEqual(testFruit.best)
+    expect(form.find('InputText').props().value).toEqual(fruit.name)
+    expect(form.find('InputCheckbox').props().checked).toEqual(fruit.best)
     form.find('button').simulate('click')
   })
 

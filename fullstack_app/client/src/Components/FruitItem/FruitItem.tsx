@@ -1,32 +1,45 @@
 import React, { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { IFruit } from '../../utils/interfaces'
+import { Fruit } from '../../utils/interfaces'
 import fruitService from '../../utils/api'
-import { openModal, removeFruit, updateFruit } from '../../utils/actions'
+import {
+  openModal,
+  removeFruit,
+  toggleAlert,
+  updateFruit,
+} from '../../utils/actions'
 import styles from './FruitItem.module.css'
 
 interface Props {
   active?: boolean
-  fruit: IFruit
+  fruit: Fruit
 }
 
 const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   const [activeToggle, setActiveToggle] = useState<boolean>(active)
   const dispatch = useDispatch()
 
-  const handleEdit = async (fruit: IFruit) => {
+  const handleEdit = async (fruit: Fruit): Promise<void> => {
     try {
-      const updatedFruit = await fruitService.updateFruit({...fruit, best: !fruit.best})
+      const updatedFruit = await fruitService
+        .updateFruit({ ...fruit, best: !fruit.best })
       dispatch(updateFruit(updatedFruit))
     }
     catch (error) {
       console.log(error)
+      dispatch(toggleAlert(true))
     }
   }
 
-  const handleRemove = async (fruit: IFruit) => {
+  const handleRemove = async (fruit: Fruit): Promise<void> => {
     const id = await fruitService.deleteFruit(fruit.id)
-    dispatch(removeFruit(String(id)))
+    try {
+      dispatch(removeFruit(String(id)))
+    }
+    catch (error) {
+      console.log(error)
+      dispatch(toggleAlert(true))
+    }
   }
 
   const showHide = () => activeToggle ? "calc(60px + 8vmin)" : "0"
@@ -48,9 +61,9 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
         style={{ height: showHide(), transition: "all 0.5s" }}
       >
         <div className={styles.section}>
-          <h3 className={styles.subtitle}>
+          <h4 className={styles.subtitle}>
             Best
-          </h3>
+          </h4>
           <input
             checked={fruit.best}
             className={styles.button}
@@ -65,9 +78,9 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
           </label>
         </div>
         <div className={styles.section}>
-          <h3 className={styles.subtitle}>
+          <h4 className={styles.subtitle}>
             Edit
-          </h3>
+          </h4>
           <button
             className={styles.button}
             name="modal"

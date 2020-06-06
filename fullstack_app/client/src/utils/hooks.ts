@@ -8,11 +8,11 @@ export const useField = (
 
   const [value, setValue] = useState(initValue)
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: any): void => {
     setValue(event.target.value)
   }
 
-  const reset = () => {
+  const reset = (): void => {
     setValue("")
   }
 

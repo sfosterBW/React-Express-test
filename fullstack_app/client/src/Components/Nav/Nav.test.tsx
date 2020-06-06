@@ -5,7 +5,6 @@ import renderer from 'react-test-renderer'
 import Nav from './Nav'
 
 describe('the Nav component', () => {
-
   const component = <Nav />
   const wrapper = mount(component)
 

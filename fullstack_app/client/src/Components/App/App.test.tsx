@@ -12,12 +12,10 @@ jest.mock('react-redux', () => ({
 }))
 
 describe('the app component', () => {
-
   jest.mock('./../../utils/api')
   const getSpy = jest.spyOn(fruitService, 'fetchFruit')
   const component =  <App />
   const wrapper = mount(component)
-
 
   it('renders with the correct structure', () => {
     expect(wrapper).toBeDefined()

@@ -2,12 +2,12 @@ import React, { FC } from 'react'
 import { RootState } from '../../utils/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleModal } from '../../utils/actions'
-import { IFruit } from '../../utils/interfaces'
+import { Fruit } from '../../utils/interfaces'
 import EditForm from '../Form/EditForm'
 import NewForm from '../Form/NewForm'
 import styles from './Modal.module.css'
 
-const Modal: FC<{fruit: IFruit | undefined}> = ({ fruit }) => {
+const Modal: FC<{fruit: Fruit | undefined}> = ({ fruit }) => {
   const selectToggle = (state: RootState) => state.modal.toggle
   const toggle = useSelector(selectToggle)
   const dispatch = useDispatch()

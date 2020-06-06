@@ -4,14 +4,15 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import {
   alertReducer,
   fruitReducer,
-  modalReducer } from './reducers'
+  modalReducer
+} from './reducers'
 
 export const rootReducer = combineReducers({
   alert: alertReducer,
   fruit: fruitReducer,
   modal: modalReducer
 })
- 
+
 export type RootState = ReturnType<typeof rootReducer>
 
 export default function configureStore(preloadedState: undefined) {

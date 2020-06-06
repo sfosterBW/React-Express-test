@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
-import { IFruit } from '../../utils/interfaces'
+import { Fruit } from '../../utils/interfaces'
 import FruitItem from '../FruitItem/FruitItem'
 import styles from './List.module.css'
 
-const List: FC<{fruits: IFruit[]}> = ({ fruits }) => {
+const List: FC<{fruits: Fruit[]}> = ({ fruits }) => {
   const type: boolean | undefined = undefined
   const [filter, setFilter] = useState<boolean | undefined>(type)
 
@@ -18,7 +18,7 @@ const List: FC<{fruits: IFruit[]}> = ({ fruits }) => {
     }
   }
 
-  const setter = (value: boolean | undefined) => () => setFilter(value)
+  const setter = (value: boolean | undefined) => (): void => setFilter(value)
 
   return (
     <section className={styles.wrapper}>

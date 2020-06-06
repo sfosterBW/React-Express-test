@@ -1,6 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
+import { fruit } from '../../utils/test-helper'
 
 import Modal from './Modal'
 
@@ -10,16 +11,10 @@ jest.mock('react-redux', () => ({
   useDispatch: () => mockDispatch
 }))
 
-const mockFruit = {
-  id: "1",
-  name: "False Case",
-  best: false
-}
-const component = <Modal fruit={mockFruit} />
+const component = <Modal fruit={fruit} />
 const wrapper = mount(component)
 
 describe('the modal component', () => {
-
   it('renders with the correct structure', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.find('section')).toHaveLength(1)
@@ -39,5 +34,4 @@ describe('the modal component', () => {
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
-
 })

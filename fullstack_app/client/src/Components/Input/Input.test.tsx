@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
@@ -44,8 +43,6 @@ describe('the InputText component', () => {
     expect(tree).toMatchSnapshot()
   })
 })
-
-
 
 describe('the InputCheckbox component', () => {
   const mockFunction = jest.fn()

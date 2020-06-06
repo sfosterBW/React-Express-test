@@ -1,7 +1,7 @@
-
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
+import { fruit } from '../../utils/test-helper'
 
 import FruitItem from './FruitItem'
 
@@ -12,8 +12,6 @@ jest.mock('react-redux', () => ({
 }))
 
 describe('the FruitItem component', () => {
-
-  const fruit = {id: "1", name:"apple", best:false}
   const component = <FruitItem fruit={fruit} />
   const wrapper = mount(component)
 
