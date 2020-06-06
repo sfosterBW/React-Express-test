@@ -6,7 +6,8 @@ import logger from 'morgan'
 import cors from 'cors'
 import middleware from './utils/middleware'
 import indexRouter from './routes/index'
-import fruitAPIRouter from './routes/fruits'
+import fruitRouter from './routes/fruits'
+import testingRouter from './routes/testing'
 
 //TODO: Connect to mongodb
 //TODO: Add get details for one fruit endpoint
@@ -19,8 +20,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use('/', indexRouter)
-app.use("/fruit-api", fruitAPIRouter)
+app.use('/check', indexRouter)
+app.use('/fruit-api', fruitRouter)
+app.use('/testing', testingRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

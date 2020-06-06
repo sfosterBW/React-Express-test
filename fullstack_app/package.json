@@ -17,9 +17,10 @@
   },
   "scripts": {
     "dev:client": "cd client && npm start",
-    "dev:api": "cd api && npm start",
+    "dev:api": "cd api && npm run start:test",
     "start": "concurrently --kill-others \"npm run dev:api\" \"npm run dev:client\"",
-    "test": "concurrently --kill-others \"npm run dev:api\" \"npm run dev:client\" \"./node_modules/.bin/cypress run\""
+    "test": "concurrently --kill-others \"npm run dev:api\" \"npm run dev:client\" \"./node_modules/.bin/cypress run\"",
+    "cypress:open": "cypress open"
   },
   "keywords": [],
   "author": "",

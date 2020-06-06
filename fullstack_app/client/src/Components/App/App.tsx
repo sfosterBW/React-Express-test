@@ -27,11 +27,7 @@ const App: FC = () => {
   const effectDispatch = useCallback(dispatch, [])
 
   useEffect(() => {
-    const initFruit = () => {
-      fruitService.fetchFruit()
-        .then(res => effectDispatch(getFruits(res)))
-    }
-    initFruit()
+    fruitService.fetchFruit().then(res => effectDispatch(getFruits(res)))
   }, [effectDispatch])
 
   return (

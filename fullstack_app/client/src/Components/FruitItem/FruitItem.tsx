@@ -34,7 +34,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   const handleRemove = async (fruit: Fruit): Promise<void> => {
     const id = await fruitService.deleteFruit(fruit.id)
     try {
-      dispatch(removeFruit(String(id)))
+      dispatch(removeFruit(id))
     }
     catch (error) {
       console.log(error)

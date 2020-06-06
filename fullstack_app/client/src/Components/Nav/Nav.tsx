@@ -14,9 +14,9 @@ const Nav: FC = () => {
             src="https://img.icons8.com/cotton/64/000000/apple--v1.png"
           />
           </Link>
-          <h2 className={styles.title}>
+          <div className={styles.title}>
             Fruit Dashboard
-          </h2>
+          </div>
         </div>
         <div className={styles.right}>
           <Link
