@@ -9,7 +9,8 @@ export type NewFruit = Omit<Fruit, 'id'>
 
 //States
 export interface AlertState {
-  toggle: boolean
+  toggle: boolean,
+  message: string
 }
 
 export interface FruitState {

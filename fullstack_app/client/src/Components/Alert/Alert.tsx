@@ -4,7 +4,7 @@ import { RootState } from '../../utils/store'
 import { toggleAlert } from '../../utils/actions'
 import styles from './Alert.module.css'
 
-const Alert: FC = () => {
+const Alert: FC<{message: string}> = ({ message }) => {
   const selectToggle = (state: RootState) => state.alert.toggle
   const toggle = useSelector(selectToggle)
   const dispatch = useDispatch()
@@ -16,10 +16,12 @@ const Alert: FC = () => {
   return (
     <div className={styles.wrapper}>
       <section className={styles.alert}>
-        <p className={styles.message}>{String(toggle)}</p>
+        <p className={styles.message}>
+          {message}
+        </p>
         <button
           className={styles.button}
-          onClick={() => {dispatch(toggleAlert(!toggle))}}
+          onClick={() => {dispatch(toggleAlert(message, !toggle))}}
         >
           &times;
         </button>

@@ -6,17 +6,20 @@ export const TOGGLE_ALERT = "TOGGLE_ALERT"
 //Action shape
 interface ToggleAlert {
   type: typeof TOGGLE_ALERT,
-  payload: boolean
+  payload: {
+    message: string
+    toggle: boolean
+  }
 }
 
 //Action type
 export type AlertActions = ToggleAlert
 
 //Action
-export function toggleAlert(alertValue: boolean): AlertActions {
+export function toggleAlert(message: string, toggle: boolean): AlertActions {
   return {
     type: TOGGLE_ALERT,
-    payload: alertValue
+    payload: { message, toggle }
   }
 }
 

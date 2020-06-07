@@ -12,7 +12,10 @@ import {
   FruitActions,
 } from './actions'
 
-export const initAlertState: AlertState = { toggle: false }
+export const initAlertState: AlertState = {
+  toggle: false,
+  message: ''
+}
 
 export const alertReducer = (
   state = initAlertState,
@@ -20,7 +23,8 @@ export const alertReducer = (
 ): AlertState => {
   switch (action.type) {
     case TOGGLE_ALERT:
-      return { ...state, toggle: action.payload || false }
+      const {toggle, message} = action.payload
+      return { ...state, toggle, message }
     default:
       return { ...state }
   }

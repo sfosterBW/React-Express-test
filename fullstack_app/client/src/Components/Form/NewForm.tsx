@@ -30,7 +30,7 @@ const NewForm: FC<{title?: string}> = ({ title = "Add a new fruit" }) => {
     }
     catch (error) {
       console.log(error)
-      dispatch(toggleAlert(true))
+      dispatch(toggleAlert('submit error', true))
     }
     modal && dispatch(toggleModal(false))
   }
@@ -43,7 +43,7 @@ const NewForm: FC<{title?: string}> = ({ title = "Add a new fruit" }) => {
       name.reset()
       setBest(false)
     } else {
-      dispatch(toggleAlert(true))
+      dispatch(toggleAlert('submit error', true))
     }
   }
 

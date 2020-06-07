@@ -27,7 +27,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
     }
     catch (error) {
       console.log(error)
-      dispatch(toggleAlert(true))
+      dispatch(toggleAlert('edit error', true))
     }
   }
 
@@ -38,7 +38,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
     }
     catch (error) {
       console.log(error)
-      dispatch(toggleAlert(true))
+      dispatch(toggleAlert('remove error', true))
     }
   }
 

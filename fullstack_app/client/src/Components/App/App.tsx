@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../utils/store'
 import fruitService from '../../utils/api'
 import { getFruits } from '../../utils/actions'
+import Alert from '../Alert/Alert'
 import Modal from '../Modal/Modal'
 import Nav from '../Nav/Nav'
 
@@ -22,6 +23,8 @@ const App: FC = () => {
   const fruits = useSelector(selectFruits)
   const selectModalFruit = (state: RootState) => state.modal.fruit
   const modalFruit = useSelector(selectModalFruit)
+  const selectMessage = (state: RootState) => state.alert.message
+  const message = useSelector(selectMessage)
   const dispatch = useDispatch()
   //Used to ensure the same values are used on re-render
   const effectDispatch = useCallback(dispatch, [])
@@ -34,6 +37,7 @@ const App: FC = () => {
     <div className="App">
       <Nav />
       <main className={styles.main}>
+        <Alert message={message} />
         <Router className={styles.main}>
           <Home path="/" title="Add Fruit and stuff" />
           <AddFruit path="/add" title="Add Fruit and stuff" />

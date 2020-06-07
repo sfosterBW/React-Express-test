@@ -35,7 +35,7 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
     }
     catch (error) {
       console.log(error)
-      dispatch(toggleAlert(true))
+      dispatch(toggleAlert('submit error', true))
     }
 
     modal && dispatch(toggleModal(false))
@@ -52,7 +52,7 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
       name.reset()
       setBest(false)
     } else {
-      dispatch(toggleAlert(true))
+      dispatch(toggleAlert('submit error', true))
     }
   }
 
