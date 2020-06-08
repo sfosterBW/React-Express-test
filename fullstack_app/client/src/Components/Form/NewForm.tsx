@@ -23,28 +23,22 @@ const NewForm: FC<{title?: string}> = ({ title = "Add a new fruit" }) => {
     }
   )
 
-  const handleSubmit = async (fruit: NewFruit): Promise<void> => {
+  const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault()
+    const newFruit: NewFruit = { name: name.value, best }
+
     try{
-      const newFruit = await fruitService.createFruit(fruit)
-      dispatch(createFruit(newFruit))
+      const fruit = await fruitService.createFruit(newFruit)
+      dispatch(createFruit(fruit))
     }
     catch (error) {
-      console.log(error)
-      dispatch(toggleAlert('submit error', true))
+      console.log(error.response.data)
+      dispatch(toggleAlert(error.response.data, true))
     }
+    
     modal && dispatch(toggleModal(false))
-  }
-
-  const submit = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault()
-    if (name.value.length > 0) {
-      const newFruit: NewFruit = { name: name.value, best }
-      handleSubmit(newFruit)
-      name.reset()
-      setBest(false)
-    } else {
-      dispatch(toggleAlert('submit error', true))
-    }
+    name.reset()
+    setBest(false)
   }
 
   return (

@@ -21,7 +21,7 @@ const updateFruit = async (fruit: Fruit): Promise<Fruit> => {
 
 const deleteFruit = async (id: string): Promise<Fruit['id']> => {
   const response = await axios.delete(`/${id}`)
-  return toId(response.data)
+  return toId(String(response.data))
 }
 
 export default { fetchFruit, createFruit, updateFruit, deleteFruit }

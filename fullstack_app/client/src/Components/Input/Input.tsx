@@ -62,6 +62,7 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
           onChange={handleChange}
           name={name}
           type="checkbox"
+          value={String(checked)}
         />
         <label
           style={{background: styleBackground()}}

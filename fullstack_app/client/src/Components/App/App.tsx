@@ -14,7 +14,8 @@ import Home from '../../Pages/Home'
 import styles from './App.module.css'
 
 //TODO: Add notification to new fruit creation page
-//TODO: Add error messages
+//TODO: Style error notification
+//TODO: Swap to react testing library
 //TODO: Add descriptions to Fruit
 
 const App: FC = () => {

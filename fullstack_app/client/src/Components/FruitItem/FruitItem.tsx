@@ -20,9 +20,10 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   const dispatch = useDispatch()
 
   const handleEdit = async (fruit: Fruit): Promise<void> => {
+    const newFruit = { ...fruit, best: !fruit.best }
     try {
       const updatedFruit = await fruitService
-        .updateFruit({ ...fruit, best: !fruit.best })
+        .updateFruit(newFruit)
       dispatch(updateFruit(updatedFruit))
     }
     catch (error) {
@@ -32,12 +33,12 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   }
 
   const handleRemove = async (fruit: Fruit): Promise<void> => {
-    const id = await fruitService.deleteFruit(fruit.id)
     try {
+      const id = await fruitService.deleteFruit(fruit.id)
       dispatch(removeFruit(id))
     }
     catch (error) {
-      console.log(error)
+      console.log(error.response)
       dispatch(toggleAlert('remove error', true))
     }
   }

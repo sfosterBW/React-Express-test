@@ -5,12 +5,12 @@ import renderer from 'react-test-renderer'
 import { InputText, InputCheckbox } from './Input'
 
 describe('the InputText component', () => {
-  const mockFunction = jest.fn()
   const label = "This is a label"
   const name = "This is a name"
   const value = "This is a value"
+  const mockFunction = (event: any) => jest.fn(event)
   const component = <InputText
-    handleChange={mockFunction()}
+    handleChange={mockFunction}
     label={label}
     name={name}
     value={value} />
@@ -32,8 +32,6 @@ describe('the InputText component', () => {
     expect(wrapper.props().name).toEqual(name)
     expect(wrapper.props().label).toEqual(label)
     expect(wrapper.props().value).toEqual(value)
-    wrapper.simulate('change')
-    expect(mockFunction).toHaveBeenCalled()
   })
 
   it('renders the same as last time', () => {
@@ -45,13 +43,13 @@ describe('the InputText component', () => {
 })
 
 describe('the InputCheckbox component', () => {
-  const mockFunction = jest.fn()
+  const mockFunction = (event: any) => jest.fn(event)
   const checked = false
   const label = "This is a label"
   const name = "This is a name"
   const component = <InputCheckbox
     checked={checked}
-    handleChange={mockFunction()}
+    handleChange={mockFunction}
     label={label}
     name={name} />
   const wrapper = mount(component)
@@ -72,8 +70,6 @@ describe('the InputCheckbox component', () => {
     expect(wrapper.props().label).toEqual(label)
     expect(wrapper.props().name).toEqual(name)
     expect(wrapper.props().checked).toEqual(checked)
-    wrapper.simulate('change')
-    expect(mockFunction).toHaveBeenCalled()
   })
 
   it('renders the same as last time', () => {

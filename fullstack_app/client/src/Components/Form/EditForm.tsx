@@ -28,32 +28,26 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
     }
   )
 
-  const handleSubmit = async (fruit: Fruit): Promise<void> => {
+  const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault()
+    const newFruit = {
+      id: fruit.id,
+      best: best,
+      name: name.value,
+    }
+
     try {
-      const updatedFruit = await fruitService.updateFruit(fruit)
+      const updatedFruit = await fruitService.updateFruit(newFruit)
       dispatch(updateFruit(updatedFruit))
     }
     catch (error) {
-      console.log(error)
-      dispatch(toggleAlert('submit error', true))
+      console.log(error.response.data)
+      dispatch(toggleAlert(error.response.data, true))
     }
 
     modal && dispatch(toggleModal(false))
-  }
-
-  const submit = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault()
-    if (name.value.length > 0) {
-      handleSubmit({
-        id: fruit.id,
-        best: best,
-        name: name.value,
-      })
-      name.reset()
-      setBest(false)
-    } else {
-      dispatch(toggleAlert('submit error', true))
-    }
+    name.reset()
+    setBest(false)
   }
 
   return (

@@ -18,7 +18,9 @@ exports[`the InputCheckbox component renders the same as last time 1`] = `
       className="checkbox"
       id="This is a name"
       name="This is a name"
+      onChange={[Function]}
       type="checkbox"
+      value="false"
     />
     <label
       className="checkboxLabel"
@@ -51,6 +53,7 @@ exports[`the InputText component renders the same as last time 1`] = `
     className="text"
     id="This is a name"
     name="This is a name"
+    onChange={[Function]}
     type="text"
     value="This is a value"
   />

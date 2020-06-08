@@ -13,9 +13,13 @@ const errorHandler = (
   response: Response,
   next: NextFunction
 ): Response | void => {
-  console.log(error)
+  console.log('middleware error', error)
 
-  if(error && error.message) {
+  if(error.message.includes("Incorrect or missing")) {
+    return response.status(400).send(error.message)
+  }
+
+  if(error.message.includes("Fruit not found")) {
     return response.status(400).send(error.message)
   }
 

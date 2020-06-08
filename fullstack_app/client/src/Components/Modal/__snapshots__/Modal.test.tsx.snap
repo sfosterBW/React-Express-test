@@ -54,6 +54,7 @@ exports[`the modal component renders the same as last time 1`] = `
               name="best"
               onChange={[Function]}
               type="checkbox"
+              value="false"
             />
             <label
               className="checkboxLabel"
