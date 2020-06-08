@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer'
 
 import Alert from './Alert'
 
+const message = "test"
 const value = true
 const mockDispatch = jest.fn().mockReturnValue(!value)
 jest.mock('react-redux', () => ({
@@ -12,7 +13,7 @@ jest.mock('react-redux', () => ({
 }))
 
 describe('the Alert component', () => {
-  const component = <Alert />
+  const component = <Alert message={message} />
   const wrapper = mount(component)
 
   it('renders with the right structure', () => {
@@ -20,7 +21,7 @@ describe('the Alert component', () => {
     expect(wrapper.find('div')).toHaveLength(1)
     expect(wrapper.find('section')).toHaveLength(1)
     expect(wrapper.find('p')).toHaveLength(1)
-    expect(wrapper.find('p').text()).toBe(String(value))
+    expect(wrapper.find('p').text()).toBe(message)
     expect(wrapper.find('button')).toHaveLength(1)
   })
 

@@ -12,15 +12,16 @@ describe('the Nav component', () => {
     expect(wrapper).toBeDefined()
     expect(wrapper.find('img')).toHaveLength(1)
     expect(wrapper.find('#title')).toHaveLength(1)
-    expect(wrapper.find('Link')).toHaveLength(3)
+    expect(wrapper.find('Link')).toHaveLength(4)
   })
 
   it('functions as expected',() => {
     expect(wrapper.find('img').props().alt).toBe('logo')
     expect(wrapper.find('#title').text()).toBe('Fruit Dashboard')
     expect(wrapper.find('Link').at(0).props().to).toBe("/")
-    expect(wrapper.find('Link').at(1).props().to).toBe("add")
-    expect(wrapper.find('Link').at(2).props().to).toBe("edit")
+    expect(wrapper.find('Link').at(1).props().to).toBe("/")
+    expect(wrapper.find('Link').at(2).props().to).toBe("add")
+    expect(wrapper.find('Link').at(3).props().to).toBe("edit")
   })
 
   it('renders the same as last time', () => {

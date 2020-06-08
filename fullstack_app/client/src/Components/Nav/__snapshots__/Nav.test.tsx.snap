@@ -30,6 +30,16 @@ exports[`the Nav component renders the same as last time 1`] = `
       className="right"
     >
       <a
+        aria-current="page"
+        className="link"
+        href="/"
+        onClick={[Function]}
+        rel="nofollower noreferrer"
+        title="Home page"
+      >
+        Home
+      </a>
+      <a
         className="link"
         href="/add"
         onClick={[Function]}

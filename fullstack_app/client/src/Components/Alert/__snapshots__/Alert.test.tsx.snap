@@ -10,7 +10,7 @@ exports[`the Alert component renders the same as last time with props 1`] = `
     <p
       className="message"
     >
-      true
+      test
     </p>
     <button
       className="button"

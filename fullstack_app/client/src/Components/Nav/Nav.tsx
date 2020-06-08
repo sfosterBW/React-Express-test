@@ -21,6 +21,14 @@ const Nav: FC = () => {
         <div className={styles.right}>
           <Link
             className={styles.link}
+            to="/"
+            rel="nofollower noreferrer"
+            title="Home page"
+          >
+            Home
+          </Link>
+          <Link
+            className={styles.link}
             to="add"
             rel="nofollower noreferrer"
             title="Add a new fruit to your list"
