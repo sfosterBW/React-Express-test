@@ -1,13 +1,8 @@
 import React, { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Fruit } from '../../utils/interfaces'
-import fruitService from '../../utils/api'
-import {
-  openModal,
-  removeFruit,
-  toggleAlert,
-  updateFruit,
-} from '../../utils/actions'
+import { openModal } from '../../Reducers/modalReducer'
+import { removeFruit, updateFruit } from '../../Reducers/fruitReducer'
 import styles from './FruitItem.module.css'
 
 interface Props {
@@ -18,30 +13,6 @@ interface Props {
 const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   const [activeToggle, setActiveToggle] = useState<boolean>(active)
   const dispatch = useDispatch()
-
-  const handleEdit = async (fruit: Fruit): Promise<void> => {
-    const newFruit = { ...fruit, best: !fruit.best }
-    try {
-      const updatedFruit = await fruitService
-        .updateFruit(newFruit)
-      dispatch(updateFruit(updatedFruit))
-    }
-    catch (error) {
-      console.log(error)
-      dispatch(toggleAlert('edit error', true))
-    }
-  }
-
-  const handleRemove = async (fruit: Fruit): Promise<void> => {
-    try {
-      const id = await fruitService.deleteFruit(fruit.id)
-      dispatch(removeFruit(id))
-    }
-    catch (error) {
-      console.log(error.response)
-      dispatch(toggleAlert('remove error', true))
-    }
-  }
 
   const showHide = () => activeToggle ? "calc(60px + 8vmin)" : "0"
 
@@ -70,7 +41,9 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             className={styles.button}
             id={`${fruit.id}`}
             name={`${fruit.id}`}
-            onChange={() => handleEdit(fruit)}
+            onChange={() => {
+              dispatch(updateFruit({ ...fruit, best: !fruit.best }))
+            }}
             type="checkbox"
             value={fruit.id}
           />
@@ -92,7 +65,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
           <button
             className={styles.button}
             name="remove"
-            onClick={() => handleRemove(fruit)}
+            onClick={() => dispatch(removeFruit(fruit.id))}
             value={`${fruit.id}`}
           >
             Remove

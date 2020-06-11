@@ -23,6 +23,12 @@ const errorHandler = (
     return response.status(400).send(error.message)
   }
 
+  if (error.name === 'CastError' && error.path === '_id') {
+    return response.status(400).send('malformed id')
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json(error.message)
+  }
+
   return next(error)
 }
 

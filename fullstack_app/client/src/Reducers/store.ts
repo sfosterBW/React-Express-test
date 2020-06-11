@@ -1,11 +1,9 @@
 import { applyMiddleware, combineReducers, createStore } from "redux"
 import thunkMiddleware from "redux-thunk"
 import { composeWithDevTools } from 'redux-devtools-extension'
-import {
-  alertReducer,
-  fruitReducer,
-  modalReducer
-} from './reducers'
+import modalReducer from './modalReducer'
+import alertReducer from './alertReducer'
+import fruitReducer from './fruitReducer'
 
 export const rootReducer = combineReducers({
   alert: alertReducer,
@@ -15,7 +13,7 @@ export const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>
 
-export default function configureStore(preloadedState: undefined) {
+export const configureStore = (preloadedState: undefined) => {
   const middlewares = [thunkMiddleware]
   const middlewareEnhancer = applyMiddleware(...middlewares)
   const enhancers = [middlewareEnhancer]
@@ -25,3 +23,5 @@ export default function configureStore(preloadedState: undefined) {
 }
 
 export const store = configureStore(undefined)
+
+export default configureStore

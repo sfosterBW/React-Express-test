@@ -38,7 +38,7 @@ describe('the FruitItem component', () => {
     wrapper.find('button').at(0).simulate('click')
     wrapper.find('button').at(1).simulate('click')
     wrapper.find('input').simulate('change')
-    expect(mockDispatch).toHaveBeenCalledTimes(1)
+    expect(mockDispatch).toHaveBeenCalledTimes(3)
   })
 
   it('renders the same as last time', () => {

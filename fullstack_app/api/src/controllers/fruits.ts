@@ -1,10 +1,11 @@
 import express from 'express'
-import fruitService from '../services/fruitService'
+import Fruit from '../models/fruit'
 import { toFruit, toNewFruit } from '../utils'
 const router = express.Router()
 
 router.get('/', async (_request, response) => {
-  return response.status(200).send(fruitService.getFruits())
+  const fruits = await Fruit.find({})
+  return response.status(200).send(fruits)
 })
 
 router.post('/', async (request, response) => {
@@ -14,8 +15,9 @@ router.post('/', async (request, response) => {
     return response.status(400).send("Name too long")
   }
 
-  const fruit = fruitService.addFruit(newFruit)
-  return response.status(201).send(fruit)
+  const fruit = new Fruit(newFruit)
+  const savedFruit = await fruit.save()
+  return response.status(201).send(savedFruit)
 })
 
 router.put('/:id', async (request, response) => {
@@ -26,15 +28,15 @@ router.put('/:id', async (request, response) => {
     return response.status(400).send("Name too long")
   }
 
-  const updatedFruit = fruitService.updateFruit(id, fruit)
+  const updatedFruit = await Fruit.findByIdAndUpdate(id, fruit, { new: true })
   return response.status(201).send(updatedFruit)
 })
 
 router.delete('/:id', async (request, response) => {
   const { id } = request.params
 
-  fruitService.deleteFruit(String(id))
-  return response.status(200).send(String(id))
+  await Fruit.findByIdAndRemove(id)
+  return response.status(200).send(id)
 })
 
 export default router

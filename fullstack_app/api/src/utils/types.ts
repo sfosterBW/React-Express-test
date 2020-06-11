@@ -1,7 +1,9 @@
-export interface Fruit {
+import { Document } from 'mongoose'
+
+export interface IFruit extends Document {
   id: string
   name: string
   best: boolean
 }
 
-export type NewFruit = Omit<Fruit, 'id'>
+export type NewFruit = Pick<IFruit, 'name' | 'best'>

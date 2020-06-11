@@ -10,8 +10,8 @@ const fetchFruit = async (): Promise<Fruit[]> => {
 }
 
 const createFruit = async (fruit: NewFruit): Promise<Fruit> => {
-    const response = await axios.post('/', fruit)
-    return toFruit(response.data)
+  const response = await axios.post('/', fruit)
+  return toFruit(response.data)
 }
 
 const updateFruit = async (fruit: Fruit): Promise<Fruit> => {

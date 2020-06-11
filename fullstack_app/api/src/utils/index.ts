@@ -1,4 +1,4 @@
-import { Fruit, NewFruit } from './types'
+import { IFruit, NewFruit } from './types'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -29,6 +29,7 @@ const parseName = (name: any): string => {
 
 export const toNewFruit = (object: any): NewFruit => {
   const newFruit: NewFruit = {
+    ...object,
     name: parseName(object.name),
     best: parseBest(object.best)
   }
@@ -44,8 +45,9 @@ const parseId = (id: any): string => {
   return id
 }
 
-export const toFruit = (object: any): Fruit => {
-  const fruit: Fruit = {
+export const toFruit = (object: any): IFruit => {
+  const fruit: IFruit = {
+    ...object,
     id: parseId(object.id),
     name: parseName(object.name),
     best: parseBest(object.best)

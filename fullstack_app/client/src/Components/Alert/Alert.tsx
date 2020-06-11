@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../utils/store'
-import { toggleAlert } from '../../utils/actions'
+import { RootState } from '../../Reducers/store'
+import { toggleAlert } from '../../Reducers/alertReducer'
 import styles from './Alert.module.css'
 
 const Alert: FC<{message: string}> = ({ message }) => {
@@ -16,6 +16,7 @@ const Alert: FC<{message: string}> = ({ message }) => {
   return (
     <div className={styles.wrapper}>
       <section className={styles.alert}>
+        <strong>!!!</strong>
         <p className={styles.message}>
           {message}
         </p>

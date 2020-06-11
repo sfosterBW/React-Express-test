@@ -1,3 +1,26 @@
 .alert {
-  background: red;
+  align-items: center;
+  background: #ff0100a6;
+  border-radius: 0.5vmin;
+  display: flex;
+  margin: 2vmin;
+  padding: 1vmin;
+}
+
+.alert button {
+  height: 4vmin;
+  width: 4vmin;
+  margin-left: 2vmin;
+}
+
+.alert button:hover {
+  cursor: pointer;
+}
+
+.alert strong {
+  background: white;
+  border: 0.5vmin solid black;
+  margin-left: 2vmin;
+  margin-right: 2vmin;
+  padding: 1vmin;
 }

@@ -1,9 +1,8 @@
 import React, { FC, useEffect, useCallback } from 'react'
 import { Router } from "@reach/router"
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../utils/store'
-import fruitService from '../../utils/api'
-import { getFruits } from '../../utils/actions'
+import { RootState } from '../../Reducers/store'
+import { getFruits } from '../../Reducers/fruitReducer'
 import Alert from '../Alert/Alert'
 import Modal from '../Modal/Modal'
 import Nav from '../Nav/Nav'
@@ -13,13 +12,11 @@ import EditFruit from '../../Pages/EditFruit'
 import Home from '../../Pages/Home'
 import styles from './App.module.css'
 
-//TODO: Add notification to new fruit creation page
-//TODO: Style error notification
 //TODO: Swap to react testing library
 //TODO: Add descriptions to Fruit
 
 const App: FC = () => {
-  const selectFruits = (state: RootState) => state.fruit.data
+  const selectFruits = (state: RootState) => state.fruit
   const fruits = useSelector(selectFruits)
   const selectModalFruit = (state: RootState) => state.modal.fruit
   const modalFruit = useSelector(selectModalFruit)
@@ -30,7 +27,7 @@ const App: FC = () => {
   const effectDispatch = useCallback(dispatch, [])
 
   useEffect(() => {
-    fruitService.fetchFruit().then(res => effectDispatch(getFruits(res)))
+    effectDispatch(getFruits())
   }, [effectDispatch])
 
   return (
@@ -41,7 +38,7 @@ const App: FC = () => {
         <Router className={styles.main}>
           <Home path="/" title="Add Fruit and stuff" />
           <AddFruit path="/add" title="Add Fruit and stuff" />
-          <EditFruit fruits={fruits} path="/edit" title="True table"/>
+          <EditFruit fruits={fruits} path="/edit" title="True table" />
         </Router>
       </main>
       <Modal fruit={modalFruit} />

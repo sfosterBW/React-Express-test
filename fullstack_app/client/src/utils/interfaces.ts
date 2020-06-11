@@ -6,18 +6,3 @@ export interface Fruit {
 }
 
 export type NewFruit = Omit<Fruit, 'id'>
-
-//States
-export interface AlertState {
-  toggle: boolean,
-  message: string
-}
-
-export interface FruitState {
-  data: Fruit[]
-}
-
-export interface ModalState {
-  toggle: boolean,
-  fruit?: Fruit
-}

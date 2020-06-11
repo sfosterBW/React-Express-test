@@ -1,24 +1,31 @@
-import fruitService from '../services/fruitService'
-import { Fruit } from '../utils/types'
+import Fruit from '../models/fruit'
 
-const fruits = (): Fruit[] => fruitService.getFruits()
-
-const initialFruits: Fruit[] = [
+const initialFruits = [
   {
-    id: "1",
-    name: "Apple",
+    name: 'apple',
     best: false
   },
   {
-    id: "2",
-    name: "Orange",
+    name: 'orange',
     best: true
-  },
-  {
-    id: "3",
-    name: "banana",
-    best: false
   }
 ]
 
-export default { initialFruits, fruits }
+const fruitsInDb = async () => {
+  const fruits = await Fruit.find({})
+  return fruits
+}
+
+const nonExistingId = async () => {
+  const fruit = new Fruit({
+    name: 'willdelete',
+    best: false
+  })
+
+  await fruit.save()
+  await fruit.remove()
+
+  return fruit.id
+}
+
+export default { initialFruits, fruitsInDb, nonExistingId }

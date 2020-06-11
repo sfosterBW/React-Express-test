@@ -1,17 +1,17 @@
 import request from 'supertest'
 import app from '../app'
-import fruitService from '../services/fruitService'
+import Fruit from '../models/fruit'
 import helper from '../utils/test-helper'
-import { Fruit, NewFruit } from '../utils/types'
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 const url = '/fruit-api/'
 
 beforeEach(async () => {
-  fruitService.resetFruit()
-  const fruitPromiseArray = helper.initialFruits
-    .map(fruit => fruitService.addFruit(fruit))
+  await Fruit.deleteMany({})
+
+  const fruitObjects = helper.initialFruits.map(fruit => new Fruit(fruit))
+  const fruitPromiseArray = fruitObjects.map(fruit => fruit.save())
   await Promise.all(fruitPromiseArray)
 })
 
@@ -23,7 +23,7 @@ describe('add a new fruit', () => {
   })
 
   it('should add a new fruit to the list', async () => {
-    const newFruit: NewFruit = { name: "banana", best: false }
+    const newFruit = { name: "banana", best: false }
     const newRes = await request(app)
       .post(url)
       .send(newFruit)
@@ -50,7 +50,7 @@ describe('add a new fruit', () => {
   })
 
   it('should error with the wrong type', async () => {
-    const newFruit: NewFruit = {
+    const newFruit = {
       name: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
       best: true
     }
@@ -65,9 +65,10 @@ describe('add a new fruit', () => {
 
 describe('update an existing fruit', () => {
   it('should return a success message with the right data', async () => {
-    const fruit: Fruit[] = fruitService.getFruits()
-    const id = fruit[0].id
-    const updatedFruit: Fruit = { id, name: "Apples", best: false }
+    const fruits = await helper.fruitsInDb()
+    const id = fruits[0].id
+    const updatedFruit = { id, name: "Apples", best: false }
+
     const res = await request(app)
       .put(`${url}${id}`)
       .send(updatedFruit)
@@ -78,7 +79,10 @@ describe('update an existing fruit', () => {
 
   describe('should return an error if', () => {
     it('the wrong type is used', async () => {
-      const updatedFruit = { id: "1", name: "Apples", best: null }
+      const fruits = await helper.fruitsInDb()
+      const { id, name } = fruits[0]
+      const updatedFruit = { id, name, best: null }
+
       const res = await request(app)
         .put(`${url}${updatedFruit.id}`)
         .send(updatedFruit)
@@ -88,11 +92,14 @@ describe('update an existing fruit', () => {
     })
 
     it('the name is too long', async () => {
-      const updatedFruit: Fruit = {
-        id: "1",
+      const fruits = await helper.fruitsInDb()
+      const {id, best} = fruits[0]
+      const updatedFruit = {
+        id,
         name: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
-        best: true
+        best
       }
+
       const res = await request(app)
         .put(`${url}${updatedFruit.id}`)
         .send(updatedFruit)
@@ -102,21 +109,25 @@ describe('update an existing fruit', () => {
     })
 
     it('the fruit cannot be found', async () => {
-      const updatedFruit: Fruit = { id: "12", name: "Apples", best: false }
+      const fruits = await helper.fruitsInDb()
+      const { name, best } = fruits[0]
+      const updatedFruit = { id: "12", name, best }
+
       const res = await request(app)
         .put(`${url}${updatedFruit.id}`)
         .send(updatedFruit)
         .expect(400)
 
-      expect(res.text).toEqual("Fruit not found")
+      expect(res.text).toEqual("malformed id")
     })
   })
 })
 
 describe('delete a fruit from the list', () => {
   it('should return a success and remove an item from the list', async () => {
-    const fruits: Fruit[] = fruitService.getFruits()
+    const fruits = await helper.fruitsInDb()
     const { id } = fruits[0]
+
     const delRes = await request(app)
       .delete(`${url}${id}`)
       .expect(200)
@@ -133,6 +144,6 @@ describe('delete a fruit from the list', () => {
       .delete(`${url}${id}`)
       .expect(400)
 
-    expect(res.text).toEqual("Fruit not found")
+    expect(res.text).toEqual("malformed id")
   })
 })

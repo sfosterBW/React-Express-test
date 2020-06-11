@@ -7,6 +7,9 @@ exports[`the Alert component renders the same as last time with props 1`] = `
   <section
     className="alert"
   >
+    <strong>
+      !!!
+    </strong>
     <p
       className="message"
     >

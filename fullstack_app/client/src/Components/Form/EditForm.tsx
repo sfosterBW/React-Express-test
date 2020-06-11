@@ -1,11 +1,12 @@
 import React, { FC, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import fruitService from '../../utils/api'
 import { InputCheckbox, InputText } from '../Input/Input'
 import { useField } from '../../utils/hooks'
 import { Fruit } from '../../utils/interfaces'
-import { RootState } from '../../utils/store'
-import { toggleAlert, toggleModal, updateFruit } from '../../utils/actions'
+import { RootState } from '../../Reducers/store'
+import { toggleAlert } from '../../Reducers/alertReducer'
+import { updateFruit } from '../../Reducers/fruitReducer'
+import { toggleModal } from '../../Reducers/modalReducer'
 import styles from './Form.module.css'
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
 
 const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
   const [best, setBest] = useState<boolean>(fruit.best)
-  const name = useField(fruit.name, "Add a fruit", "name", "text")
+  const name = useField("Add a fruit", "name", "text", fruit.name)
   const toggle = (state: RootState) => state.modal.toggle
   const modal = useSelector(toggle)
   const dispatch = useDispatch()
@@ -30,22 +31,18 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
 
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    const newFruit = {
+
+    dispatch(updateFruit({
       id: fruit.id,
       best: best,
       name: name.value,
-    }
+    }))
+    dispatch(toggleAlert(`${name.value} has been updated`, true))
 
-    try {
-      const updatedFruit = await fruitService.updateFruit(newFruit)
-      dispatch(updateFruit(updatedFruit))
+    if (modal) {
+      dispatch(toggleModal(false))
     }
-    catch (error) {
-      console.log(error.response.data)
-      dispatch(toggleAlert(error.response.data, true))
-    }
-
-    modal && dispatch(toggleModal(false))
+    
     name.reset()
     setBest(false)
   }

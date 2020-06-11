@@ -1,19 +1,24 @@
 import { useState } from 'react'
 
 export const useField = (
-  initValue: string,
   label: string,
   name: string,
-  type: string) => {
+  type: string,
+  initValue: string = ""
+) => {
 
   const [value, setValue] = useState(initValue)
 
   const handleChange = (event: any): void => {
-    setValue(event.target.value)
+    if (type === "checkbox") {
+      setValue(event.target.checked)
+    } else {
+      setValue(event.target.value)
+    }
   }
 
-  const reset = (): void => {
-    setValue("")
+  const reset = (resetValue = ""): void => {
+    setValue(resetValue)
   }
 
   return {
