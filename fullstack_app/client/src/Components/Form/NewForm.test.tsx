@@ -15,17 +15,22 @@ describe('the Form component', () => {
   const component = <NewForm />
 
   it('functions properly with props', () => {
-    const { getByTestId } = render(component)
-    const testValue = "Apple"
+    const { getByLabelText, getByTestId } = render(component)
+    const testName = "Apple"
+    const testDescription = "I don't like doctors"
 
     fireEvent.click(getByTestId('toggle'))
-    fireEvent.change(getByTestId('input-text'), {
-      target: { value: testValue }
+    fireEvent.change(getByLabelText('Add a fruit'), {
+      target: { value: testName }
     })
+    fireEvent.change(getByLabelText('Description'), {
+      target: { value: testDescription }
+    })
+
     fireEvent.click(getByTestId('submit-new'))
 
     expect(mockDispatch.mock.calls[1][0].payload.message)
-      .toBe(`${testValue} has been added`)
+      .toBe(`${testName} has been added`)
   })
 
   it('renders the same as last time', () => {

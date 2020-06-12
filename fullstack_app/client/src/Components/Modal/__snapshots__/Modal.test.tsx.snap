@@ -42,6 +42,25 @@ exports[`the modal component renders the same as last time 1`] = `
           >
             <label
               class="label"
+              for="description"
+            >
+              Description
+            </label>
+            <input
+              class="text"
+              data-testid="input-text"
+              id="description"
+              name="description"
+              type="text"
+              value=""
+            />
+          </div>
+          <div
+            class="wrapper"
+            data-testid="wrapper"
+          >
+            <label
+              class="label"
               for="best"
             >
               Is it best?

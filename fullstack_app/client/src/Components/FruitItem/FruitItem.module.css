@@ -9,7 +9,17 @@
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  padding: 2vmin;
+  margin: 1vmin 0;
+  width: 100%;
+}
+
+.sectionRow {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 1vmin 0;
   width: 100%;
 }
 
@@ -38,6 +48,12 @@
   margin: 0 2vmin;
   text-align: center;
   font-size: calc(10px + 2vmin);
+}
+
+.description {
+  font-size: calc(10px + 1vmin);
+  font-style: italic;
+  text-align: center;
 }
 
 .button {

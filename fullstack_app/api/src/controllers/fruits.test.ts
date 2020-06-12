@@ -23,7 +23,11 @@ describe('add a new fruit', () => {
   })
 
   it('should add a new fruit to the list', async () => {
-    const newFruit = { name: "banana", best: false }
+    const newFruit = {
+      name: "banana",
+      best: false,
+      description: "They are bendy"
+    }
     const newRes = await request(app)
       .post(url)
       .send(newFruit)
@@ -32,7 +36,7 @@ describe('add a new fruit', () => {
     expect(newRes.body.id).toBeDefined()
     expect(newRes.body.name).toEqual(newFruit.name)
     expect(newRes.body.best).toEqual(newFruit.best)
-
+    expect(newRes.body.description).toEqual(newFruit.description)
 
     const listRes = await request(app).get(url)
     console.log('list', listRes.body)
@@ -80,8 +84,8 @@ describe('update an existing fruit', () => {
   describe('should return an error if', () => {
     it('the wrong type is used', async () => {
       const fruits = await helper.fruitsInDb()
-      const { id, name } = fruits[0]
-      const updatedFruit = { id, name, best: null }
+      const { id, name, description } = fruits[0]
+      const updatedFruit = { id, name, description, best: null }
 
       const res = await request(app)
         .put(`${url}${updatedFruit.id}`)
@@ -93,11 +97,12 @@ describe('update an existing fruit', () => {
 
     it('the name is too long', async () => {
       const fruits = await helper.fruitsInDb()
-      const {id, best} = fruits[0]
+      const { id, best, description } = fruits[0]
       const updatedFruit = {
         id,
         name: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
-        best
+        best,
+        description
       }
 
       const res = await request(app)
@@ -110,8 +115,8 @@ describe('update an existing fruit', () => {
 
     it('the fruit cannot be found', async () => {
       const fruits = await helper.fruitsInDb()
-      const { name, best } = fruits[0]
-      const updatedFruit = { id: "12", name, best }
+      const { name, best, description } = fruits[0]
+      const updatedFruit = { id: "12", name, best, description }
 
       const res = await request(app)
         .put(`${url}${updatedFruit.id}`)

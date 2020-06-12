@@ -17,6 +17,7 @@ interface Props {
 const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
   const [best, setBest] = useState<boolean>(fruit.best)
   const name = useField("Add a fruit", "name", "text", fruit.name)
+  const description = useField("Description", "description", "text", undefined)
   const toggle = (state: RootState) => state.modal.toggle
   const modal = useSelector(toggle)
   const dispatch = useDispatch()
@@ -36,6 +37,7 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
       id: fruit.id,
       best: best,
       name: name.value,
+      description: description.value
     }))
     dispatch(toggleAlert(`${name.value} has been updated`, true))
 
@@ -44,6 +46,7 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
     }
 
     name.reset()
+    description.reset()
     setBest(false)
   }
 
@@ -51,6 +54,7 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
     <form className={styles.form} onSubmit={(event) => submit(event)}>
       <h2 className={styles.title}>{title}</h2>
       <InputText {...name} />
+      <InputText {...description} />
       <InputCheckbox
         checked={best}
         handleChange={setter(setBest)}

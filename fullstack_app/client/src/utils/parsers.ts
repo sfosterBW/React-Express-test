@@ -32,6 +32,14 @@ const parseName = (name: any): string => {
   return name
 }
 
+const parseDescription = (description: any): string => {
+  if (!description || !isString(description)) {
+    throw new Error(`Incorrect or missing description: ${String(description)}`)
+  }
+
+  return description
+}
+
 const parseArray = (array: any): any[] => {
   if(array && !Array.isArray(array)) {
     throw new Error(`Incorrect or missing an array ${array}`);
@@ -41,11 +49,17 @@ const parseArray = (array: any): any[] => {
 }
 
 export const toFruit = (object: any): Fruit => {
-  return {
+  const fruit: Fruit = {
     id: parseId(object.id),
     name: parseName(object.name),
     best: parseBest(object.best)
   }
+
+  if (object.description) {
+    fruit.description = parseDescription(object.description)
+  }
+
+  return fruit
 }
 
 export const toFruits = (object: any): Fruit[] => {

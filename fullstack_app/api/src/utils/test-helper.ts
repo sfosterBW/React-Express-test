@@ -3,7 +3,8 @@ import Fruit from '../models/fruit'
 const initialFruits = [
   {
     name: 'apple',
-    best: false
+    best: false,
+    description: "They keep doctors away"
   },
   {
     name: 'orange',

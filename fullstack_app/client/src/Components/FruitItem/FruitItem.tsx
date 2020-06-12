@@ -14,7 +14,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   const [activeToggle, setActiveToggle] = useState<boolean>(active)
   const dispatch = useDispatch()
 
-  const showHide = () => activeToggle ? "calc(60px + 8vmin)" : "0"
+  const showHide = () => activeToggle ? "calc(120px + 12vmin)" : "0"
 
   return (
     <div className={styles.row} data-testid="fruit-item">
@@ -32,6 +32,17 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
         className={styles.active}
         style={{ height: showHide(), transition: "all 0.5s" }}
       >
+        <div className={styles.sectionRow}>
+          <h4 className={styles.subtitle}>
+            Description
+          </h4>
+          <p
+            className={styles.description}
+            data-testid="fruit-item-description"
+          >
+            {`"${fruit.description}"`}
+          </p>
+        </div>
         <div className={styles.section}>
           <h4 className={styles.subtitle}>
             Best

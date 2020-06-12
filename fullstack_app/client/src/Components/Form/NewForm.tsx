@@ -11,6 +11,7 @@ import styles from './Form.module.css'
 const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
   const [best, setBest] = useState<boolean>(false)
   const name = useField("Add a fruit", "name", "text", "")
+  const description = useField("Description", "description", "text", undefined)
   const toggle = (state: RootState) => state.modal.toggle
   const modal = useSelector(toggle)
   const dispatch = useDispatch()
@@ -25,7 +26,11 @@ const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
 
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    dispatch(createFruit({ name: name.value, best }))
+    dispatch(createFruit({
+      name: name.value,
+      description: description.value,
+      best
+    }))
     dispatch(toggleAlert(`${name.value} has been added`, true))
 
     if (modal) {
@@ -33,6 +38,7 @@ const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
     }
 
     name.reset()
+    description.reset()
     setBest(false)
   }
 
@@ -40,6 +46,7 @@ const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
     <form className={styles.form} onSubmit={(event) => submit(event)}>
       <h2 className={styles.title}>{title}</h2>
       <InputText {...name} />
+      <InputText {...description} />
       <InputCheckbox
         checked={best}
         handleChange={setter(setBest)}

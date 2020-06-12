@@ -30,6 +30,20 @@ exports[`the FruitItem component renders the same as last time 1`] = `
         <h4
           class="subtitle"
         >
+          Description
+        </h4>
+        <p
+          data-testid="fruit-item-description"
+        >
+          I don't like doctors
+        </p>
+      </div>
+      <div
+        class="section"
+      >
+        <h4
+          class="subtitle"
+        >
           Best
         </h4>
         <input

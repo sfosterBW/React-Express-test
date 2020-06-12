@@ -20,6 +20,11 @@ describe('the FruitItem component', () => {
 
     expect(getByTestId('fruit-item-best')).toHaveTextContent(String(fruit.best))
 
+    if (fruit.description) {
+      expect(getByTestId('fruit-item-description'))
+        .toHaveTextContent(String(fruit.description))
+    }
+
     fireEvent.click(getByTestId('update-button'))
     expect(mockDispatch.mock.calls).toHaveLength(1)
 

@@ -16,17 +16,21 @@ describe('the Edit Form component', () => {
   const component = <EditForm fruit={fruit} />
 
   it('functions properly with props', () => {
-    const { getByTestId } = render(component)
-    const testValue = "Apple"
+    const { getByLabelText, getByTestId } = render(component)
+    const testName = "Apple"
+    const testDescription = "I don't like doctors"
 
     fireEvent.click(getByTestId('toggle'))
-    fireEvent.change(getByTestId('input-text'), {
-      target: { value: testValue }
+    fireEvent.change(getByLabelText('Add a fruit'), {
+      target: { value: testName }
+    })
+    fireEvent.change(getByLabelText('Description'), {
+      target: { value: testDescription }
     })
     fireEvent.click(getByTestId('submit-edit'))
 
     expect(mockDispatch.mock.calls[1][0].payload.message)
-      .toBe(`${testValue} has been updated`)
+      .toBe(`${testName} has been updated`)
   })
 
   it('renders the same as last time', () => {

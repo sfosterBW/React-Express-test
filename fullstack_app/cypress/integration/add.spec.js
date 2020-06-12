@@ -2,7 +2,8 @@ const url = 'http://localhost:3000'
 const resetUrl = 'http://localhost:9000/testing/reset'
 const newFruit = {
   name: "orange",
-  best: false
+  best: false,
+  description: "Because you can't compare them to apples"
 }
 
 describe('The add page', function() {
@@ -18,6 +19,7 @@ describe('The add page', function() {
 
   it.only('should add a new fruit', function() {
     cy.get('#name').type(newFruit.name)
+    cy.get('#description').type(newFruit.description)
     cy.get('button').contains('Add new fruit').click()
     cy.get('#name').should('have.value', '')
 

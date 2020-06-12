@@ -5,6 +5,7 @@ import { IFruit } from '../utils/types'
 const fruitSchema: Schema = new Schema({
   name: { type: String, required: true },
   best: { type: Boolean, required: true },
+  description: { type: String, required: false } 
 })
 
 fruitSchema.set('toJSON', {

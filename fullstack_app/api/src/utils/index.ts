@@ -27,11 +27,23 @@ const parseName = (name: any): string => {
   return name
 }
 
+const parseDescription = (description: any): string => {
+  if (!description || !isString(description)) {
+    throw new Error(`Incorrect or missing description: ${String(description)}`)
+  }
+
+  return description
+}
+
 export const toNewFruit = (object: any): NewFruit => {
   const newFruit: NewFruit = {
     ...object,
     name: parseName(object.name),
-    best: parseBest(object.best)
+    best: parseBest(object.best),
+  }
+
+  if (object.description) {
+    newFruit.description = parseDescription(object.description)
   }
 
   return newFruit
@@ -51,6 +63,10 @@ export const toFruit = (object: any): IFruit => {
     id: parseId(object.id),
     name: parseName(object.name),
     best: parseBest(object.best)
+  }
+
+  if (object.description) {
+    fruit.description = parseDescription(object.description)
   }
 
   return fruit
