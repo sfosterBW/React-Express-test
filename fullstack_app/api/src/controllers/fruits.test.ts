@@ -70,8 +70,13 @@ describe('add a new fruit', () => {
 describe('update an existing fruit', () => {
   it('should return a success message with the right data', async () => {
     const fruits = await helper.fruitsInDb()
-    const id = fruits[0].id
-    const updatedFruit = { id, name: "Apples", best: false }
+    const { id, description, best } = fruits[0]
+    const updatedFruit = {
+      id,
+      name: "Apples",
+      best,
+      description
+    }
 
     const res = await request(app)
       .put(`${url}${id}`)

@@ -10,6 +10,7 @@ import config from './utils/config'
 import middleware from './utils/middleware'
 import indexRouter from './controllers/index'
 import fruitRouter from './controllers/fruits'
+import testingRouter from './controllers/testing'
 
 //TODO: Oauth?
 //TODO: Deploy to heroku?
@@ -40,8 +41,7 @@ app.use(bodyParser.json())
 app.use('/check', indexRouter)
 app.use('/fruit-api', fruitRouter)
 
-if (process.env.NODE_ENV) {
-  const testingRouter = require('./controllers/testing')
+if (process.env.NODE_ENV === 'test') {
   app.use('/testing', testingRouter)
 }
 
