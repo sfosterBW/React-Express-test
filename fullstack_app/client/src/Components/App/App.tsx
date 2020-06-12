@@ -12,8 +12,6 @@ import EditFruit from '../../Pages/EditFruit'
 import Home from '../../Pages/Home'
 import styles from './App.module.css'
 
-//TODO: Add descriptions to Fruit, test first
-
 const App: FC = () => {
   const selectFruits = (state: RootState) => state.fruit
   const fruits = useSelector(selectFruits)
