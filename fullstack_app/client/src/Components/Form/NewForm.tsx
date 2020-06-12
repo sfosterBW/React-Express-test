@@ -31,7 +31,7 @@ const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
     if (modal) {
       dispatch(toggleModal(false))
     }
-    
+
     name.reset()
     setBest(false)
   }
@@ -45,7 +45,9 @@ const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
         handleChange={setter(setBest)}
         label="Is it best?"
         name="best" />
-      <button className={styles.button}>Add new fruit</button>
+      <button className={styles.button} data-testid="submit-new">
+        Add new fruit
+      </button>
     </form>
   )
 }

@@ -1,9 +1,10 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import renderer from 'react-test-renderer'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 import { fruit } from '../../utils/test-helper'
 
 import FruitItem from './FruitItem'
+
+afterEach(cleanup)
 
 const mockDispatch = jest.fn()
 jest.mock('react-redux', () => ({
@@ -13,38 +14,19 @@ jest.mock('react-redux', () => ({
 
 describe('the FruitItem component', () => {
   const component = <FruitItem fruit={fruit} />
-  const wrapper = mount(component)
-
-  it('renders with the correct structure', () => {
-    expect(wrapper).toBeDefined()
-    expect(wrapper.find('div')).toHaveLength(6)
-    expect(wrapper.find('h3')).toHaveLength(1)
-    expect(wrapper.find('h3').text()).toEqual(fruit.name)
-    expect(wrapper.find('h4')).toHaveLength(2)
-    expect(wrapper.find('h4').at(0).text()).toEqual("Best")
-    expect(wrapper.find('h4').at(1).text()).toEqual("Edit")
-    expect(wrapper.find('label')).toHaveLength(1)
-    expect(wrapper.find('label').text()).toEqual(String(fruit.best))
-    expect(wrapper.find('label').props().htmlFor).toEqual(String(fruit.id))
-    expect(wrapper.find('input')).toHaveLength(1)
-    expect(wrapper.find('input').props().name).toEqual(String(fruit.id))
-    expect(wrapper.find('input').props().type).toEqual('checkbox')
-    expect(wrapper.find('button')).toHaveLength(2)
-    expect(wrapper.find('button').at(0).props().name).toEqual('modal')
-    expect(wrapper.find('button').at(1).props().name).toEqual('remove')
-  })
 
   it('functions as expected',() => {
-    wrapper.find('button').at(0).simulate('click')
-    wrapper.find('button').at(1).simulate('click')
-    wrapper.find('input').simulate('change')
-    expect(mockDispatch).toHaveBeenCalledTimes(3)
+    const { getByTestId } = render(component)
+
+    fireEvent.click(getByTestId('update-button'))
+    expect(mockDispatch.mock.calls).toHaveLength(1)
+
+    fireEvent.click(getByTestId('remove-button'))
+    expect(mockDispatch.mock.calls).toHaveLength(2)
   })
 
   it('renders the same as last time', () => {
-    const tree = renderer
-      .create(component)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+    const { container } = render(component)
+    expect(container).toMatchSnapshot()
   })
 })

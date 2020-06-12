@@ -1,26 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`the Alert component renders the same as last time with props 1`] = `
-<div
-  className="wrapper"
->
-  <section
-    className="alert"
+<div>
+  <div
+    class="wrapper"
+    data-testid="alert-wrapper"
   >
-    <strong>
-      !!!
-    </strong>
-    <p
-      className="message"
+    <section
+      class="alert"
     >
-      test
-    </p>
-    <button
-      className="button"
-      onClick={[Function]}
-    >
-      ×
-    </button>
-  </section>
+      <strong>
+        !!!
+      </strong>
+      <p
+        class="message"
+      >
+        test
+      </p>
+      <button
+        class="button"
+        data-testid="close-button"
+      >
+        ×
+      </button>
+    </section>
+  </div>
 </div>
 `;

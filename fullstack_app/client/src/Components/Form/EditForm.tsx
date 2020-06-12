@@ -42,7 +42,7 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
     if (modal) {
       dispatch(toggleModal(false))
     }
-    
+
     name.reset()
     setBest(false)
   }
@@ -56,7 +56,9 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
         handleChange={setter(setBest)}
         label="Is it best?"
         name="best" />
-      <button className={styles.button}>Edit fruit</button>
+      <button className={styles.button} data-testid="submit-edit">
+        Edit fruit
+      </button>
     </form>
   )
 }

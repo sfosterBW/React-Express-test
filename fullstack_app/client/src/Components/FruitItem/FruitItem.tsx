@@ -17,13 +17,13 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   const showHide = () => activeToggle ? "calc(60px + 8vmin)" : "0"
 
   return (
-    <div className={styles.row}>
+    <div className={styles.row} data-testid="fruit-item">
       <div
         className={styles.header}
         onClick={() => setActiveToggle(!activeToggle)}
       >
         <div className={styles.section}>
-          <h3 className={styles.subtitle}>
+          <h3 className={styles.subtitle} data-testid="fruit-item-title">
             {fruit.name}
           </h3>
         </div>
@@ -57,6 +57,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
           </h4>
           <button
             className={styles.button}
+            data-testid="update-button"
             name="modal"
             onClick={() => dispatch(openModal(fruit))}
           >
@@ -64,6 +65,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
           </button>
           <button
             className={styles.button}
+            data-testid="remove-button"
             name="remove"
             onClick={() => dispatch(removeFruit(fruit.id))}
             value={`${fruit.id}`}

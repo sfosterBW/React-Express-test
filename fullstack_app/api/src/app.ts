@@ -12,7 +12,7 @@ import indexRouter from './controllers/index'
 import fruitRouter from './controllers/fruits'
 import testingRouter from './controllers/testing'
 
-//TODO: Add get details for one fruit endpoint
+//TODO: Add get details for one fruit endpoint, tests first
 //TODO: Oauth?
 //TODO: Deploy to heroku?
 

@@ -14,7 +14,7 @@ const Alert: FC<{message: string}> = ({ message }) => {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="alert-wrapper">
       <section className={styles.alert}>
         <strong>!!!</strong>
         <p className={styles.message}>
@@ -22,6 +22,7 @@ const Alert: FC<{message: string}> = ({ message }) => {
         </p>
         <button
           className={styles.button}
+          data-testid="close-button"
           onClick={() => {dispatch(toggleAlert(message, !toggle))}}
         >
           &times;

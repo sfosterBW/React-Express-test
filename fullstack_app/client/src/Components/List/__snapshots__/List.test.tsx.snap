@@ -1,220 +1,213 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`the List component works with fruit renders the same as last time 1`] = `
-<section
-  className="wrapper"
->
-  <div
-    className="filters"
-  >
-    <button
-      className="filter"
-      onClick={[Function]}
-    >
-      All
-    </button>
-    <button
-      className="filter"
-      onClick={[Function]}
-    >
-      Best
-    </button>
-    <button
-      className="filter"
-      onClick={[Function]}
-    >
-      Not best
-    </button>
-  </div>
-  <div
-    className="devices"
+<div>
+  <section
+    class="wrapper"
   >
     <div
-      className="row"
+      class="filters"
+    >
+      <button
+        class="filter"
+        data-testid="all-filter"
+      >
+        All
+      </button>
+      <button
+        class="filter"
+        data-testid="best-filter"
+      >
+        Best
+      </button>
+      <button
+        class="filter"
+        data-testid="not-best-filter"
+      >
+        Not best
+      </button>
+    </div>
+    <div
+      class="devices"
     >
       <div
-        className="header"
-        onClick={[Function]}
+        class="row"
+        data-testid="fruit-item"
       >
         <div
-          className="section"
+          class="header"
         >
-          <h3
-            className="subtitle"
+          <div
+            class="section"
           >
-            apple
-          </h3>
+            <h3
+              class="subtitle"
+              data-testid="fruit-item-title"
+            >
+              apple
+            </h3>
+          </div>
+        </div>
+        <div
+          class="active"
+          style="height: 0px; transition: all 0.5s;"
+        >
+          <div
+            class="section"
+          >
+            <h4
+              class="subtitle"
+            >
+              Best
+            </h4>
+            <input
+              class="button"
+              id="1"
+              name="1"
+              type="checkbox"
+              value="1"
+            />
+            <label
+              for="1"
+            >
+              false
+            </label>
+          </div>
+          <div
+            class="section"
+          >
+            <h4
+              class="subtitle"
+            >
+              Edit
+            </h4>
+            <button
+              class="button"
+              data-testid="update-button"
+              name="modal"
+            >
+              Update
+            </button>
+            <button
+              class="button"
+              data-testid="remove-button"
+              name="remove"
+              value="1"
+            >
+              Remove
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="active"
-        style={
-          Object {
-            "height": "0",
-            "transition": "all 0.5s",
-          }
-        }
+        class="row"
+        data-testid="fruit-item"
       >
         <div
-          className="section"
+          class="header"
         >
-          <h4
-            className="subtitle"
+          <div
+            class="section"
           >
-            Best
-          </h4>
-          <input
-            checked={false}
-            className="button"
-            id="1"
-            name="1"
-            onChange={[Function]}
-            type="checkbox"
-            value="1"
-          />
-          <label
-            htmlFor="1"
-          >
-            false
-          </label>
+            <h3
+              class="subtitle"
+              data-testid="fruit-item-title"
+            >
+              banana
+            </h3>
+          </div>
         </div>
         <div
-          className="section"
+          class="active"
+          style="height: 0px; transition: all 0.5s;"
         >
-          <h4
-            className="subtitle"
+          <div
+            class="section"
           >
-            Edit
-          </h4>
-          <button
-            className="button"
-            name="modal"
-            onClick={[Function]}
+            <h4
+              class="subtitle"
+            >
+              Best
+            </h4>
+            <input
+              checked=""
+              class="button"
+              id="2"
+              name="2"
+              type="checkbox"
+              value="2"
+            />
+            <label
+              for="2"
+            >
+              true
+            </label>
+          </div>
+          <div
+            class="section"
           >
-            Update
-          </button>
-          <button
-            className="button"
-            name="remove"
-            onClick={[Function]}
-            value="1"
-          >
-            Remove
-          </button>
+            <h4
+              class="subtitle"
+            >
+              Edit
+            </h4>
+            <button
+              class="button"
+              data-testid="update-button"
+              name="modal"
+            >
+              Update
+            </button>
+            <button
+              class="button"
+              data-testid="remove-button"
+              name="remove"
+              value="2"
+            >
+              Remove
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    <div
-      className="row"
-    >
-      <div
-        className="header"
-        onClick={[Function]}
-      >
-        <div
-          className="section"
-        >
-          <h3
-            className="subtitle"
-          >
-            banana
-          </h3>
-        </div>
-      </div>
-      <div
-        className="active"
-        style={
-          Object {
-            "height": "0",
-            "transition": "all 0.5s",
-          }
-        }
-      >
-        <div
-          className="section"
-        >
-          <h4
-            className="subtitle"
-          >
-            Best
-          </h4>
-          <input
-            checked={true}
-            className="button"
-            id="2"
-            name="2"
-            onChange={[Function]}
-            type="checkbox"
-            value="2"
-          />
-          <label
-            htmlFor="2"
-          >
-            true
-          </label>
-        </div>
-        <div
-          className="section"
-        >
-          <h4
-            className="subtitle"
-          >
-            Edit
-          </h4>
-          <button
-            className="button"
-            name="modal"
-            onClick={[Function]}
-          >
-            Update
-          </button>
-          <button
-            className="button"
-            name="remove"
-            onClick={[Function]}
-            value="2"
-          >
-            Remove
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 `;
 
 exports[`the List component works with no fruit renders the same as last time 1`] = `
-<section
-  className="wrapper"
->
-  <div
-    className="filters"
+<div>
+  <section
+    class="wrapper"
   >
-    <button
-      className="filter"
-      onClick={[Function]}
+    <div
+      class="filters"
     >
-      All
-    </button>
-    <button
-      className="filter"
-      onClick={[Function]}
+      <button
+        class="filter"
+        data-testid="all-filter"
+      >
+        All
+      </button>
+      <button
+        class="filter"
+        data-testid="best-filter"
+      >
+        Best
+      </button>
+      <button
+        class="filter"
+        data-testid="not-best-filter"
+      >
+        Not best
+      </button>
+    </div>
+    <div
+      class="devices"
     >
-      Best
-    </button>
-    <button
-      className="filter"
-      onClick={[Function]}
-    >
-      Not best
-    </button>
-  </div>
-  <div
-    className="devices"
-  >
-    <p>
-      Nothing here...
-    </p>
-  </div>
-</section>
+      <p>
+        Nothing here...
+      </p>
+    </div>
+  </section>
+</div>
 `;

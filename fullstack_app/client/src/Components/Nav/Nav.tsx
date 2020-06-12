@@ -7,7 +7,7 @@ const Nav: FC = () => {
     <header>
       <nav className={styles.wrapper}>
         <div className={styles.left}>
-          <Link to="/">
+          <Link data-testid="logo-link" to="/">
           <img
             alt="logo"
             className={styles.logo}
@@ -21,6 +21,7 @@ const Nav: FC = () => {
         <div className={styles.right}>
           <Link
             className={styles.link}
+            data-testid="home-link"
             to="/"
             rel="nofollower noreferrer"
             title="Home page"
@@ -29,6 +30,7 @@ const Nav: FC = () => {
           </Link>
           <Link
             className={styles.link}
+            data-testid="add-link"
             to="add"
             rel="nofollower noreferrer"
             title="Add a new fruit to your list"
@@ -37,6 +39,7 @@ const Nav: FC = () => {
           </Link>
           <Link
             className={styles.link}
+            data-testid="edit-link"
             to="edit"
             rel="nofollower noreferrer"
             title="View and edit your list of fruit"

@@ -1,9 +1,10 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import renderer from 'react-test-renderer'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 import { fruit } from '../../utils/test-helper'
 
 import EditForm from './EditForm'
+
+afterEach(cleanup)
 
 const mockDispatch = jest.fn()
 jest.mock('react-redux', () => ({
@@ -12,20 +13,24 @@ jest.mock('react-redux', () => ({
 }))
 
 describe('the Edit Form component', () => {
-  const formComponent = <EditForm fruit={fruit} />
-  const form = mount(formComponent)
+  const component = <EditForm fruit={fruit} />
 
   it('functions properly with props', () => {
-    expect(form).toBeDefined()
-    expect(form.find('InputText').props().value).toEqual(fruit.name)
-    expect(form.find('InputCheckbox').props().checked).toEqual(fruit.best)
-    form.find('button').simulate('click')
+    const { getByTestId } = render(component)
+    const testValue = "Apple"
+
+    fireEvent.click(getByTestId('toggle'))
+    fireEvent.change(getByTestId('input-text'), {
+      target: { value: testValue }
+    })
+    fireEvent.click(getByTestId('submit-edit'))
+
+    expect(mockDispatch.mock.calls[1][0].payload.message)
+      .toBe(`${testValue} has been updated`)
   })
 
   it('renders the same as last time', () => {
-    const tree = renderer
-      .create(formComponent)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+    const { container } = render(component)
+    expect(container).toMatchSnapshot()
   })
 })

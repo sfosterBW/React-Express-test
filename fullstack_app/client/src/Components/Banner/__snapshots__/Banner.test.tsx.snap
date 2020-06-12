@@ -1,17 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`the Alert component renders the same as last time with props 1`] = `
-<section
-  className="wrapper"
->
-  <div
-    className="hero large flavourOne"
+exports[`the Alert component renders the same as last time 1`] = `
+<div>
+  <section
+    class="wrapper"
+    data-testid="wrapper"
   >
-    <h1
-      className="title"
+    <div
+      class="hero large flavourOne"
     >
-      Title
-    </h1>
-  </div>
-</section>
+      <h1
+        class="title"
+        data-testid="title"
+      >
+        Title
+      </h1>
+    </div>
+  </section>
+</div>
 `;

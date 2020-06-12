@@ -24,6 +24,7 @@ const Modal: FC<{fruit: Fruit | undefined}> = ({ fruit }) => {
           {fruit && <EditForm fruit={fruit} title="Edit fruit" />}
           <button
             className={styles.close}
+            data-testid="close"
             name="close"
             onClick={() => dispatch(toggleModal(!toggle))}
           >

@@ -1,135 +1,135 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`the app component renders the same as last time 1`] = `
-<div
-  className="App"
->
-  <header>
-    <nav
-      className="wrapper"
-    >
-      <div
-        className="left"
-      >
-        <a
-          aria-current="page"
-          href="/"
-          onClick={[Function]}
-        >
-          <img
-            alt="logo"
-            className="logo"
-            src="https://img.icons8.com/cotton/64/000000/apple--v1.png"
-          />
-        </a>
-        <div
-          className="title"
-          id="title"
-        >
-          Fruit Dashboard
-        </div>
-      </div>
-      <div
-        className="right"
-      >
-        <a
-          aria-current="page"
-          className="link"
-          href="/"
-          onClick={[Function]}
-          rel="nofollower noreferrer"
-          title="Home page"
-        >
-          Home
-        </a>
-        <a
-          className="link"
-          href="/add"
-          onClick={[Function]}
-          rel="nofollower noreferrer"
-          title="Add a new fruit to your list"
-        >
-          Add new fruit
-        </a>
-        <a
-          className="link"
-          href="/edit"
-          onClick={[Function]}
-          rel="nofollower noreferrer"
-          title="View and edit your list of fruit"
-        >
-          Edit fruit
-        </a>
-      </div>
-    </nav>
-  </header>
-  <main
-    className="main"
+<div>
+  <div
+    class="App"
   >
-    <div
-      className="main"
-      style={
-        Object {
-          "outline": "none",
-        }
-      }
-      tabIndex="-1"
-    >
-      <section
-        className="wrapper"
+    <header>
+      <nav
+        class="wrapper"
       >
         <div
-          className="hero large flavourOne"
+          class="left"
         >
-          <h1
-            className="title"
+          <a
+            aria-current="page"
+            data-testid="logo-link"
+            href="/"
           >
-            Add Fruit and stuff
-          </h1>
+            <img
+              alt="logo"
+              class="logo"
+              src="https://img.icons8.com/cotton/64/000000/apple--v1.png"
+            />
+          </a>
+          <div
+            class="title"
+            id="title"
+          >
+            Fruit Dashboard
+          </div>
         </div>
-      </section>
-      <div
-        className="card-grid-wrapper"
-      >
-        <h2>
-          What does it do?
-        </h2>
         <div
-          className="card-grid"
+          class="right"
+        >
+          <a
+            aria-current="page"
+            class="link"
+            data-testid="home-link"
+            href="/"
+            rel="nofollower noreferrer"
+            title="Home page"
+          >
+            Home
+          </a>
+          <a
+            class="link"
+            data-testid="add-link"
+            href="/add"
+            rel="nofollower noreferrer"
+            title="Add a new fruit to your list"
+          >
+            Add new fruit
+          </a>
+          <a
+            class="link"
+            data-testid="edit-link"
+            href="/edit"
+            rel="nofollower noreferrer"
+            title="View and edit your list of fruit"
+          >
+            Edit fruit
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main
+      class="main"
+    >
+      <div
+        class="main"
+        style="outline: none;"
+        tabindex="-1"
+      >
+        <section
+          class="wrapper"
+          data-testid="wrapper"
         >
           <div
-            className="card"
+            class="hero large flavourOne"
           >
-            <h3>
-              Add Fruit to the dashboard
-            </h3>
-            <p>
-              You can add any Fruit to the dashboard very easily.
-            </p>
+            <h1
+              class="title"
+              data-testid="title"
+            >
+              Add Fruit and stuff
+            </h1>
           </div>
+        </section>
+        <div
+          class="card-grid-wrapper"
+        >
+          <h2>
+            What does it do?
+          </h2>
           <div
-            className="card"
+            class="card-grid"
           >
-            <h3>
-              Edit your Fruit
-            </h3>
-            <p>
-              Once you've added fruit you can update any details and remove it if necessary.
-            </p>
-          </div>
-          <div
-            className="card"
-          >
-            <h3>
-              Rank the Fruit
-            </h3>
-            <p>
-              You can pick which Fruit is best and then you know which ones are the best ones.
-            </p>
+            <div
+              class="card"
+            >
+              <h3>
+                Add Fruit to the dashboard
+              </h3>
+              <p>
+                You can add any Fruit to the dashboard very easily.
+              </p>
+            </div>
+            <div
+              class="card"
+            >
+              <h3>
+                Edit your Fruit
+              </h3>
+              <p>
+                Once you've added fruit you can update any details and remove it if necessary.
+              </p>
+            </div>
+            <div
+              class="card"
+            >
+              <h3>
+                Rank the Fruit
+              </h3>
+              <p>
+                You can pick which Fruit is best and then you know which ones are the best ones.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </div>
 `;

@@ -2,89 +2,88 @@
 
 exports[`the modal component renders the same as last time 1`] = `
 <div>
-  <section
-    className="wrapper"
-  >
-    <div
-      className="modal"
+  <div>
+    <section
+      class="wrapper"
     >
-      <form
-        className="form"
-        onSubmit={[Function]}
+      <div
+        class="modal"
       >
-        <h2
-          className="title"
+        <form
+          class="form"
         >
-          Edit fruit
-        </h2>
-        <div
-          className="wrapper"
-        >
-          <label
-            className="label"
-            htmlFor="name"
+          <h2
+            class="title"
           >
-            Add a fruit
-          </label>
-          <input
-            className="text"
-            id="name"
-            name="name"
-            onChange={[Function]}
-            type="text"
-            value="apple"
-          />
-        </div>
-        <div
-          className="wrapper"
-        >
-          <label
-            className="label"
-            htmlFor="best"
-          >
-            Is it best?
-          </label>
+            Edit fruit
+          </h2>
           <div
-            className="checkboxWrapper"
+            class="wrapper"
+            data-testid="wrapper"
           >
-            <input
-              checked={false}
-              className="checkbox"
-              id="best"
-              name="best"
-              onChange={[Function]}
-              type="checkbox"
-              value="false"
-            />
             <label
-              className="checkboxLabel"
-              htmlFor="best"
-              style={
-                Object {
-                  "background": undefined,
-                }
-              }
+              class="label"
+              for="name"
             >
-              <span
-                className="checkboxButton"
-              />
+              Add a fruit
             </label>
+            <input
+              class="text"
+              data-testid="input-text"
+              id="name"
+              name="name"
+              type="text"
+              value="apple"
+            />
           </div>
-        </div>
+          <div
+            class="wrapper"
+            data-testid="wrapper"
+          >
+            <label
+              class="label"
+              for="best"
+            >
+              Is it best?
+            </label>
+            <div
+              class="checkboxWrapper"
+            >
+              <input
+                class="checkbox"
+                data-testid="input"
+                id="best"
+                name="best"
+                type="checkbox"
+                value="false"
+              />
+              <label
+                class="checkboxLabel"
+                data-testid="toggle"
+                for="best"
+              >
+                <span
+                  class="checkboxButton"
+                />
+              </label>
+            </div>
+          </div>
+          <button
+            class="button"
+            data-testid="submit-edit"
+          >
+            Edit fruit
+          </button>
+        </form>
         <button
-          className="button"
+          class="close"
+          data-testid="close"
+          name="close"
         >
-          Edit fruit
+          ×
         </button>
-      </form>
-      <button
-        className="close"
-        name="close"
-        onClick={[Function]}
-      >
-        ×
-      </button>
-    </div>
-  </section>
+      </div>
+    </section>
+  </div>
 </div>
 `;

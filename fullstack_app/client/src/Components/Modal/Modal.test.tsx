@@ -1,9 +1,10 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import renderer from 'react-test-renderer'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 import { fruit } from '../../utils/test-helper'
 
 import Modal from './Modal'
+
+afterEach(cleanup)
 
 const mockDispatch = jest.fn()
 jest.mock('react-redux', () => ({
@@ -12,26 +13,17 @@ jest.mock('react-redux', () => ({
 }))
 
 const component = <Modal fruit={fruit} />
-const wrapper = mount(component)
 
 describe('the modal component', () => {
-  it('renders with the correct structure', () => {
-    expect(wrapper).toBeDefined()
-    expect(wrapper.find('section')).toHaveLength(1)
-    expect(wrapper.find('div')).toHaveLength(5)
-    expect(wrapper.find('h2')).toHaveLength(1)
-    expect(wrapper.find('form')).toHaveLength(1)
-    expect(wrapper.find({name: 'close'})).toHaveLength(1)
-  })
-
   it('functions as expected', () => {
-    wrapper.find({name: 'close'}).simulate('click')
+    const { getByTestId } = render(component)
+    fireEvent.click(getByTestId('close'))
+
+    expect(mockDispatch.mock.calls).toHaveLength(1)
   })
 
   it('renders the same as last time', () => {
-    const tree = renderer
-      .create(component)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+    const { container } = render(component)
+    expect(container).toMatchSnapshot()
   })
 })

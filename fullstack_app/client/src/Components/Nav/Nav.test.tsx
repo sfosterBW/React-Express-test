@@ -1,33 +1,23 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import renderer from 'react-test-renderer'
+import { render, cleanup } from '@testing-library/react'
 
 import Nav from './Nav'
 
+afterEach(cleanup)
+
 describe('the Nav component', () => {
   const component = <Nav />
-  const wrapper = mount(component)
 
-  it('renders with the correct structure', () => {
-    expect(wrapper).toBeDefined()
-    expect(wrapper.find('img')).toHaveLength(1)
-    expect(wrapper.find('#title')).toHaveLength(1)
-    expect(wrapper.find('Link')).toHaveLength(4)
-  })
-
-  it('functions as expected',() => {
-    expect(wrapper.find('img').props().alt).toBe('logo')
-    expect(wrapper.find('#title').text()).toBe('Fruit Dashboard')
-    expect(wrapper.find('Link').at(0).props().to).toBe("/")
-    expect(wrapper.find('Link').at(1).props().to).toBe("/")
-    expect(wrapper.find('Link').at(2).props().to).toBe("add")
-    expect(wrapper.find('Link').at(3).props().to).toBe("edit")
+  it('functions as expected', () => {
+    const { getByTestId } = render(component)
+    expect(getByTestId('logo-link')).toHaveAttribute('href', '/')
+    expect(getByTestId('home-link')).toHaveAttribute('href', '/')
+    expect(getByTestId('add-link')).toHaveAttribute('href', '/add')
+    expect(getByTestId('edit-link')).toHaveAttribute('href', '/edit')
   })
 
   it('renders the same as last time', () => {
-    const tree = renderer
-      .create(component)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+    const { container } = render(component)
+    expect(container).toMatchSnapshot()
   })
 })

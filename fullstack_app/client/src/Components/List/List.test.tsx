@@ -1,9 +1,10 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import renderer from 'react-test-renderer'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 import { emptyList, list } from '../../utils/test-helper'
 
 import List from './List'
+
+afterEach(cleanup)
 
 const mockDispatch = jest.fn()
 jest.mock('react-redux', () => ({
@@ -14,45 +15,48 @@ jest.mock('react-redux', () => ({
 describe('the List component', () => {
   describe('works with no fruit', () => {
     const component = <List fruits={emptyList} />
-    const wrapper = mount(component)
 
     it('renders with the right structure', () => {
-      expect(wrapper).toBeDefined()
-      expect(wrapper.find('section')).toHaveLength(1)
-      expect(wrapper.find('div')).toHaveLength(2)
-      expect(wrapper.find('button')).toHaveLength(3)
-      expect(wrapper.find('button').at(0).text()).toEqual("All")
-      expect(wrapper.find('button').at(1).text()).toEqual("Best")
-      expect(wrapper.find('button').at(2).text()).toEqual("Not best")
+      const { queryAllByTestId, getByText } = render(component)
+      expect(queryAllByTestId('fruit-item')).toHaveLength(0)
+      expect(getByText("Nothing here...")).toBeInTheDocument()
     })
 
     it('renders the same as last time', () => {
-      const tree = renderer
-        .create(component)
-        .toJSON()
-      expect(tree).toMatchSnapshot()
+      const { container } = render(component)
+      expect(container).toMatchSnapshot()
     })
   })
 
   describe('works with fruit', () => {
     const component = <List fruits={list} />
-    const wrapper = mount(component)
 
     it('renders with the right structure', () => {
-      expect(wrapper).toBeDefined()
-      expect(wrapper.find('section')).toHaveLength(1)
-      expect(wrapper.find('div.row')).toHaveLength(list.length)
-      wrapper.find('h3').forEach((title, i) =>
-        expect(title.text()).toEqual(list[i].name)
+      const { getAllByTestId } = render(component)
+      expect(getAllByTestId('fruit-item')).toHaveLength(list.length)
+      getAllByTestId('fruit-item-title').forEach((title, i) =>
+        expect(title).toHaveTextContent(list[i].name)
       )
-      expect(wrapper.find('button')).toHaveLength((list.length * 2) + 3)
+    })
+
+    it('filtering changes the list length', () => {
+      const { getByTestId, getAllByTestId } = render(component)
+      const bestList = list.filter(i => i.best === true)
+      const notBestList = list.filter(i => i.best === false)
+
+      fireEvent.click(getByTestId('best-filter'))
+      expect(getAllByTestId('fruit-item')).toHaveLength(bestList.length)
+
+      fireEvent.click(getByTestId('not-best-filter'))
+      expect(getAllByTestId('fruit-item')).toHaveLength(notBestList.length)
+
+      fireEvent.click(getByTestId('all-filter'))
+      expect(getAllByTestId('fruit-item')).toHaveLength(list.length)
     })
 
     it('renders the same as last time', () => {
-      const tree = renderer
-        .create(component)
-        .toJSON()
-      expect(tree).toMatchSnapshot()
+      const { container } = render(component)
+      expect(container).toMatchSnapshot()
     })
   })
 })

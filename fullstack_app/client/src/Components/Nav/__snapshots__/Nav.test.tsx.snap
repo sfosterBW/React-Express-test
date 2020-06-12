@@ -1,63 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`the Nav component renders the same as last time 1`] = `
-<header>
-  <nav
-    className="wrapper"
-  >
-    <div
-      className="left"
+<div>
+  <header>
+    <nav
+      class="wrapper"
     >
-      <a
-        aria-current="page"
-        href="/"
-        onClick={[Function]}
-      >
-        <img
-          alt="logo"
-          className="logo"
-          src="https://img.icons8.com/cotton/64/000000/apple--v1.png"
-        />
-      </a>
       <div
-        className="title"
-        id="title"
+        class="left"
       >
-        Fruit Dashboard
+        <a
+          aria-current="page"
+          data-testid="logo-link"
+          href="/"
+        >
+          <img
+            alt="logo"
+            class="logo"
+            src="https://img.icons8.com/cotton/64/000000/apple--v1.png"
+          />
+        </a>
+        <div
+          class="title"
+          id="title"
+        >
+          Fruit Dashboard
+        </div>
       </div>
-    </div>
-    <div
-      className="right"
-    >
-      <a
-        aria-current="page"
-        className="link"
-        href="/"
-        onClick={[Function]}
-        rel="nofollower noreferrer"
-        title="Home page"
+      <div
+        class="right"
       >
-        Home
-      </a>
-      <a
-        className="link"
-        href="/add"
-        onClick={[Function]}
-        rel="nofollower noreferrer"
-        title="Add a new fruit to your list"
-      >
-        Add new fruit
-      </a>
-      <a
-        className="link"
-        href="/edit"
-        onClick={[Function]}
-        rel="nofollower noreferrer"
-        title="View and edit your list of fruit"
-      >
-        Edit fruit
-      </a>
-    </div>
-  </nav>
-</header>
+        <a
+          aria-current="page"
+          class="link"
+          data-testid="home-link"
+          href="/"
+          rel="nofollower noreferrer"
+          title="Home page"
+        >
+          Home
+        </a>
+        <a
+          class="link"
+          data-testid="add-link"
+          href="/add"
+          rel="nofollower noreferrer"
+          title="Add a new fruit to your list"
+        >
+          Add new fruit
+        </a>
+        <a
+          class="link"
+          data-testid="edit-link"
+          href="/edit"
+          rel="nofollower noreferrer"
+          title="View and edit your list of fruit"
+        >
+          Edit fruit
+        </a>
+      </div>
+    </nav>
+  </header>
+</div>
 `;

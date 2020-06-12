@@ -15,12 +15,13 @@ export const InputText: FC<InputTextProps> = ({
   value
 }) => {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="wrapper">
       <label className={styles.label} htmlFor={name}>
         {label}
       </label>
       <input
         className={styles.text}
+        data-testid="input-text"
         id={name}
         onChange={handleChange}
         name={name}
@@ -50,7 +51,7 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="wrapper">
       <label className={styles.label} htmlFor={name}>
         {label}
       </label>
@@ -58,6 +59,7 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
         <input
           checked={checked}
           className={styles.checkbox}
+          data-testid="input"
           id={name}
           onChange={handleChange}
           name={name}
@@ -67,6 +69,7 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
         <label
           style={{background: styleBackground()}}
           className={styles.checkboxLabel}
+          data-testid="toggle"
           htmlFor={name}
         >
           <span className={styles.checkboxButton} />

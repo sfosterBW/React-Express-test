@@ -1,61 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`the InputCheckbox component renders the same as last time 1`] = `
-<div
-  className="wrapper"
->
-  <label
-    className="label"
-    htmlFor="This is a name"
-  >
-    This is a label
-  </label>
+<div>
   <div
-    className="checkboxWrapper"
+    class="wrapper"
+    data-testid="wrapper"
   >
-    <input
-      checked={false}
-      className="checkbox"
-      id="This is a name"
-      name="This is a name"
-      onChange={[Function]}
-      type="checkbox"
-      value="false"
-    />
     <label
-      className="checkboxLabel"
-      htmlFor="This is a name"
-      style={
-        Object {
-          "background": undefined,
-        }
-      }
+      class="label"
+      for="This is a name"
     >
-      <span
-        className="checkboxButton"
-      />
+      This is a label
     </label>
+    <div
+      class="checkboxWrapper"
+    >
+      <input
+        class="checkbox"
+        data-testid="input"
+        id="This is a name"
+        name="This is a name"
+        type="checkbox"
+        value="false"
+      />
+      <label
+        class="checkboxLabel"
+        data-testid="toggle"
+        for="This is a name"
+      >
+        <span
+          class="checkboxButton"
+        />
+      </label>
+    </div>
   </div>
 </div>
 `;
 
 exports[`the InputText component renders the same as last time 1`] = `
-<div
-  className="wrapper"
->
-  <label
-    className="label"
-    htmlFor="This is a name"
+<div>
+  <div
+    class="wrapper"
+    data-testid="wrapper"
   >
-    This is a label
-  </label>
-  <input
-    className="text"
-    id="This is a name"
-    name="This is a name"
-    onChange={[Function]}
-    type="text"
-    value="This is a value"
-  />
+    <label
+      class="label"
+      for="This is a name"
+    >
+      This is a label
+    </label>
+    <input
+      class="text"
+      data-testid="input-text"
+      id="This is a name"
+      name="This is a name"
+      type="text"
+      value="This is a value"
+    />
+  </div>
 </div>
 `;

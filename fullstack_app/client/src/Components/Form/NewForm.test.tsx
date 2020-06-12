@@ -1,8 +1,9 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import renderer from 'react-test-renderer'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 
 import NewForm from './NewForm'
+
+afterEach(cleanup)
 
 const mockDispatch = jest.fn()
 jest.mock('react-redux', () => ({
@@ -11,29 +12,24 @@ jest.mock('react-redux', () => ({
 }))
 
 describe('the Form component', () => {
-  const component = <NewForm  />
-  const wrapper = mount(component)
-
-  it('renders with the correct structure', () => {
-    expect(wrapper).toBeDefined()
-    expect(wrapper.find('form')).toHaveLength(1)
-    expect(wrapper.find('h2')).toHaveLength(1)
-    expect(wrapper.find('InputText')).toHaveLength(1)
-    expect(wrapper.find('InputCheckbox')).toHaveLength(1)
-    expect(wrapper.find('button')).toHaveLength(1)
-  })
+  const component = <NewForm />
 
   it('functions properly with props', () => {
-    expect(wrapper).toBeDefined()
-    expect(wrapper.find('InputText').props().value).toEqual("")
-    expect(wrapper.find('InputCheckbox').props().checked).toEqual(false)
-    wrapper.find('button').simulate('click')
+    const { getByTestId } = render(component)
+    const testValue = "Apple"
+
+    fireEvent.click(getByTestId('toggle'))
+    fireEvent.change(getByTestId('input-text'), {
+      target: { value: testValue }
+    })
+    fireEvent.click(getByTestId('submit-new'))
+
+    expect(mockDispatch.mock.calls[1][0].payload.message)
+      .toBe(`${testValue} has been added`)
   })
 
   it('renders the same as last time', () => {
-    const tree = renderer
-      .create(component)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+    const { container } = render(component)
+    expect(container).toMatchSnapshot()
   })
 })

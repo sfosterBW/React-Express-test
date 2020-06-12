@@ -1,81 +1,69 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import renderer from 'react-test-renderer'
+import { render, fireEvent, cleanup } from '@testing-library/react'
 
 import { InputText, InputCheckbox } from './Input'
+
+afterEach(cleanup)
 
 describe('the InputText component', () => {
   const label = "This is a label"
   const name = "This is a name"
   const value = "This is a value"
-  const mockFunction = (event: any) => jest.fn(event)
+  const handleChange = jest.fn()
   const component = <InputText
-    handleChange={mockFunction}
+    handleChange={handleChange}
     label={label}
     name={name}
     value={value} />
-  const wrapper = mount(component)
 
   it('renders with the correct structure', () => {
-    expect(wrapper).toBeDefined()
-    expect(wrapper.find('div')).toHaveLength(1)
-    expect(wrapper.find('label')).toHaveLength(1)
-    expect(wrapper.find('label').text()).toEqual(label)
-    expect(wrapper.find('label').props().htmlFor).toEqual(name)
-    expect(wrapper.find('input')).toHaveLength(1)
-    expect(wrapper.find('input').props().name).toEqual(name)
-    expect(wrapper.find('input').props().value).toEqual(value)
-    expect(wrapper.find('input').props().type).toEqual("text")
+    const { getByLabelText, getByTestId } = render(component)
+    expect(getByTestId("wrapper")).toBeInTheDocument()
+    expect(getByLabelText(label)).toBeInTheDocument()
   })
 
   it('functions as expected', () => {
-    expect(wrapper.props().name).toEqual(name)
-    expect(wrapper.props().label).toEqual(label)
-    expect(wrapper.props().value).toEqual(value)
+    const { getByTestId } = render(component)
+    const testValue = "test"
+    fireEvent.change(getByTestId('input-text'), {
+      target: { value: testValue }
+    })
+
+    expect(handleChange.mock.calls).toHaveLength(1)
   })
 
   it('renders the same as last time', () => {
-    const tree = renderer
-      .create(component)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+    const { container } = render(component)
+    expect(container).toMatchSnapshot()
   })
 })
 
 describe('the InputCheckbox component', () => {
-  const mockFunction = (event: any) => jest.fn(event)
+  const handleChange = jest.fn()
   const checked = false
   const label = "This is a label"
   const name = "This is a name"
   const component = <InputCheckbox
     checked={checked}
-    handleChange={mockFunction}
+    handleChange={handleChange}
     label={label}
     name={name} />
-  const wrapper = mount(component)
 
   it('renders with the correct structure', () => {
-    expect(wrapper).toBeDefined()
-    expect(wrapper.find('div')).toHaveLength(2)
-    expect(wrapper.find('label')).toHaveLength(2)
-    expect(wrapper.find('label').at(0).text()).toEqual(label)
-    expect(wrapper.find('label').at(0).props().htmlFor).toEqual(name)
-    expect(wrapper.find('input')).toHaveLength(1)
-    expect(wrapper.find('input').props().checked).toEqual(checked)
-    expect(wrapper.find('input').props().name).toEqual(name)
-    expect(wrapper.find('input').props().type).toEqual("checkbox")
+    const { getByLabelText, getByTestId } = render(component)
+    expect(getByTestId("wrapper")).toBeInTheDocument()
+    expect(getByLabelText(label)).toBeInTheDocument()
   })
 
   it('functions as expected', () => {
-    expect(wrapper.props().label).toEqual(label)
-    expect(wrapper.props().name).toEqual(name)
-    expect(wrapper.props().checked).toEqual(checked)
+    const { getByTestId } = render(component)
+    fireEvent.click(getByTestId('toggle'))
+
+    expect(handleChange.mock.calls).toHaveLength(1)
   })
 
   it('renders the same as last time', () => {
-    const tree = renderer
-      .create(component)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+    const { container } = render(component)
+    expect(container).toMatchSnapshot()
   })
 })

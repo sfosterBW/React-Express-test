@@ -23,13 +23,25 @@ const List: FC<{fruits: Fruit[]}> = ({ fruits }) => {
   return (
     <section className={styles.wrapper}>
       <div className={styles.filters}>
-        <button className={styles.filter} onClick={setter(undefined)}>
+        <button
+          className={styles.filter}
+          data-testid="all-filter"
+          onClick={setter(undefined)}
+        >
           All
         </button>
-        <button className={styles.filter} onClick={setter(true)}>
+        <button
+          className={styles.filter}
+          data-testid="best-filter"
+          onClick={setter(true)}
+        >
           Best
         </button>
-        <button className={styles.filter} onClick={setter(false)}>
+        <button
+          className={styles.filter}
+          data-testid="not-best-filter"
+          onClick={setter(false)}
+        >
           Not best
         </button>
       </div>

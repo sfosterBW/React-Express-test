@@ -1,10 +1,10 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import renderer from 'react-test-renderer'
+import { render, cleanup, fireEvent } from '@testing-library/react'
 
 import Alert from './Alert'
 
-const message = "test"
+afterEach(cleanup)
+
 const value = true
 const mockDispatch = jest.fn().mockReturnValue(!value)
 jest.mock('react-redux', () => ({
@@ -13,27 +13,17 @@ jest.mock('react-redux', () => ({
 }))
 
 describe('the Alert component', () => {
+  const message = "test"
   const component = <Alert message={message} />
-  const wrapper = mount(component)
-
-  it('renders with the right structure', () => {
-    expect(wrapper).toBeDefined()
-    expect(wrapper.find('div')).toHaveLength(1)
-    expect(wrapper.find('section')).toHaveLength(1)
-    expect(wrapper.find('p')).toHaveLength(1)
-    expect(wrapper.find('p').text()).toBe(message)
-    expect(wrapper.find('button')).toHaveLength(1)
-  })
 
   it('renders on mount functions as expected', () => {
-    wrapper.find('button').simulate('click')
+    const { getByTestId } = render(component)
+    fireEvent.click(getByTestId('close-button'))
     expect(mockDispatch).toHaveBeenCalledTimes(1)
   })
 
   it('renders the same as last time with props', () => {
-    const tree = renderer
-      .create(component)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+    const { container } = render(component)
+    expect(container).toMatchSnapshot()
   })
 })
