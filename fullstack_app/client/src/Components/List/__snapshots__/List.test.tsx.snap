@@ -68,6 +68,7 @@ exports[`the List component works with fruit renders the same as last time 1`] =
               value="1"
             />
             <label
+              data-testid="fruit-item-best"
               for="1"
             >
               false
@@ -138,6 +139,7 @@ exports[`the List component works with fruit renders the same as last time 1`] =
               value="2"
             />
             <label
+              data-testid="fruit-item-best"
               for="2"
             >
               true

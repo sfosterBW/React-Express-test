@@ -37,6 +37,9 @@ describe('the List component', () => {
       getAllByTestId('fruit-item-title').forEach((title, i) =>
         expect(title).toHaveTextContent(list[i].name)
       )
+      getAllByTestId('fruit-item-best').forEach((best, i) =>
+        expect(best).toHaveTextContent(String(list[i].best))
+      )
     })
 
     it('filtering changes the list length', () => {

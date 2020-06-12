@@ -18,6 +18,8 @@ describe('the FruitItem component', () => {
   it('functions as expected',() => {
     const { getByTestId } = render(component)
 
+    expect(getByTestId('fruit-item-best')).toHaveTextContent(String(fruit.best))
+
     fireEvent.click(getByTestId('update-button'))
     expect(mockDispatch.mock.calls).toHaveLength(1)
 

@@ -5,12 +5,12 @@ module.exports = {
       status: 200,
       data: [
         {
-          _id: 1,
+          id: 1,
           name: "False Case",
           best: false
         },
         {
-          _id: 2,
+          id: 2,
           name: "True Case",
           best: true
         }

@@ -47,7 +47,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             type="checkbox"
             value={fruit.id}
           />
-          <label htmlFor={`${fruit.id}`}>
+          <label data-testid="fruit-item-best" htmlFor={`${fruit.id}`}>
             {fruit.best.toString()}
           </label>
         </div>
