@@ -14,7 +14,6 @@ import fruitRouter from './controllers/fruits'
 import testingRouter from './controllers/testing'
 
 //TODO: Oauth?
-//TODO: Deploy to heroku?
 
 if (config.MONGODB_URI) {
   mongoose
