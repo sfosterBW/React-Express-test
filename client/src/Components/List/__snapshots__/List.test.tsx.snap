@@ -32,7 +32,7 @@ exports[`the List component works with fruit renders the same as last time 1`] =
     >
       <div
         class="row"
-        data-testid="fruit-item"
+        data-testid="item"
       >
         <div
           class="header"
@@ -42,7 +42,7 @@ exports[`the List component works with fruit renders the same as last time 1`] =
           >
             <h3
               class="subtitle"
-              data-testid="fruit-item-title"
+              data-testid="item-title"
             >
               apple
             </h3>
@@ -53,7 +53,7 @@ exports[`the List component works with fruit renders the same as last time 1`] =
           style="height: 0px; transition: all 0.5s;"
         >
           <div
-            class="section"
+            class="sectionRow"
           >
             <h4
               class="subtitle"
@@ -61,9 +61,10 @@ exports[`the List component works with fruit renders the same as last time 1`] =
               Description
             </h4>
             <p
-              data-testid="fruit-item-description"
+              class="description"
+              data-testid="item-description"
             >
-              I don't like doctors
+              "I don't like doctors"
             </p>
           </div>
           <div
@@ -82,7 +83,7 @@ exports[`the List component works with fruit renders the same as last time 1`] =
               value="1"
             />
             <label
-              data-testid="fruit-item-best"
+              data-testid="item-best"
               for="1"
             >
               false
@@ -116,7 +117,7 @@ exports[`the List component works with fruit renders the same as last time 1`] =
       </div>
       <div
         class="row"
-        data-testid="fruit-item"
+        data-testid="item"
       >
         <div
           class="header"
@@ -126,7 +127,7 @@ exports[`the List component works with fruit renders the same as last time 1`] =
           >
             <h3
               class="subtitle"
-              data-testid="fruit-item-title"
+              data-testid="item-title"
             >
               banana
             </h3>
@@ -137,13 +138,19 @@ exports[`the List component works with fruit renders the same as last time 1`] =
           style="height: 0px; transition: all 0.5s;"
         >
           <div
-            class="section"
+            class="sectionRow"
           >
             <h4
               class="subtitle"
             >
               Description
             </h4>
+            <p
+              class="description"
+              data-testid="item-description"
+            >
+              No description added yet
+            </p>
           </div>
           <div
             class="section"
@@ -162,7 +169,7 @@ exports[`the List component works with fruit renders the same as last time 1`] =
               value="2"
             />
             <label
-              data-testid="fruit-item-best"
+              data-testid="item-best"
               for="2"
             >
               true

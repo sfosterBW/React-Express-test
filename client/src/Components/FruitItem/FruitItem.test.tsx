@@ -18,10 +18,10 @@ describe('the FruitItem component', () => {
   it('functions as expected',() => {
     const { getByTestId } = render(component)
 
-    expect(getByTestId('fruit-item-best')).toHaveTextContent(String(fruit.best))
+    expect(getByTestId('item-best')).toHaveTextContent(String(fruit.best))
 
     if (fruit.description) {
-      expect(getByTestId('fruit-item-description'))
+      expect(getByTestId('item-description'))
         .toHaveTextContent(String(fruit.description))
     }
 

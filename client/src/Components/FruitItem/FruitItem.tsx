@@ -13,18 +13,19 @@ interface Props {
 const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   const [activeToggle, setActiveToggle] = useState<boolean>(active)
   const dispatch = useDispatch()
+  const { id, name, best, description } = fruit
 
   const showHide = () => activeToggle ? "calc(120px + 12vmin)" : "0"
 
   return (
-    <div className={styles.row} data-testid="fruit-item">
+    <div className={styles.row} data-testid="item">
       <div
         className={styles.header}
         onClick={() => setActiveToggle(!activeToggle)}
       >
         <div className={styles.section}>
-          <h3 className={styles.subtitle} data-testid="fruit-item-title">
-            {fruit.name}
+          <h3 className={styles.subtitle} data-testid="item-title">
+            {name}
           </h3>
         </div>
       </div>
@@ -36,11 +37,8 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
           <h4 className={styles.subtitle}>
             Description
           </h4>
-          <p
-            className={styles.description}
-            data-testid="fruit-item-description"
-          >
-            {`"${fruit.description}"`}
+          <p className={styles.description} data-testid="item-description">
+            {description ? `"${description}"` : "No description added yet"}
           </p>
         </div>
         <div className={styles.section}>
@@ -48,18 +46,18 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             Best
           </h4>
           <input
-            checked={fruit.best}
+            checked={best}
             className={styles.button}
-            id={`${fruit.id}`}
-            name={`${fruit.id}`}
+            id={id}
+            name={id}
             onChange={() => {
-              dispatch(updateFruit({ ...fruit, best: !fruit.best }))
+              dispatch(updateFruit({ ...fruit, best: !best }))
             }}
             type="checkbox"
             value={fruit.id}
           />
-          <label data-testid="fruit-item-best" htmlFor={`${fruit.id}`}>
-            {fruit.best.toString()}
+          <label data-testid="item-best" htmlFor={id}>
+            {best.toString()}
           </label>
         </div>
         <div className={styles.section}>
@@ -78,8 +76,8 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             className={styles.button}
             data-testid="remove-button"
             name="remove"
-            onClick={() => dispatch(removeFruit(fruit.id))}
-            value={`${fruit.id}`}
+            onClick={() => dispatch(removeFruit(id))}
+            value={`${id}`}
           >
             Remove
           </button>

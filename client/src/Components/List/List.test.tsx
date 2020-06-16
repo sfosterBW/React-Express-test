@@ -18,7 +18,7 @@ describe('the List component', () => {
 
     it('renders with the right structure', () => {
       const { queryAllByTestId, getByText } = render(component)
-      expect(queryAllByTestId('fruit-item')).toHaveLength(0)
+      expect(queryAllByTestId('item')).toHaveLength(0)
       expect(getByText("Nothing here...")).toBeInTheDocument()
     })
 
@@ -33,11 +33,11 @@ describe('the List component', () => {
 
     it('renders with the right structure', () => {
       const { getAllByTestId } = render(component)
-      expect(getAllByTestId('fruit-item')).toHaveLength(list.length)
-      getAllByTestId('fruit-item-title').forEach((title, i) =>
+      expect(getAllByTestId('item')).toHaveLength(list.length)
+      getAllByTestId('item-title').forEach((title, i) =>
         expect(title).toHaveTextContent(list[i].name)
       )
-      getAllByTestId('fruit-item-best').forEach((best, i) =>
+      getAllByTestId('item-best').forEach((best, i) =>
         expect(best).toHaveTextContent(String(list[i].best))
       )
     })
@@ -48,13 +48,13 @@ describe('the List component', () => {
       const notBestList = list.filter(i => i.best === false)
 
       fireEvent.click(getByTestId('best-filter'))
-      expect(getAllByTestId('fruit-item')).toHaveLength(bestList.length)
+      expect(getAllByTestId('item')).toHaveLength(bestList.length)
 
       fireEvent.click(getByTestId('not-best-filter'))
-      expect(getAllByTestId('fruit-item')).toHaveLength(notBestList.length)
+      expect(getAllByTestId('item')).toHaveLength(notBestList.length)
 
       fireEvent.click(getByTestId('all-filter'))
-      expect(getAllByTestId('fruit-item')).toHaveLength(list.length)
+      expect(getAllByTestId('item')).toHaveLength(list.length)
     })
 
     it('renders the same as last time', () => {
