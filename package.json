@@ -16,9 +16,9 @@
     "redux-devtools-extension": "^2.13.8"
   },
   "scripts": {
-    "start": "cd api && npm start",
-    "build-ts": "cd client && npm run build --prod && cd ../api && npm run build",
-    "postinstall": "npm run build-ts",
+    "start": "npm --prefix api run start",
+    "build": "npm --prefix client run build --prod && npm --prefix api run build",
+    "postinstall": "npm --prefix client install && npm --prefix api install",
     "dev": "concurrently --kill-others \"cd api && npm run dev\" \"cd client && npm start\"",
     "test": "concurrently --kill-others \"cd api && npm run start:test\" \"cd client && npm start\" \"cypress run\"",
     "cypress:open": "cypress open"
