@@ -1,9 +1,7 @@
 import React from 'react'
-import { render, cleanup } from '@testing-library/react'
+import { render } from '@testing-library/react'
 
 import Banner from './Banner'
-
-afterEach(cleanup)
 
 describe('the Alert component', () => {
   const size = "large"

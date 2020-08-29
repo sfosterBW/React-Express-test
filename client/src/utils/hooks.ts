@@ -1,15 +1,23 @@
 import { useState } from 'react'
 
-export const useField = (
+interface Field<T> {
+  label: string
+  name: string
+  onChange: (event: any) => void
+  type: string
+  value: T
+}
+
+const useField = <T>(
   label: string,
   name: string,
   type: string,
-  initValue: string = ""
-) => {
+  initValue: T
+): [Field<T>, () => void] => {
 
   const [value, setValue] = useState(initValue)
 
-  const handleChange = (event: any): void => {
+  const onChange = (event: any): void => {
     if (type === "checkbox") {
       setValue(event.target.checked)
     } else {
@@ -17,16 +25,17 @@ export const useField = (
     }
   }
 
-  const reset = (resetValue = ""): void => {
+  const reset = (resetValue: T = initValue): void => {
     setValue(resetValue)
   }
 
-  return {
-    handleChange,
+  return [{
+    onChange,
     label,
     name,
-    reset,
     type,
     value
-  }
+  }, reset]
 }
+
+export default useField

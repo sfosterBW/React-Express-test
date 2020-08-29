@@ -14,6 +14,7 @@ import fruitRouter from './controllers/fruits'
 import testingRouter from './controllers/testing'
 
 //TODO: Oauth?
+//TODO: Setup cloudflare or maybe cloudfront?
 
 if (config.MONGODB_URI) {
   mongoose
@@ -26,7 +27,7 @@ if (config.MONGODB_URI) {
     .then(() => {
       console.log('connected to mongo')
     })
-    .catch((error: any) => {
+    .catch((error: Error) => {
       console.log('could not connect to mongo', error.message)
     })
 }

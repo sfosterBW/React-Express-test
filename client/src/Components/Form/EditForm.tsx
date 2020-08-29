@@ -1,7 +1,7 @@
-import React, { FC, FormEvent, useState } from 'react'
+import React, { FC, FormEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { InputCheckbox, InputText } from '../Input/Input'
-import { useField } from '../../utils/hooks'
+import useField from '../../utils/hooks'
 import { Fruit } from '../../utils/interfaces'
 import { RootState } from '../../Reducers/store'
 import { toggleAlert } from '../../Reducers/alertReducer'
@@ -15,29 +15,20 @@ interface Props {
 }
 
 const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
-  const [best, setBest] = useState<boolean>(fruit.best)
-  const name = useField("Add a fruit", "name", "text", fruit.name)
-  const description = useField("Description", "description", "text", undefined)
-  const toggle = (state: RootState) => state.modal.toggle
-  const modal = useSelector(toggle)
+  const [best, resetBest] = useField<boolean>("Is it best?", "best", "checkbox", fruit.best)
+  const [name, resetName] = useField<string>("Add a fruit", "name", "text", fruit.name)
+  const [description, resetDescription] = useField<string>("Description", "description", "text", "")
+  const modal = useSelector((state: RootState) => state.modal.toggle)
   const dispatch = useDispatch()
-
-  const setter = (set: any) => (
-    (event: any): void => {
-      const { checked, type, value } = event.target
-      const newValue = type === "checkbox" ? checked : value
-      set(newValue)
-    }
-  )
 
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
 
     dispatch(updateFruit({
       id: fruit.id,
-      best: best,
+      best: best.value,
       name: name.value,
-      description: description.value
+      description: description.value === "" ? undefined : description.value
     }))
     dispatch(toggleAlert(`${name.value} has been updated`, true))
 
@@ -45,9 +36,9 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
       dispatch(toggleModal(false))
     }
 
-    name.reset()
-    description.reset()
-    setBest(false)
+    resetBest()
+    resetDescription()
+    resetName()
   }
 
   return (
@@ -55,11 +46,7 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
       <h2 className={styles.title}>{title}</h2>
       <InputText {...name} />
       <InputText {...description} />
-      <InputCheckbox
-        checked={best}
-        handleChange={setter(setBest)}
-        label="Is it best?"
-        name="best" />
+      <InputCheckbox {...best} />
       <button className={styles.button} data-testid="submit-edit">
         Edit fruit
       </button>

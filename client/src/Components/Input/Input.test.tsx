@@ -1,9 +1,7 @@
 import React from 'react'
-import { render, fireEvent, cleanup } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 
 import { InputText, InputCheckbox } from './Input'
-
-afterEach(cleanup)
 
 describe('the InputText component', () => {
   const label = "This is a label"

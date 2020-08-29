@@ -7,7 +7,7 @@ exports[`the Alert component renders the same as last time 1`] = `
     data-testid="wrapper"
   >
     <div
-      class="hero large flavourOne"
+      class="hero large one"
     >
       <h1
         class="title"

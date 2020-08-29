@@ -12,13 +12,12 @@ import EditFruit from '../../Pages/EditFruit'
 import Home from '../../Pages/Home'
 import styles from './App.module.css'
 
+//TODO: Fix the store mocking for each test
+//TODO: Add tests for the reducers
+
 const App: FC = () => {
-  const selectFruits = (state: RootState) => state.fruit
-  const fruits = useSelector(selectFruits)
-  const selectModalFruit = (state: RootState) => state.modal.fruit
-  const modalFruit = useSelector(selectModalFruit)
-  const selectMessage = (state: RootState) => state.alert.message
-  const message = useSelector(selectMessage)
+  const modalFruit = useSelector((state: RootState) => state.modal.fruit)
+  const message = useSelector((state: RootState) => state.alert.message)
   const dispatch = useDispatch()
   //Used to ensure the same values are used on re-render
   const effectDispatch = useCallback(dispatch, [])
@@ -35,7 +34,7 @@ const App: FC = () => {
         <Router className={styles.main}>
           <Home path="/" title="Add Fruit and stuff" />
           <AddFruit path="/add" title="Add Fruit and stuff" />
-          <EditFruit fruits={fruits} path="/edit" title="True table" />
+          <EditFruit path="/edit" title="Edit your Fruit" />
         </Router>
       </main>
       <Modal fruit={modalFruit} />

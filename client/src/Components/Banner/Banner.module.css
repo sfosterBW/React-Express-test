@@ -11,29 +11,29 @@
   justify-content: center;
 }
 
-.flavourOne {
+.one {
   background-image: url("https://previews.123rf.com/images/berry2046/berry20461904/berry2046190400052/122038881-tropical-vector-realistic-green-leaves-seamless-pattern-pink-background-exotic-trendy-wallpaper.jpg");
 }
 
-.flavourOne .title {
+.one .title {
   color: yellow;
   text-shadow: 0.8vmin 0.8vmin #ff0000;
 }
 
-.flavourTwo {
+.two {
   background-image: url("https://previews.123rf.com/images/darijashka/darijashka1904/darijashka190400034/123951263-summer-seamless-pattern-with-palm-leaves-and-tropical-flowers-hawaiian-motifs-perfect-for-wallpapers.jpg")
 }
 
-.flavourTwo .title {
+.two .title {
   color: yellow;
   text-shadow: 0.8vmin 0.8vmin #ff0000;
 }
 
-.flavourThree {
+.three {
   background-image: url("https://previews.123rf.com/images/theerapol/theerapol1901/theerapol190100009/126453733-floral-seamless-tropical-pattern-botanical-wallpaper-illustration-in-hawaiian-style.jpg");
 }
 
-.flavourThree {
+.three .title {
   color: yellow;
   text-shadow: 0.8vmin 0.8vmin #ff0000;
 }

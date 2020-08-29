@@ -1,21 +1,21 @@
 import React, { FC, useState } from 'react'
-import { Fruit } from '../../utils/interfaces'
+import { RootState } from '../../Reducers/store'
+import { useSelector } from 'react-redux'
 import FruitItem from '../FruitItem/FruitItem'
 import styles from './List.module.css'
 
-const List: FC<{fruits: Fruit[]}> = ({ fruits }) => {
-  const type: boolean | undefined = undefined
-  const [filter, setFilter] = useState<boolean | undefined>(type)
+const List: FC = () => {
+  const [filter, setFilter] = useState<boolean | undefined>(undefined)
+  const fruits = useSelector((state: RootState) => state.fruit
+    .filter((i) => filter === i.best || filter === undefined)
+  )
+  const filteredList = () => {
 
-  const displayFruitList = () => {
-    const filterFruit = fruits
-      .filter((i) => filter === i.best || filter === undefined)
-
-    if (filterFruit.length < 1) {
+    if (!fruits || fruits.length < 1 ) {
       return <p>Nothing here...</p>
     }
 
-    return filterFruit.map(fruit => <FruitItem key={fruit.id} fruit={fruit} />)
+    return fruits.map(fruit => <FruitItem key={fruit.id} fruit={fruit} />)
   }
 
   const setter = (value: boolean | undefined) => (): void => setFilter(value)
@@ -46,7 +46,7 @@ const List: FC<{fruits: Fruit[]}> = ({ fruits }) => {
         </button>
       </div>
       <div className={styles.devices}>
-        {displayFruitList()}
+        {filteredList()}
       </div>
     </section>
   )

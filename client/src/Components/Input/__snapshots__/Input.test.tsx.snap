@@ -21,7 +21,7 @@ exports[`the InputCheckbox component renders the same as last time 1`] = `
         id="This is a name"
         name="This is a name"
         type="checkbox"
-        value="false"
+        value="undefined"
       />
       <label
         class="checkboxLabel"

@@ -10,7 +10,7 @@ interface Props extends RouteComponentProps {
 const AddFruit: FC<Props> = ({ title }) => {
   return (
     <>
-      <Banner flavour="flavourTwo" size="large" title={title}/>
+      <Banner theme="two" size="large" title={title}/>
       <NewForm />
     </>
   )

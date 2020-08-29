@@ -37,13 +37,9 @@ const parseDescription = (description: any): string => {
 
 export const toNewFruit = (object: any): NewFruit => {
   const newFruit: NewFruit = {
-    ...object,
     name: parseName(object.name),
     best: parseBest(object.best),
-  }
-
-  if (object.description) {
-    newFruit.description = parseDescription(object.description)
+    description: object.description ? parseDescription(object.description) : undefined
   }
 
   return newFruit
@@ -62,11 +58,8 @@ export const toFruit = (object: any): IFruit => {
     ...object,
     id: parseId(object.id),
     name: parseName(object.name),
-    best: parseBest(object.best)
-  }
-
-  if (object.description) {
-    fruit.description = parseDescription(object.description)
+    best: parseBest(object.best),
+    description: object.description ? parseDescription(object.description) : undefined
   }
 
   return fruit

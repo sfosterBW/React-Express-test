@@ -4,5 +4,5 @@ module.exports = {
     "@testing-library/react/cleanup-after-each",
     "@testing-library/jest-dom/extend-expect"
   ],
-  testEnvironment: 'node',
+  testEnvironment: 'node'
 }

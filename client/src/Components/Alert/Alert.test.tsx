@@ -1,9 +1,7 @@
 import React from 'react'
-import { render, cleanup, fireEvent } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 
 import Alert from './Alert'
-
-afterEach(cleanup)
 
 const value = true
 const mockDispatch = jest.fn().mockReturnValue(!value)

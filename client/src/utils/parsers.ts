@@ -5,12 +5,12 @@ const isBoolean = (bool: any): bool is boolean => {
 }
 
 const isString = (text: any): text is string => {
-  return typeof text === 'string' || text instanceof String;
+  return typeof text === 'string' || text instanceof String
 }
 
 const parseBest = (best: any): boolean => {
   if (typeof best === 'undefined' || !isBoolean(best)) {
-    throw new Error(`Incorrect or missing best: ${String(best)}`);
+    throw new Error(`Incorrect or missing best: ${String(best)}`)
   }
 
   return best
