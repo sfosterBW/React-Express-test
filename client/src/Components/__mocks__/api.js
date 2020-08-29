@@ -1,4 +1,3 @@
-'use strict'
 module.exports = {
   fetchFruit: () => {
     return Promise.resolve({

@@ -8,7 +8,7 @@ const unknownEndpoint = (_request: Request, response: Response): Response => {
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 const errorHandler = (
-  error: any,
+  error: Error,
   _request: Request,
   response: Response,
   next: NextFunction
@@ -23,8 +23,8 @@ const errorHandler = (
     return response.status(400).send(error.message)
   }
 
-  if (error.name === 'CastError' && error.path === '_id') {
-    return response.status(400).send('malformed id')
+  if (error.name === 'CastError') {
+    return response.status(400).send('malformed field')
   } else if (error.name === 'ValidationError') {
     return response.status(400).json(error.message)
   }

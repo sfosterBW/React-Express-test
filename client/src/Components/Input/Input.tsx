@@ -2,14 +2,14 @@ import React, { FC } from 'react'
 import styles from './Input.module.css'
 
 interface InputTextProps {
-  handleChange: (event: any) => void
   label: string
   name: string
+  onChange: (event: any) => void
   value: string
 }
 
 export const InputText: FC<InputTextProps> = ({
-  handleChange,
+  onChange,
   label,
   name,
   value
@@ -23,7 +23,7 @@ export const InputText: FC<InputTextProps> = ({
         className={styles.text}
         data-testid="input-text"
         id={name}
-        onChange={handleChange}
+        onChange={onChange}
         name={name}
         type="text"
         value={value}
@@ -33,21 +33,21 @@ export const InputText: FC<InputTextProps> = ({
 }
 
 interface InputCheckboxProps {
-  checked: boolean
-  handleChange: (event: any) => void
   label: string
   name: string
+  onChange: (event: any) => void
+  value: boolean
 }
 
 export const InputCheckbox: FC<InputCheckboxProps> = ({
-  checked,
-  handleChange,
+  onChange,
   label,
-  name
+  name,
+  value
 }) => {
   const styleBackground = (): string | undefined => {
     const color: string = '#1ab545'
-    return checked ? color : undefined
+    return value ? color : undefined
   }
 
   return (
@@ -57,14 +57,14 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
       </label>
       <div className={styles.checkboxWrapper}>
         <input
-          checked={checked}
+          checked={value}
           className={styles.checkbox}
           data-testid="input"
           id={name}
-          onChange={handleChange}
+          onChange={onChange}
           name={name}
           type="checkbox"
-          value={String(checked)}
+          value={String(value)}
         />
         <label
           style={{background: styleBackground()}}

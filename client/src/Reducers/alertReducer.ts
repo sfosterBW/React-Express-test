@@ -13,7 +13,7 @@ const initState: State = {
 const TOGGLE_ALERT = "TOGGLE_ALERT"
 
 //Action shape
-interface ToggleAlert {
+export interface ToggleAlert {
   type: typeof TOGGLE_ALERT,
   payload: {
     message: string

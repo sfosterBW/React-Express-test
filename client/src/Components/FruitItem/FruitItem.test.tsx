@@ -1,10 +1,8 @@
 import React from 'react'
-import { render, fireEvent, cleanup } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import { fruit } from '../../utils/test-helper'
 
 import FruitItem from './FruitItem'
-
-afterEach(cleanup)
 
 const mockDispatch = jest.fn()
 jest.mock('react-redux', () => ({

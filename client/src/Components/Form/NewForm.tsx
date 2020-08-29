@@ -1,7 +1,7 @@
-import React, { FC, FormEvent, useState } from 'react'
+import React, { FC, FormEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { InputCheckbox, InputText } from '../Input/Input'
-import { useField } from '../../utils/hooks'
+import useField from '../../utils/hooks'
 import { RootState } from '../../Reducers/store'
 import { toggleAlert } from '../../Reducers/alertReducer'
 import { createFruit } from '../../Reducers/fruitReducer'
@@ -9,27 +9,18 @@ import { toggleModal } from '../../Reducers/modalReducer'
 import styles from './Form.module.css'
 
 const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
-  const [best, setBest] = useState<boolean>(false)
-  const name = useField("Add a fruit", "name", "text", "")
-  const description = useField("Description", "description", "text", undefined)
-  const toggle = (state: RootState) => state.modal.toggle
-  const modal = useSelector(toggle)
+  const [best, resetBest] = useField<boolean>("Is it best?", "best", "checkbox", false)
+  const [name, resetName] = useField<string>("Add a fruit", "name", "text", "")
+  const [description, resetDescription] = useField<string>("Description", "description", "text", "")
+  const modal = useSelector((state: RootState) => state.modal.toggle)
   const dispatch = useDispatch()
-
-  const setter = (set: any) => (
-    (event: any) => {
-      const { checked, type, value } = event.target
-      const newValue = type === "checkbox" ? checked : value
-      set(newValue)
-    }
-  )
 
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     dispatch(createFruit({
       name: name.value,
-      description: description.value,
-      best
+      description: description.value === "" ?  undefined : description.value,
+      best: best.value
     }))
     dispatch(toggleAlert(`${name.value} has been added`, true))
 
@@ -37,9 +28,9 @@ const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
       dispatch(toggleModal(false))
     }
 
-    name.reset()
-    description.reset()
-    setBest(false)
+    resetName()
+    resetDescription()
+    resetBest()
   }
 
   return (
@@ -47,11 +38,7 @@ const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
       <h2 className={styles.title}>{title}</h2>
       <InputText {...name} />
       <InputText {...description} />
-      <InputCheckbox
-        checked={best}
-        handleChange={setter(setBest)}
-        label="Is it best?"
-        name="best" />
+      <InputCheckbox {...best} />
       <button className={styles.button} data-testid="submit-new">
         Add new fruit
       </button>

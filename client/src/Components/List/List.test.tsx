@@ -1,10 +1,11 @@
 import React from 'react'
-import { render, fireEvent, cleanup } from '@testing-library/react'
-import { emptyList, list } from '../../utils/test-helper'
+import { render, fireEvent } from '../../utils/test-utils'
+
+import { list } from '../../utils/test-helper'
 
 import List from './List'
 
-afterEach(cleanup)
+//https://github.com/testing-library/react-testing-library#complex-example
 
 const mockDispatch = jest.fn()
 jest.mock('react-redux', () => ({
@@ -14,22 +15,17 @@ jest.mock('react-redux', () => ({
 
 describe('the List component', () => {
   describe('works with no fruit', () => {
-    const component = <List fruits={emptyList} />
+    const component = <List />
 
     it('renders with the right structure', () => {
       const { queryAllByTestId, getByText } = render(component)
       expect(queryAllByTestId('item')).toHaveLength(0)
       expect(getByText("Nothing here...")).toBeInTheDocument()
     })
-
-    it('renders the same as last time', () => {
-      const { container } = render(component)
-      expect(container).toMatchSnapshot()
-    })
   })
 
   describe('works with fruit', () => {
-    const component = <List fruits={list} />
+    const component = <List />
 
     it('renders with the right structure', () => {
       const { getAllByTestId } = render(component)
@@ -55,11 +51,6 @@ describe('the List component', () => {
 
       fireEvent.click(getByTestId('all-filter'))
       expect(getAllByTestId('item')).toHaveLength(list.length)
-    })
-
-    it('renders the same as last time', () => {
-      const { container } = render(component)
-      expect(container).toMatchSnapshot()
     })
   })
 })

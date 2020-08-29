@@ -5,8 +5,7 @@ import { toggleAlert } from '../../Reducers/alertReducer'
 import styles from './Alert.module.css'
 
 const Alert: FC<{message: string}> = ({ message }) => {
-  const selectToggle = (state: RootState) => state.alert.toggle
-  const toggle = useSelector(selectToggle)
+  const toggle = useSelector((state: RootState) => state.alert.toggle)
   const dispatch = useDispatch()
 
   if(!toggle) {

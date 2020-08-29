@@ -1,9 +1,8 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk'
-import { AnyAction } from 'redux'
 
 import { Fruit, NewFruit } from '../utils/interfaces'
 import fruitService from '../utils/api'
-import { toggleAlert } from './alertReducer'
+import { toggleAlert, ToggleAlert } from './alertReducer'
 
 //State types
 type State = Fruit[]
@@ -37,7 +36,7 @@ interface UpdateFruit {
 }
 
 //Action types
-type Actions = GetFruits | CreateFruit | RemoveFruit | UpdateFruit
+type Actions = GetFruits | CreateFruit | RemoveFruit | UpdateFruit | ToggleAlert
 
 export const reducer = (state = initState, action: Actions): State => {
   switch (action.type) {
@@ -56,8 +55,8 @@ export const reducer = (state = initState, action: Actions): State => {
 }
 
 //Actions
-export const getFruits = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
-  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+export const getFruits = (): ThunkAction<Promise<void>, {}, {}, Actions> => {
+  return async (dispatch: ThunkDispatch<{}, {}, Actions>): Promise<void> => {
     const fruits = await fruitService.fetchFruit()
     dispatch({
       type: GET_FRUITS,
@@ -66,8 +65,8 @@ export const getFruits = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
   }
 }
 
-export const createFruit = (newFruit: NewFruit): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
-  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+export const createFruit = (newFruit: NewFruit): ThunkAction<Promise<void>, {}, {}, Actions> => {
+  return async (dispatch: ThunkDispatch<{}, {}, Actions>): Promise<void> => {
     try {
       const fruit = await fruitService.createFruit(newFruit)
       dispatch({
@@ -81,8 +80,8 @@ export const createFruit = (newFruit: NewFruit): ThunkAction<Promise<void>, {}, 
   }
 }
 
-export const removeFruit = (deleteId: string): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
-  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+export const removeFruit = (deleteId: string): ThunkAction<Promise<void>, {}, {}, Actions> => {
+  return async (dispatch: ThunkDispatch<{}, {}, Actions>): Promise<void> => {
     try {
       const id = await fruitService.deleteFruit(deleteId)
       dispatch({
@@ -96,8 +95,8 @@ export const removeFruit = (deleteId: string): ThunkAction<Promise<void>, {}, {}
   }
 }
 
-export const updateFruit = (updateFruit: Fruit): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
-  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+export const updateFruit = (updateFruit: Fruit): ThunkAction<Promise<void>, {}, {}, Actions> => {
+  return async (dispatch: ThunkDispatch<{}, {}, Actions>): Promise<void> => {
     try {
       const fruit = await fruitService.updateFruit(updateFruit)
       dispatch({

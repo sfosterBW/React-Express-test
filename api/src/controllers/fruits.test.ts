@@ -1,4 +1,5 @@
 import request from 'supertest'
+import mongoose from 'mongoose'
 import app from '../app'
 import Fruit from '../models/fruit'
 import helper from '../utils/test-helper'
@@ -13,6 +14,11 @@ beforeEach(async () => {
   const fruitObjects = helper.initialFruits.map(fruit => new Fruit(fruit))
   const fruitPromiseArray = fruitObjects.map(fruit => fruit.save())
   await Promise.all(fruitPromiseArray)
+})
+
+afterAll(done => {
+  mongoose.connection.close()
+  done()
 })
 
 describe('add a new fruit', () => {
@@ -128,7 +134,7 @@ describe('update an existing fruit', () => {
         .send(updatedFruit)
         .expect(400)
 
-      expect(res.text).toEqual("malformed id")
+      expect(res.text).toEqual("malformed field")
     })
   })
 })
@@ -154,6 +160,6 @@ describe('delete a fruit from the list', () => {
       .delete(`${url}${id}`)
       .expect(400)
 
-    expect(res.text).toEqual("malformed id")
+    expect(res.text).toEqual("malformed field")
   })
 })

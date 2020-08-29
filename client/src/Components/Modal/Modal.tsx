@@ -8,8 +8,7 @@ import NewForm from '../Form/NewForm'
 import styles from './Modal.module.css'
 
 const Modal: FC<{fruit: Fruit | undefined}> = ({ fruit }) => {
-  const selectToggle = (state: RootState) => state.modal.toggle
-  const toggle = useSelector(selectToggle)
+  const toggle = useSelector((state: RootState) => state.modal.toggle)
   const dispatch = useDispatch()
 
   if(!toggle || !fruit) {

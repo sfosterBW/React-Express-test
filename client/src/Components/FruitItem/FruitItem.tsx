@@ -15,8 +15,6 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   const dispatch = useDispatch()
   const { id, name, best, description } = fruit
 
-  const showHide = () => activeToggle ? "calc(120px + 12vmin)" : "0"
-
   return (
     <div className={styles.row} data-testid="item">
       <div
@@ -31,14 +29,17 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
       </div>
       <div
         className={styles.active}
-        style={{ height: showHide(), transition: "all 0.5s" }}
+        style={{
+          height: activeToggle ? "calc(120px + 12vmin)" : "0",
+          transition: "all 0.5s"
+        }}
       >
         <div className={styles.sectionRow}>
           <h4 className={styles.subtitle}>
             Description
           </h4>
           <p className={styles.description} data-testid="item-description">
-            {description ? `"${description}"` : "No description added yet"}
+            {description ? `${description}` : "No description added yet"}
           </p>
         </div>
         <div className={styles.section}>
@@ -57,7 +58,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             value={fruit.id}
           />
           <label data-testid="item-best" htmlFor={id}>
-            {best.toString()}
+            {`${best}`}
           </label>
         </div>
         <div className={styles.section}>

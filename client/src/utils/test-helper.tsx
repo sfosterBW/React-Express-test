@@ -23,4 +23,5 @@ export const list: Fruit[] = [
   }
 ]
 
+
 export default { emptyList, fruit, list }
