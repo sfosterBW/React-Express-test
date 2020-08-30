@@ -45,11 +45,6 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
   name,
   value
 }) => {
-  const styleBackground = (): string | undefined => {
-    const color: string = '#1ab545'
-    return value ? color : undefined
-  }
-
   return (
     <div className={styles.wrapper} data-testid="wrapper">
       <label className={styles.label} htmlFor={name}>
@@ -67,7 +62,7 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
           value={String(value)}
         />
         <label
-          style={{background: styleBackground()}}
+          style={{background: value ? '#1ab545' : undefined}}
           className={styles.checkboxLabel}
           data-testid="toggle"
           htmlFor={name}

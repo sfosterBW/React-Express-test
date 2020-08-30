@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useCallback } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Router } from "@reach/router"
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../Reducers/store'
@@ -16,15 +16,14 @@ import styles from './App.module.css'
 //TODO: Add tests for the reducers
 
 const App: FC = () => {
+  const dispatch = useDispatch()
+
   const modalFruit = useSelector((state: RootState) => state.modal.fruit)
   const message = useSelector((state: RootState) => state.alert.message)
-  const dispatch = useDispatch()
-  //Used to ensure the same values are used on re-render
-  const effectDispatch = useCallback(dispatch, [])
 
   useEffect(() => {
-    effectDispatch(getFruits())
-  }, [effectDispatch])
+    dispatch(getFruits())
+  }, [dispatch])
 
   return (
     <div className="App">

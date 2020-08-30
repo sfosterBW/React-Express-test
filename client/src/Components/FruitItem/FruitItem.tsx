@@ -11,8 +11,10 @@ interface Props {
 }
 
 const FruitItem: FC<Props> = ({ active = false, fruit }) => {
-  const [activeToggle, setActiveToggle] = useState<boolean>(active)
   const dispatch = useDispatch()
+
+  const [activeToggle, setActiveToggle] = useState<boolean>(active)
+  
   const { id, name, best, description } = fruit
 
   return (

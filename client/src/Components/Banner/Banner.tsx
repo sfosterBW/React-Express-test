@@ -11,7 +11,9 @@ const Banner: FC<Props> = ({theme = "one", size, title}) => {
   return (
     <section className={styles.wrapper} data-testid="wrapper">
       <div className={`${styles.hero} ${styles[size]} ${styles[theme]}`}>
-        <h1 className={styles.title} data-testid="title">{title}</h1>
+        <h1 className={styles.title} data-testid="title">
+          {title}
+        </h1>
       </div>
     </section>
   )

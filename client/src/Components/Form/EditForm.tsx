@@ -15,15 +15,16 @@ interface Props {
 }
 
 const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
-  const [best, resetBest] = useField<boolean>("Is it best?", "best", "checkbox", fruit.best)
-  const [name, resetName] = useField<string>("Add a fruit", "name", "text", fruit.name)
-  const [description, resetDescription] = useField<string>("Description", "description", "text", "")
-  const modal = useSelector((state: RootState) => state.modal.toggle)
   const dispatch = useDispatch()
 
+  const modal = useSelector((state: RootState) => state.modal.toggle)
+
+  const [best, resetBest] = useField<boolean>("Is it best?", "best", "checkbox", fruit.best)
+  const [description, resetDescription] = useField<string>("Description", "description", "text", "")
+  const [name, resetName] = useField<string>("Add a fruit", "name", "text", fruit.name)
+  
   const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-
     dispatch(updateFruit({
       id: fruit.id,
       best: best.value,
@@ -43,7 +44,9 @@ const EditForm: FC<Props> = ({ fruit, title = "Edit a fruit" }) => {
 
   return (
     <form className={styles.form} onSubmit={(event) => submit(event)}>
-      <h2 className={styles.title}>{title}</h2>
+      <h2 className={styles.title}>
+        {title}
+      </h2>
       <InputText {...name} />
       <InputText {...description} />
       <InputCheckbox {...best} />

@@ -6,47 +6,26 @@ import styles from './List.module.css'
 
 const List: FC = () => {
   const [filter, setFilter] = useState<boolean | undefined>(undefined)
-  const fruits = useSelector((state: RootState) => state.fruit
-    .filter((i) => filter === i.best || filter === undefined)
+  const fruits = useSelector((state: RootState) =>
+    state.fruit.filter(fruit => filter === fruit.best || filter === undefined)
   )
-  const filteredList = () => {
-
-    if (!fruits || fruits.length < 1 ) {
-      return <p>Nothing here...</p>
-    }
-
-    return fruits.map(fruit => <FruitItem key={fruit.id} fruit={fruit} />)
-  }
-
-  const setter = (value: boolean | undefined) => (): void => setFilter(value)
 
   return (
     <section className={styles.wrapper}>
       <div className={styles.filters}>
-        <button
-          className={styles.filter}
-          data-testid="all-filter"
-          onClick={setter(undefined)}
-        >
+        <button data-testid="all-filter" onClick={() => setFilter(undefined)}>
           All
         </button>
-        <button
-          className={styles.filter}
-          data-testid="best-filter"
-          onClick={setter(true)}
-        >
+        <button data-testid="best-filter" onClick={() => setFilter(true)}>
           Best
         </button>
-        <button
-          className={styles.filter}
-          data-testid="not-best-filter"
-          onClick={setter(false)}
-        >
+        <button data-testid="not-best-filter" onClick={() => setFilter(false)}>
           Not best
         </button>
       </div>
       <div className={styles.devices}>
-        {filteredList()}
+        {(!fruits || fruits.length < 1) && <p>Nothing here...</p>}
+        {fruits && fruits.map(fruit => <FruitItem key={fruit.id} fruit={fruit} />)}
       </div>
     </section>
   )
