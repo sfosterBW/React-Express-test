@@ -12,7 +12,6 @@ import EditFruit from '../../Pages/EditFruit'
 import Home from '../../Pages/Home'
 import styles from './App.module.css'
 
-//TODO: Fix the store mocking for each test
 //TODO: Add tests for the reducers
 
 const App: FC = () => {

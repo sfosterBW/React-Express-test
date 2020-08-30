@@ -1,45 +1,44 @@
 import React from 'react'
-import { render, fireEvent } from '../../utils/test-utils'
+import { fireEvent } from '@testing-library/react'
+import { renderWithProviders, rootInitialState } from 'utils/test-utils'
 
 import { list } from '../../utils/test-helper'
 
 import List from './List'
 
+//https://www.rrebase.com/posts/full-guide-to-testing-javascript-react
 //https://github.com/testing-library/react-testing-library#complex-example
-
-const mockDispatch = jest.fn()
-jest.mock('react-redux', () => ({
-  useSelector: jest.fn(),
-  useDispatch: () => mockDispatch
-}))
 
 describe('the List component', () => {
   describe('works with no fruit', () => {
-    const component = <List />
 
     it('renders with the right structure', () => {
-      const { queryAllByTestId, getByText } = render(component)
+      const { queryAllByTestId, getByText } = renderWithProviders(<List />)
       expect(queryAllByTestId('item')).toHaveLength(0)
       expect(getByText("Nothing here...")).toBeInTheDocument()
     })
   })
 
   describe('works with fruit', () => {
-    const component = <List />
-
     it('renders with the right structure', () => {
-      const { getAllByTestId } = render(component)
+      const { getAllByTestId } = renderWithProviders(<List />, {
+        ...rootInitialState,
+        fruit: list
+      })
       expect(getAllByTestId('item')).toHaveLength(list.length)
-      getAllByTestId('item-title').forEach((title, i) =>
+      getAllByTestId('item-title').forEach((title: any, i: number) =>
         expect(title).toHaveTextContent(list[i].name)
       )
-      getAllByTestId('item-best').forEach((best, i) =>
+      getAllByTestId('item-best').forEach((best: any, i: number) =>
         expect(best).toHaveTextContent(String(list[i].best))
       )
     })
 
     it('filtering changes the list length', () => {
-      const { getByTestId, getAllByTestId } = render(component)
+      const { getByTestId, getAllByTestId } = renderWithProviders(<List />, {
+        ...rootInitialState,
+        fruit: list
+      })
       const bestList = list.filter(i => i.best === true)
       const notBestList = list.filter(i => i.best === false)
 

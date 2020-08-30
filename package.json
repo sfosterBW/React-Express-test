@@ -11,8 +11,7 @@
     "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
     "concurrently": "^3.6.1",
-    "cypress": "^5.0.0",
-    "redux-devtools-extension": "^2.13.8"
+    "cypress": "^5.0.0"
   },
   "scripts": {
     "start": "npm --prefix api run start",

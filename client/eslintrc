@@ -1,14 +1,16 @@
-module.exports = {
+{
   "env": {
     "browser": true,
     "es6": true,
     "jest/globals": true,
     "cypress/globals": true
   },
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:cypress/recommended"
+    "plugin:cypress/recommended",
+    "plugin:@typescript-eslint/recommended",
   ],
   "parserOptions": {
     "ecmaFeatures": {

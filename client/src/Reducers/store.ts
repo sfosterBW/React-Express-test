@@ -13,9 +13,9 @@ export const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>
 
-export const initialState = undefined
+export const initialState: RootState | undefined = undefined
 
-export const configureStore = (preloadedState: undefined) => {
+export const configureStore = (preloadedState: RootState | undefined) => {
   const middlewares = [thunkMiddleware]
   const middlewareEnhancer = applyMiddleware(...middlewares)
   const enhancers = [middlewareEnhancer]

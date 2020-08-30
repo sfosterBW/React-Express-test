@@ -4,7 +4,7 @@ interface State {
   message: string
 }
 
-const initState: State = {
+export const initState: State = {
   toggle: false,
   message: ''
 }

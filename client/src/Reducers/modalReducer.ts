@@ -23,7 +23,7 @@ interface OpenModal {
 //Action type
 type Actions = ToggleModal | OpenModal
 
-const initState: State = { toggle: false }
+export const initState: State = { toggle: false }
 
 export const reducer = (state = initState, action: Actions): State => {
   switch (action.type) {
