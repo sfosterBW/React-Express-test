@@ -1,6 +1,6 @@
 import React from 'react'
 import { fireEvent } from '@testing-library/react'
-import { renderWithProviders, rootInitialState } from 'utils/test-utils'
+import { renderWithProviders, rootInitialState } from '../../utils/test-utils'
 
 import { list } from '../../utils/test-helper'
 
@@ -15,7 +15,7 @@ describe('the List component', () => {
     it('renders with the right structure', () => {
       const { queryAllByTestId, getByText } = renderWithProviders(<List />)
       expect(queryAllByTestId('item')).toHaveLength(0)
-      expect(getByText("Nothing here...")).toBeInTheDocument()
+      expect(getByText('Nothing here...')).toBeInTheDocument()
     })
   })
 
@@ -26,10 +26,10 @@ describe('the List component', () => {
         fruit: list
       })
       expect(getAllByTestId('item')).toHaveLength(list.length)
-      getAllByTestId('item-title').forEach((title: any, i: number) =>
+      getAllByTestId('item-title').forEach((title: HTMLElement, i: number) =>
         expect(title).toHaveTextContent(list[i].name)
       )
-      getAllByTestId('item-best').forEach((best: any, i: number) =>
+      getAllByTestId('item-best').forEach((best: HTMLElement, i: number) =>
         expect(best).toHaveTextContent(String(list[i].best))
       )
     })

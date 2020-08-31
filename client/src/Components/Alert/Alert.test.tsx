@@ -11,7 +11,7 @@ jest.mock('react-redux', () => ({
 }))
 
 describe('the Alert component', () => {
-  const message = "test"
+  const message = 'test'
   const component = <Alert message={message} />
 
   it('renders on mount functions as expected', () => {

@@ -1,16 +1,16 @@
 import React, { FC } from 'react'
-import { RouteComponentProps} from '@reach/router'
+import { RouteComponentProps } from '@reach/router'
 import Banner from '../Components/Banner/Banner'
 import NewForm from '../Components/Form/NewForm'
 
 interface Props extends RouteComponentProps {
-  title: string
+  title: string;
 }
 
 const AddFruit: FC<Props> = ({ title }) => {
   return (
     <>
-      <Banner theme="two" size="large" title={title}/>
+      <Banner theme="two" size="large" title={title} />
       <NewForm />
     </>
   )

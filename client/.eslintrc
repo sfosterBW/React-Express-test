@@ -3,7 +3,8 @@
     "browser": true,
     "es6": true,
     "jest/globals": true,
-    "cypress/globals": true
+    "cypress/globals": true,
+    "node": true
   },
   "parser": "@typescript-eslint/parser",
   "extends": [
@@ -11,21 +12,29 @@
     "plugin:react/recommended",
     "plugin:cypress/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": 2018,
+    "project": ["./tsconfig.json"],
     "sourceType": "module"
   },
   "plugins": [
-    "react", "jest", "cypress"
+    "react",
+    "jest",
+    "cypress",
+    "@typescript-eslint"
   ],
   "rules": {
     "indent": [
       "error",
-      2
+      2,
+      {
+        "SwitchCase": 1
+      }
     ],
     "linebreak-style": [
       "error",
@@ -42,15 +51,22 @@
     "eqeqeq": "error",
     "no-trailing-spaces": "error",
     "object-curly-spacing": [
-      "error", "always"
+      "error",
+      "always"
     ],
     "arrow-spacing": [
-      "error", {
+      "error",
+      {
         "before": true,
         "after": true
       }
     ],
     "no-console": 0,
     "react/prop-types": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

@@ -4,9 +4,9 @@ import { render, fireEvent } from '@testing-library/react'
 import { InputText, InputCheckbox } from './Input'
 
 describe('the InputText component', () => {
-  const label = "This is a label"
-  const name = "This is a name"
-  const value = "This is a value"
+  const label = 'This is a label'
+  const name = 'This is a name'
+  const value = 'This is a value'
   const onChange = jest.fn()
   const component = (
     <InputText
@@ -19,13 +19,13 @@ describe('the InputText component', () => {
 
   it('renders with the correct structure', () => {
     const { getByLabelText, getByTestId } = render(component)
-    expect(getByTestId("wrapper")).toBeInTheDocument()
+    expect(getByTestId('wrapper')).toBeInTheDocument()
     expect(getByLabelText(label)).toBeInTheDocument()
   })
 
   it('functions as expected', () => {
     const { getByTestId } = render(component)
-    const testValue = "test"
+    const testValue = 'test'
     fireEvent.change(getByTestId('input-text'), {
       target: { value: testValue }
     })
@@ -41,8 +41,8 @@ describe('the InputText component', () => {
 
 describe('the InputCheckbox component', () => {
   const checked = false
-  const label = "This is a label"
-  const name = "This is a name"
+  const label = 'This is a label'
+  const name = 'This is a name'
   const onChange = jest.fn()
   const component = (
     <InputCheckbox
@@ -55,7 +55,7 @@ describe('the InputCheckbox component', () => {
 
   it('renders with the correct structure', () => {
     const { getByLabelText, getByTestId } = render(component)
-    expect(getByTestId("wrapper")).toBeInTheDocument()
+    expect(getByTestId('wrapper')).toBeInTheDocument()
     expect(getByLabelText(label)).toBeInTheDocument()
   })
 

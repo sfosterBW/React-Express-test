@@ -40,7 +40,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint '*/**/*.{js,ts,tsx}'",
-    "typecheck": "tsc"
+    "typecheck": "tsc -p tsconfig.build.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -57,5 +57,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-plugin-cypress": "^2.11.1"
+  }
 }

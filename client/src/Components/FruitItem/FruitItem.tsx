@@ -6,22 +6,22 @@ import { removeFruit, updateFruit } from '../../Reducers/fruitReducer'
 import styles from './FruitItem.module.css'
 
 interface Props {
-  active?: boolean
-  fruit: Fruit
+  active?: boolean;
+  fruit: Fruit;
 }
 
 const FruitItem: FC<Props> = ({ active = false, fruit }) => {
   const dispatch = useDispatch()
 
   const [activeToggle, setActiveToggle] = useState<boolean>(active)
-  
+
   const { id, name, best, description } = fruit
 
   return (
     <div className={styles.row} data-testid="item">
       <div
         className={styles.header}
-        onClick={() => setActiveToggle(!activeToggle)}
+        onClick={(): void => setActiveToggle(!activeToggle)}
       >
         <div className={styles.section}>
           <h3 className={styles.subtitle} data-testid="item-title">
@@ -32,8 +32,8 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
       <div
         className={styles.active}
         style={{
-          height: activeToggle ? "calc(120px + 12vmin)" : "0",
-          transition: "all 0.5s"
+          height: activeToggle ? 'calc(120px + 12vmin)' : '0',
+          transition: 'all 0.5s'
         }}
       >
         <div className={styles.sectionRow}>
@@ -41,7 +41,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             Description
           </h4>
           <p className={styles.description} data-testid="item-description">
-            {description ? `${description}` : "No description added yet"}
+            {description ? `${description}` : 'No description added yet'}
           </p>
         </div>
         <div className={styles.section}>
@@ -53,14 +53,14 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             className={styles.button}
             id={id}
             name={id}
-            onChange={() => {
+            onChange={(): void => {
               dispatch(updateFruit({ ...fruit, best: !best }))
             }}
             type="checkbox"
             value={fruit.id}
           />
           <label data-testid="item-best" htmlFor={id}>
-            {`${best}`}
+            {String(best)}
           </label>
         </div>
         <div className={styles.section}>

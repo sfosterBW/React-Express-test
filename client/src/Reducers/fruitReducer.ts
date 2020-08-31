@@ -16,27 +16,27 @@ const UPDATE_FRUIT = 'UPDATE_FRUIT'
 
 //Action shapes
 interface GetFruits {
-  type: typeof GET_FRUITS,
-  payload: Fruit[]
+  type: typeof GET_FRUITS;
+  payload: Fruit[];
 }
 
 interface CreateFruit {
-  type: typeof CREATE_FRUIT,
-  payload: Fruit
+  type: typeof CREATE_FRUIT;
+  payload: Fruit;
 }
 
 interface RemoveFruit {
-  type: typeof REMOVE_FRUIT,
-  payload: string
+  type: typeof REMOVE_FRUIT;
+  payload: string;
 }
 
 interface UpdateFruit {
-  type: typeof UPDATE_FRUIT,
-  payload: Fruit
+  type: typeof UPDATE_FRUIT;
+  payload: Fruit;
 }
 
 //Action types
-type Actions = GetFruits | CreateFruit | RemoveFruit | UpdateFruit | ToggleAlert
+export type Actions = GetFruits | CreateFruit | RemoveFruit | UpdateFruit | ToggleAlert
 
 export const reducer = (state = initState, action: Actions): State => {
   switch (action.type) {
@@ -55,18 +55,24 @@ export const reducer = (state = initState, action: Actions): State => {
 }
 
 //Actions
-export const getFruits = (): ThunkAction<void, {}, {}, Actions> => {
+export const getFruits = (): ThunkAction<void, State, unknown, Actions> => {
   return async dispatch => {
-    const fruits = await fruitService.fetchFruit()
-    dispatch({
-      type: GET_FRUITS,
-      payload: fruits
-    })
+    try {
+      const fruits = await fruitService.fetchFruit()
+      dispatch({
+        type: GET_FRUITS,
+        payload: fruits
+      })
+    }
+    catch (error) {
+      dispatch(toggleAlert(String(error), true))
+    }
+
   }
 }
 
-export const createFruit = (newFruit: NewFruit): ThunkAction<void, {}, {}, Actions> => {
-  return async dispatch=> {
+export const createFruit = (newFruit: NewFruit): ThunkAction<void, State, unknown, Actions> => {
+  return async dispatch => {
     try {
       const fruit = await fruitService.createFruit(newFruit)
       dispatch({
@@ -75,12 +81,12 @@ export const createFruit = (newFruit: NewFruit): ThunkAction<void, {}, {}, Actio
       })
     }
     catch (error) {
-      dispatch(toggleAlert(error.response.data, true))
+      dispatch(toggleAlert(String(error), true))
     }
   }
 }
 
-export const removeFruit = (deleteId: string): ThunkAction<void, {}, {}, Actions> => {
+export const removeFruit = (deleteId: string): ThunkAction<void, State, unknown, Actions> => {
   return async dispatch => {
     try {
       const id = await fruitService.deleteFruit(deleteId)
@@ -90,12 +96,12 @@ export const removeFruit = (deleteId: string): ThunkAction<void, {}, {}, Actions
       })
     }
     catch (error) {
-      dispatch(toggleAlert(error.response.data, true))
+      dispatch(toggleAlert(String(error), true))
     }
   }
 }
 
-export const updateFruit = (updateFruit: Fruit): ThunkAction<void, {}, {}, Actions> => {
+export const updateFruit = (updateFruit: Fruit): ThunkAction<void, State, unknown, Actions> => {
   return async dispatch => {
     try {
       const fruit = await fruitService.updateFruit(updateFruit)
@@ -105,7 +111,7 @@ export const updateFruit = (updateFruit: Fruit): ThunkAction<void, {}, {}, Actio
       })
     }
     catch (error) {
-      dispatch(toggleAlert(error.response.data, true))
+      dispatch(toggleAlert(String(error), true))
     }
   }
 }

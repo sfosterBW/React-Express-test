@@ -1,38 +1,35 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { fireEvent } from '@testing-library/react'
+import { renderWithProviders } from '../../utils/test-utils'
 
 import NewForm from './NewForm'
-
-const mockDispatch = jest.fn()
-jest.mock('react-redux', () => ({
-  useSelector: jest.fn(),
-  useDispatch: () => mockDispatch
-}))
 
 describe('the Form component', () => {
   const component = <NewForm />
 
   it('functions properly with props', () => {
-    const { getByLabelText, getByTestId } = render(component)
-    const testName = "Apple"
-    const testDescription = "I don't like doctors"
+    const { getByLabelText, getByTestId } = renderWithProviders(component)
+    const testName = 'Apple'
+    const testDescription = 'I don\'t like doctors'
 
     fireEvent.click(getByTestId('toggle'))
     fireEvent.change(getByLabelText('Add a fruit'), {
       target: { value: testName }
     })
+    expect(getByLabelText('Add a fruit')).toHaveValue(testName)
+
     fireEvent.change(getByLabelText('Description'), {
       target: { value: testDescription }
     })
+    expect(getByLabelText('Description')).toHaveValue(testDescription)
 
-    fireEvent.click(getByTestId('submit-new'))
-
-    expect(mockDispatch.mock.calls[1][0].payload.message)
-      .toBe(`${testName} has been added`)
+    fireEvent.click(getByTestId('new-form-submit'))
+    expect(getByLabelText('Add a fruit')).toHaveValue('')
+    expect(getByLabelText('Description')).toHaveValue('')
   })
 
   it('renders the same as last time', () => {
-    const { container } = render(component)
+    const { container } = renderWithProviders(component)
     expect(container).toMatchSnapshot()
   })
 })

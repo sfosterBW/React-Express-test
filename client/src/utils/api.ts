@@ -15,8 +15,8 @@ const createFruit = async (fruit: NewFruit): Promise<Fruit> => {
 }
 
 const updateFruit = async (fruit: Fruit): Promise<Fruit> => {
-    const response = await axios.put(`/${fruit.id}`, fruit)
-    return toFruit(response.data)
+  const response = await axios.put(`/${fruit.id}`, fruit)
+  return toFruit(response.data)
 }
 
 const deleteFruit = async (id: string): Promise<Fruit['id']> => {

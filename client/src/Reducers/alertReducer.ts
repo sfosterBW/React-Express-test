@@ -1,7 +1,7 @@
 //State types
 interface State {
-  toggle: boolean,
-  message: string
+  toggle: boolean;
+  message: string;
 }
 
 export const initState: State = {
@@ -10,25 +10,24 @@ export const initState: State = {
 }
 
 //Action const
-const TOGGLE_ALERT = "TOGGLE_ALERT"
+const TOGGLE_ALERT = 'TOGGLE_ALERT'
 
 //Action shape
 export interface ToggleAlert {
-  type: typeof TOGGLE_ALERT,
+  type: typeof TOGGLE_ALERT;
   payload: {
-    message: string
-    toggle: boolean
-  }
+    message: string;
+    toggle: boolean;
+  };
 }
 
 //Action type
-type Actions = ToggleAlert
+export type Actions = ToggleAlert
 
 export const reducer = (state = initState, action: Actions): State => {
   switch (action.type) {
     case TOGGLE_ALERT:
-      const { toggle, message}  = action.payload
-      return { ...state, toggle, message }
+      return { ...state, toggle: action.payload.toggle, message: action.payload.message }
     default:
       return state
   }

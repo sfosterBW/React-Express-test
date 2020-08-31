@@ -1,11 +1,11 @@
-import React, { FC } from 'react'
+import React, { ChangeEvent, FC } from 'react'
 import styles from './Input.module.css'
 
 interface InputTextProps {
-  label: string
-  name: string
-  onChange: (event: any) => void
-  value: string
+  label: string;
+  name: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  value: string;
 }
 
 export const InputText: FC<InputTextProps> = ({
@@ -33,10 +33,10 @@ export const InputText: FC<InputTextProps> = ({
 }
 
 interface InputCheckboxProps {
-  label: string
-  name: string
-  onChange: (event: any) => void
-  value: boolean
+  label: string;
+  name: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  value: boolean;
 }
 
 export const InputCheckbox: FC<InputCheckboxProps> = ({
@@ -62,7 +62,7 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({
           value={String(value)}
         />
         <label
-          style={{background: value ? '#1ab545' : undefined}}
+          style={{ background: value ? '#1ab545' : undefined }}
           className={styles.checkboxLabel}
           data-testid="toggle"
           htmlFor={name}

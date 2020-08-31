@@ -1,27 +1,27 @@
 import { Fruit } from '../utils/interfaces'
 
 interface State {
-  toggle: boolean,
-  fruit?: Fruit
+  toggle: boolean;
+  fruit?: Fruit;
 }
 
 //Action const
-const TOGGLE_MODAL = "TOGGLE_MODAL"
-const OPEN_MODAL = "OPEN_MODAL"
+const TOGGLE_MODAL = 'TOGGLE_MODAL'
+const OPEN_MODAL = 'OPEN_MODAL'
 
 //Action shape
 interface ToggleModal {
-  type: typeof TOGGLE_MODAL,
-  payload: boolean
+  type: typeof TOGGLE_MODAL;
+  payload: boolean;
 }
 
 interface OpenModal {
-  type: typeof OPEN_MODAL,
-  payload: Fruit
+  type: typeof OPEN_MODAL;
+  payload: Fruit;
 }
 
 //Action type
-type Actions = ToggleModal | OpenModal
+export type Actions = ToggleModal | OpenModal
 
 export const initState: State = { toggle: false }
 

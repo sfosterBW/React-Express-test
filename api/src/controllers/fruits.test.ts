@@ -17,8 +17,7 @@ beforeEach(async () => {
 })
 
 afterAll(done => {
-  mongoose.connection.close()
-  done()
+  mongoose.disconnect(done)
 })
 
 describe('add a new fruit', () => {
@@ -59,7 +58,7 @@ describe('add a new fruit', () => {
     expect(res.text).toEqual(`Incorrect or missing best: ${String(newFruit.best)}`)
   })
 
-  it('should error with the wrong type', async () => {
+  it('should error with a long name', async () => {
     const newFruit = {
       name: "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
       best: true

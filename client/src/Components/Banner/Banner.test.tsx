@@ -4,8 +4,8 @@ import { render } from '@testing-library/react'
 import Banner from './Banner'
 
 describe('the Alert component', () => {
-  const size = "large"
-  const title = "Title"
+  const size = 'large'
+  const title = 'Title'
   const component = <Banner size={size} title={title} />
 
   test('renders with the right structure', () => {

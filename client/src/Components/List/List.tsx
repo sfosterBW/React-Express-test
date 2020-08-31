@@ -13,13 +13,13 @@ const List: FC = () => {
   return (
     <section className={styles.wrapper}>
       <div className={styles.filters}>
-        <button data-testid="all-filter" onClick={() => setFilter(undefined)}>
+        <button data-testid="all-filter" onClick={(): void => setFilter(undefined)}>
           All
         </button>
-        <button data-testid="best-filter" onClick={() => setFilter(true)}>
+        <button data-testid="best-filter" onClick={(): void => setFilter(true)}>
           Best
         </button>
-        <button data-testid="not-best-filter" onClick={() => setFilter(false)}>
+        <button data-testid="not-best-filter" onClick={(): void => setFilter(false)}>
           Not best
         </button>
       </div>

@@ -1,14 +1,18 @@
 import { Fruit } from './interfaces'
 
-const isBoolean = (bool: any): bool is boolean => {
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+/* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
+const isBoolean = (bool: unknown): bool is boolean => {
   return typeof bool === 'boolean'
 }
 
-const isString = (text: any): text is string => {
+const isString = (text: unknown): text is string => {
   return typeof text === 'string' || text instanceof String
 }
 
-const parseBest = (best: any): boolean => {
+const parseBest = (best: unknown): boolean => {
   if (typeof best === 'undefined' || !isBoolean(best)) {
     throw new Error(`Incorrect or missing best: ${String(best)}`)
   }
@@ -16,7 +20,7 @@ const parseBest = (best: any): boolean => {
   return best
 }
 
-export const parseId = (id: any): string => {
+export const parseId = (id: unknown): string => {
   if (!id || !isString(id)) {
     throw new Error(`Incorrect or missing id: ${String(id)}`)
   }
@@ -24,7 +28,7 @@ export const parseId = (id: any): string => {
   return id
 }
 
-const parseName = (name: any): string => {
+const parseName = (name: unknown): string => {
   if (!name || !isString(name)) {
     throw new Error(`Incorrect or missing name: ${String(name)}`)
   }
@@ -32,7 +36,7 @@ const parseName = (name: any): string => {
   return name
 }
 
-const parseDescription = (description: any): string => {
+const parseDescription = (description: unknown): string => {
   if (!description || !isString(description)) {
     throw new Error(`Incorrect or missing description: ${String(description)}`)
   }
@@ -40,9 +44,9 @@ const parseDescription = (description: any): string => {
   return description
 }
 
-const parseArray = (array: any): any[] => {
-  if(array && !Array.isArray(array)) {
-    throw new Error(`Incorrect or missing an array ${array}`);
+const parseArray = (array: any): Array<unknown> => {
+  if (!array || !Array.isArray(array)) {
+    throw new Error(`Incorrect or missing an array ${String(array)}`)
   }
 
   return array

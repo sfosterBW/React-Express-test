@@ -1,0 +1,16 @@
+{
+    "extends": "../tsconfig.build.json",
+    "compilerOptions": {
+        "outDir": "./build",
+        "target": "es6",
+        "module": "commonjs", 
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "build",
+        "coverage"
+    ]
+}

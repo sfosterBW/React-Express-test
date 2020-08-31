@@ -4,7 +4,8 @@
   "description": "React and express app to try things out",
   "main": "/api/build/index.js",
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "typescript": "^3.9.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -17,8 +18,8 @@
     "start": "npm --prefix api run start",
     "build": "npm --prefix client run build --prod && npm --prefix api run build",
     "postinstall": "npm --prefix client install && npm --prefix api install",
-    "dev": "concurrently --kill-others \"cd api && npm run dev\" \"cd client && npm start\"",
-    "test": "concurrently --kill-others \"cd api && npm run start:test\" \"cd client && npm start\" \"cypress run\"",
+    "dev": "concurrently --kill-others \"npm --prefix api run dev\" \"npm --prefix client start\"",
+    "test": "concurrently --kill-others \"npm --prefix api run start:test\" \"npm --prefix client start\" \"cypress run\"",
     "deploy": "git push heroku master",
     "deploy:full": "npm run build && git add . && git commit -m uibuild && npm run deploy",
     "cypress:open": "cypress open"

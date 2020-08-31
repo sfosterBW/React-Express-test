@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { Router } from "@reach/router"
+import { Router } from '@reach/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../Reducers/store'
 import { getFruits } from '../../Reducers/fruitReducer'

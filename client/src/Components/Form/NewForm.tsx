@@ -8,20 +8,20 @@ import { createFruit } from '../../Reducers/fruitReducer'
 import { toggleModal } from '../../Reducers/modalReducer'
 import styles from './Form.module.css'
 
-const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
+const NewForm: FC<{ title?: string }> = ({ title = 'Add a new fruit' }) => {
   const dispatch = useDispatch()
 
   const modal = useSelector((state: RootState) => state.modal.toggle)
 
-  const [best, resetBest] = useField<boolean>("Is it best?", "best", "checkbox", false)
-  const [description, resetDescription] = useField<string>("Description", "description", "text", "")
-  const [name, resetName] = useField<string>("Add a fruit", "name", "text", "")
+  const [best, resetBest] = useField<boolean>('Is it best?', 'best', 'checkbox', false)
+  const [description, resetDescription] = useField<string>('Description', 'description', 'text', '')
+  const [name, resetName] = useField<string>('Add a fruit', 'name', 'text', '')
 
-  const submit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+  const submit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     dispatch(createFruit({
       name: name.value,
-      description: description.value === "" ? undefined : description.value,
+      description: description.value === '' ? undefined : description.value,
       best: best.value
     }))
     dispatch(toggleAlert(`${name.value} has been added`, true))
@@ -36,14 +36,14 @@ const NewForm: FC<{ title?: string }> = ({ title = "Add a new fruit" }) => {
   }
 
   return (
-    <form className={styles.form} onSubmit={(event) => submit(event)}>
-      <h2 className={styles.title}>
+    <form className={styles.form} onSubmit={(event): void => submit(event)}>
+      <h2 className={styles.title} data-testid="new-form-title">
         {title}
       </h2>
       <InputText {...name} />
       <InputText {...description} />
       <InputCheckbox {...best} />
-      <button className={styles.button} data-testid="submit-new">
+      <button className={styles.button} data-testid="new-form-submit">
         Add new fruit
       </button>
     </form>

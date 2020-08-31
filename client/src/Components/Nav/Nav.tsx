@@ -8,11 +8,11 @@ const Nav: FC = () => {
       <nav className={styles.wrapper}>
         <div className={styles.left}>
           <Link data-testid="logo-link" to="/">
-          <img
-            alt="logo"
-            className={styles.logo}
-            src="https://img.icons8.com/cotton/64/000000/apple--v1.png"
-          />
+            <img
+              alt="logo"
+              className={styles.logo}
+              src="https://img.icons8.com/cotton/64/000000/apple--v1.png"
+            />
           </Link>
           <div className={styles.title} id="title">
             Fruit Dashboard

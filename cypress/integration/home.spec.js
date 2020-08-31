@@ -24,7 +24,7 @@ describe('The home page', function() {
 
   it('should navigate to the edit page', function() {
     cy.get('nav').find('a').contains('Edit fruit').click()
-    cy.get('h1').should('have.text', 'True table')
+    cy.get('h1').should('have.text', 'Edit your Fruit')
   })
 
   it('should return to the home page', function() {

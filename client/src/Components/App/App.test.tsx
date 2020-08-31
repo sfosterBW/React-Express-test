@@ -1,5 +1,5 @@
 import React from 'react'
-import { renderWithProviders } from 'utils/test-utils'
+import { renderWithProviders } from '../../utils/test-utils'
 
 import App from './App'
 

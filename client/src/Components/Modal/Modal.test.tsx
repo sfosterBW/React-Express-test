@@ -1,27 +1,22 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { renderWithProviders, rootInitialState } from '../../utils/test-utils'
 import { fruit } from '../../utils/test-helper'
 
 import Modal from './Modal'
-
-const mockDispatch = jest.fn()
-jest.mock('react-redux', () => ({
-  useSelector: jest.fn().mockReturnValue(true),
-  useDispatch: () => mockDispatch
-}))
 
 const component = <Modal fruit={fruit} />
 
 describe('the modal component', () => {
   it('functions as expected', () => {
-    const { getByTestId } = render(component)
-    fireEvent.click(getByTestId('close'))
-
-    expect(mockDispatch.mock.calls).toHaveLength(1)
+    const { getByTestId } = renderWithProviders(component, {
+      ...rootInitialState,
+      modal: { ...rootInitialState.modal, toggle: true }
+    })
+    expect(getByTestId('edit-form-title')).toBeTruthy()
   })
 
   it('renders the same as last time', () => {
-    const { container } = render(component)
+    const { container } = renderWithProviders(component)
     expect(container).toMatchSnapshot()
   })
 })

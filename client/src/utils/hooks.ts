@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 
 interface Field<T> {
-  label: string
-  name: string
-  onChange: (event: any) => void
-  type: string
-  value: T
+  label: string;
+  name: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  type: string;
+  value: T;
 }
 
 const useField = <T>(
@@ -17,11 +19,11 @@ const useField = <T>(
 
   const [value, setValue] = useState(initValue)
 
-  const onChange = (event: any): void => {
-    if (type === "checkbox") {
-      setValue(event.target.checked)
+  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    if (type === 'checkbox' && typeof value === 'boolean') {
+      setValue(event.target.checked as any)
     } else {
-      setValue(event.target.value)
+      setValue(event.target.value as any)
     }
   }
 

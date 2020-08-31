@@ -7,6 +7,7 @@ exports[`the Form component renders the same as last time 1`] = `
   >
     <h2
       class="title"
+      data-testid="new-form-title"
     >
       Add a new fruit
     </h2>
@@ -82,7 +83,7 @@ exports[`the Form component renders the same as last time 1`] = `
     </div>
     <button
       class="button"
-      data-testid="submit-new"
+      data-testid="new-form-submit"
     >
       Add new fruit
     </button>

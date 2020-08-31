@@ -1,15 +1,15 @@
 import React, { FC } from 'react'
-import { RouteComponentProps} from '@reach/router'
+import { RouteComponentProps } from '@reach/router'
 import Banner from '../Components/Banner/Banner'
 
 interface Props extends RouteComponentProps {
-  title: string
+  title: string;
 }
 
 const Home: FC<Props> = ({ title }) => {
-  return(
+  return (
     <>
-      <Banner size="large" title={title}/>
+      <Banner size="large" title={title} />
       <div className="card-grid-wrapper">
         <h2>
           What does it do?
@@ -28,7 +28,7 @@ const Home: FC<Props> = ({ title }) => {
               Edit your Fruit
             </h3>
             <p>
-              Once you've added fruit you can update any details and remove it if necessary.
+              Once you&apos;ve added fruit you can update any details and remove it if necessary.
             </p>
           </div>
           <div className="card">

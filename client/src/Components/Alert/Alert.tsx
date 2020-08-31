@@ -4,12 +4,12 @@ import { RootState } from '../../Reducers/store'
 import { toggleAlert } from '../../Reducers/alertReducer'
 import styles from './Alert.module.css'
 
-const Alert: FC<{message: string}> = ({ message }) => {
+const Alert: FC<{ message: string }> = ({ message }) => {
   const dispatch = useDispatch()
 
-  const toggle = useSelector((state: RootState) => state.alert.toggle)  
+  const toggle = useSelector((state: RootState) => state.alert.toggle)
 
-  if(!toggle) {
+  if (!toggle) {
     return null
   }
 
@@ -23,7 +23,7 @@ const Alert: FC<{message: string}> = ({ message }) => {
         <button
           className={styles.button}
           data-testid="close-button"
-          onClick={() => {dispatch(toggleAlert(message, !toggle))}}
+          onClick={(): void => { dispatch(toggleAlert(message, !toggle)) }}
         >
           &times;
         </button>
