@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { RootState } from '../../Reducers/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleModal } from '../../Reducers/modalReducer'
+import { RootActions } from '../../Reducers/store'
 import { Fruit } from '../../utils/interfaces'
 import EditForm from '../Form/EditForm'
 import NewForm from '../Form/NewForm'
@@ -26,7 +27,7 @@ const Modal: FC<{fruit: Fruit | undefined}> = ({ fruit }) => {
             className={styles.close}
             data-testid="close"
             name="close"
-            onClick={() => dispatch(toggleModal(!toggle))}
+            onClick={(): RootActions => dispatch(toggleModal(!toggle))}
           >
             &times;
           </button>

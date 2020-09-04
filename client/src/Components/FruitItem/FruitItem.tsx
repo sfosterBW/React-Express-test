@@ -2,7 +2,8 @@ import React, { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Fruit } from '../../utils/interfaces'
 import { openModal } from '../../Reducers/modalReducer'
-import { removeFruit, updateFruit } from '../../Reducers/fruitReducer'
+import { FruitActions, removeFruit, updateFruit } from '../../Reducers/fruitReducer'
+import { RootActions } from '../../Reducers/store'
 import styles from './FruitItem.module.css'
 
 interface Props {
@@ -71,7 +72,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             className={styles.button}
             data-testid="update-button"
             name="modal"
-            onClick={() => dispatch(openModal(fruit))}
+            onClick={(): RootActions => dispatch(openModal(fruit))}
           >
             Update
           </button>
@@ -79,7 +80,7 @@ const FruitItem: FC<Props> = ({ active = false, fruit }) => {
             className={styles.button}
             data-testid="remove-button"
             name="remove"
-            onClick={() => dispatch(removeFruit(id))}
+            onClick={(): FruitActions => dispatch(removeFruit(id))}
             value={`${id}`}
           >
             Remove
