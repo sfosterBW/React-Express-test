@@ -38,7 +38,7 @@ interface UpdateFruit {
 //Action types
 export type Actions = GetFruits | CreateFruit | RemoveFruit | UpdateFruit | ToggleAlert
 export type FruitActions = ThunkAction<void, State, unknown, Actions> | Actions
-export type FruitDispatch = ThunkDispatch<{}, {}, Actions>
+export type FruitDispatch = ThunkDispatch<State, void, Actions>
 
 export const reducer = (state = initState, action: Actions): State => {
   switch (action.type) {
