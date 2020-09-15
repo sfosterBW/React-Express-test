@@ -40,7 +40,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint '*/**/*.{js,ts,tsx}'",
-    "typecheck": "tsc -p tsconfig.build.json"
+    "typecheck": "tsc --noEmit -p tsconfig.build.json"
   },
   "eslintConfig": {
     "extends": "react-app"
