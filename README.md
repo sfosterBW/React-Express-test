@@ -15,6 +15,8 @@ This project is split into three parts:
 
 ### Part 1 - End to end testing and deployment
 
+You can find can this functionality in the top level folder.
+
 #### Development
 
 Use `npm start` to see the app on http://localhost:3000. 
@@ -22,6 +24,8 @@ Use `npm start` to see the app on http://localhost:3000.
 This runs the API and client at the same time using [concurrently](https://www.npmjs.com/package/concurrently).
 
 #### Testing
+
+The tests live in `cd cypress/integration`
 
 The end to end tests use [Cypress](https://www.cypress.io/) and can be run in the CLI using `npm run cypress:run`.
 
@@ -34,6 +38,8 @@ A new release can be created using `npm run deploy:full`. This generates a new b
 You can check the very basic config for Heroku by looking at the `Procfile`.
 
 ### Part 2 - API
+
+You can find this by navigating to `cd api`
 
 The contains an [Express app](https://expressjs.com/) using: 
 * [Typescript](https://www.typescriptlang.org/) to make sure that the app is as strongly typed as possible
@@ -77,14 +83,47 @@ The app is split into the following folder:
 
 The test suite uses Jest for unit tests, run `npm test`.
 
-You can run the app in test mode using `npm run start:test` which allows to you hit the reset endpoint manually
+You can run the app in test mode using `npm run start:test` which allows to you hit the reset endpoint manually.
 
-### Part 3
+Tests are located next to the file that they test in this format:
 
-`cd /fullstack_app/client` contains the react app which lets users see and manage data.
+File = fruits.ts
+Test = fruits.test.ts
 
-This is created on the basis of create-react-app with typescript, redux and thunk.
+#### Linting
+
+This app uses ESLint and Typescript to make sure that strict typing is in place and the code formatting is consistent.
+
+To specifically check the linting run `npm run lint`.
+
+To specifically check the typing run `npm run typecheck`. This runs typescript without creating a build.
+
+### Part 3 - Client
+
+This app contains the react app which lets users see and manage data.
+
+You can find this by navigating to `cd client`.
+
+This is created on a create-react-app base with typescript, redux and thunk.
+
+#### Configuration
+
+In order to make eslint work properly you need to add a `.env` file with the following config:
+
+`EXTEND_ESLINT=true`
+
+#### Development
 
 Use `npm start` to run the app and see it on http://localhost:3000 without any data.
 
+#### Testing
+
 The app uses the default jest test suite for unit tests by running `npm test`.
+
+#### Linting
+
+This app uses ESLint and Typescript to make sure that strict typing is in place and the code formatting is consistent.
+
+To specifically check the linting run `npm run lint`.
+
+To specifically check the typing run `npm run typecheck`. This runs typescript without creating a build.
