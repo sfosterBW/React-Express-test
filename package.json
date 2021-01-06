@@ -4,7 +4,7 @@
   "description": "React and express app to try things out",
   "main": "/api/build/index.js",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
